@@ -2,6 +2,7 @@ import Link from "next/link";
 import { NAV, TEAM } from "@/lib/content";
 import { BandStack } from "./tatau";
 import { SocialButtons } from "./social";
+import { ConsentReopen } from "./consent";
 
 export function SiteFooter() {
   return (
@@ -42,6 +43,7 @@ export function SiteFooter() {
 
         <div className="mt-14 flex flex-col gap-3 border-t border-bone/12 pt-8 text-sm text-bone/65 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} {TEAM.federation}. All rights reserved.</p>
+          <ConsentReopen className="text-bone/65" />
         </div>
       </div>
     </footer>

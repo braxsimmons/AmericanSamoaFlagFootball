@@ -29,9 +29,26 @@ export function GoogleAnalytics({ id }: { id: string }) {
         src={`https://www.googletagmanager.com/gtag/js?id=${id}`}
         strategy="afterInteractive"
       />
+      {/*
+        Consent Mode v2. Everything is denied before gtag.js loads, so no cookie
+        is written until a visitor accepts in the banner, which then pushes a
+        consent update.
+
+        Order inside this snippet is what matters, not which script tag runs
+        first: dataLayer is a queue and gtag.js drains it in order, so the
+        default must be queued ahead of the config. Loading the library is not
+        what sets a cookie; the consent state is.
+      */}
       <Script id="ga4" strategy="afterInteractive">
         {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  ad_storage: 'denied',
+  ad_user_data: 'denied',
+  ad_personalization: 'denied',
+  analytics_storage: 'denied',
+  wait_for_update: 500
+});
 gtag('js', new Date());
 gtag('config', '${id}');`}
       </Script>

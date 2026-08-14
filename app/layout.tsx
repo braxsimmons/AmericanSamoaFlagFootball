@@ -4,6 +4,7 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleAnalytics } from "@/components/google-analytics";
+import { ConsentBanner } from "@/components/consent";
 import { GA_MEASUREMENT_ID, SITE_URL, TEAM } from "@/lib/content";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -127,6 +128,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Analytics />
         <SpeedInsights />
         <GoogleAnalytics id={GA_MEASUREMENT_ID} />
+        <ConsentBanner />
       </body>
     </html>
   );

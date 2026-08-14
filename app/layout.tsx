@@ -3,7 +3,8 @@ import { Barlow, Barlow_Condensed } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { SITE_URL, TEAM } from "@/lib/content";
+import { GoogleAnalytics } from "@/components/google-analytics";
+import { GA_MEASUREMENT_ID, SITE_URL, TEAM } from "@/lib/content";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 
@@ -125,6 +126,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         */}
         <Analytics />
         <SpeedInsights />
+        <GoogleAnalytics id={GA_MEASUREMENT_ID} />
       </body>
     </html>
   );

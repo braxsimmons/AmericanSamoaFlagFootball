@@ -206,6 +206,13 @@ export const HIGHLIGHTS: {
  * of them, and Next reserves the right box before the image loads. Re-shoot the
  * kit and this is the only place the numbers change.
  */
+/**
+ * Google Analytics 4 measurement id. Public by design: it is visible in the
+ * page source of every GA-instrumented site on the web, so hiding it in an env
+ * var buys nothing and costs the next person ten minutes finding it.
+ */
+export const GA_MEASUREMENT_ID = "G-VGG3Q8M8GY";
+
 export const KIT_W = 1401;
 export const KIT_H = 920;
 

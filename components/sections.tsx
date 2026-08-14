@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { GROUP_A, KIT, KIT_H, KIT_W, ROAD, ROSTER, TEAM, VALUES, WORLDS } from "@/lib/content";
+import { COACHES, GROUP_A, KIT, KIT_H, KIT_W, ROAD, ROSTER, TEAM, VALUES, WORLDS } from "@/lib/content";
 import { BandStack, TatauField, TatauRing } from "./tatau";
 import { Reveal } from "./reveal";
 import { SignatureBadge } from "./kit-badge";
@@ -251,29 +251,47 @@ export function TeamSection() {
           </Reveal>
         </div>
 
-        {/* Honest about what is not here yet. An invented roster is the worst
-            thing a team site can carry, and a blank space with an explanation
-            is more credible than filler. */}
+        {/*
+          The squad, by name.
+
+          This was a dashed "roster coming" box for as long as there was nothing
+          real to put in it. Now that there is, it is the most valuable text on
+          the site for search: several of these players are searched by name far
+          more often than the team is, and a name only earns that traffic if it
+          is on the page as readable text rather than buried in an image.
+
+          No numbers, positions or villages, because none were supplied. The
+          rule that kept this box empty is the same one that leaves those out.
+        */}
         <Reveal delay={100}>
-          <div className="mt-16 border border-dashed border-navy/25 bg-white/50 p-8 text-center">
-            {ROSTER.length === 0 ? (
-              <>
-                <p className="display text-2xl text-navy-deep">Roster coming</p>
-                <p className="mx-auto mt-3 max-w-md text-navy/60">
-                  Player profiles, numbers and villages go here once the
-                  federation releases the squad. Follow{" "}
-                  <a
-                    href={TEAM.instagram}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="font-semibold text-red underline underline-offset-4"
-                  >
-                    {TEAM.instagramHandle}
-                  </a>{" "}
-                  in the meantime.
-                </p>
-              </>
-            ) : null}
+          <div className="mt-16">
+            <h3 className="display text-sm tracking-[0.24em] text-navy/55">
+              The squad
+            </h3>
+            <ul className="mt-5 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
+              {ROSTER.map((person) => (
+                <li
+                  key={person.name}
+                  className="display border-b border-navy/10 pb-3 text-2xl text-navy-deep"
+                >
+                  {person.name}
+                </li>
+              ))}
+            </ul>
+
+            <h3 className="display mt-12 text-sm tracking-[0.24em] text-navy/55">
+              Coaching staff
+            </h3>
+            <ul className="mt-5 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
+              {COACHES.map((person) => (
+                <li
+                  key={person.name}
+                  className="display border-b border-navy/10 pb-3 text-2xl text-navy-deep"
+                >
+                  {person.name}
+                </li>
+              ))}
+            </ul>
           </div>
         </Reveal>
       </div>

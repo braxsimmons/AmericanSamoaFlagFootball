@@ -5,7 +5,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleAnalytics } from "@/components/google-analytics";
 import { ConsentBanner } from "@/components/consent";
-import { GA_MEASUREMENT_ID, SITE_URL, TEAM } from "@/lib/content";
+import { COACHES, GA_MEASUREMENT_ID, ROSTER, SITE_URL, TEAM } from "@/lib/content";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 
@@ -141,6 +141,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               ],
               description:
                 "The national flag football team of American Samoa. First ever IFAF World Championship berth, qualified by beating China 41 to 34 in Ningbo.",
+              /*
+                `athlete` and `coach` are the properties schema.org gives
+                SportsTeam for exactly this. Names in prose are text a crawler
+                has to infer meaning from; names here are asserted as people who
+                play for this team, which is what lets a search engine connect a
+                query for a player to this page.
+              */
+              athlete: ROSTER.map((p) => ({ "@type": "Person", name: p.name })),
+              coach: COACHES.map((p) => ({ "@type": "Person", name: p.name })),
               sameAs: [TEAM.instagram, TEAM.youtube],
               parentOrganization: {
                 "@type": "SportsOrganization",

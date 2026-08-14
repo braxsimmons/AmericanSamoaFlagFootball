@@ -138,16 +138,49 @@ export const ROAD: readonly RoadStop[] = [
 ];
 
 /**
- * Set once the federation supplies the roster. Rendered as an honest empty
- * state rather than invented names, a fake roster is the single worst thing
- * a team site can carry.
+ * The squad and the staff.
+ *
+ * This was an empty array with a comment saying an invented roster is the worst
+ * thing a team site can carry. It is now the real one, supplied by the
+ * federation.
+ *
+ * `number`, `position` and `village` stay optional and stay unset. They were
+ * not supplied, and the rule that kept this list empty is the same rule that
+ * keeps them blank: a plausible-looking guess at a squad number is worse than
+ * an obvious gap, because nobody can tell it is a guess.
+ *
+ * Names are the highest-value text on this site for search. Several of these
+ * players are searched by name far more often than the team is, so spelling
+ * them exactly right is the whole job: "Puka Nakua" ranks for nothing.
  */
-export const ROSTER: {
+export interface Person {
   name: string;
   number?: number;
   position?: string;
   village?: string;
-}[] = [];
+}
+
+export const COACHES: readonly Person[] = [
+  { name: "Sterling Carvalho" },
+  { name: "Stewart Carvalho" },
+];
+
+export const ROSTER: readonly Person[] = [
+  { name: "Vai Peko" },
+  { name: "Tai Tiedmann" },
+  { name: "Taulia Tagovailoa" },
+  { name: "John Hardy-Tulia" },
+  { name: "London Iakopo" },
+  { name: "Robert Regpala" },
+  { name: "Jahcour Pearson" },
+  { name: "Adam Wright" },
+  { name: "Bralond Brown" },
+  { name: "Batchlor Johnson" },
+  { name: "Alijah Holder" },
+  { name: "Antonio Hill" },
+  { name: "Puka Nacua" },
+  { name: "Tetairoa McMillan" },
+];
 
 /**
  * Media placeholders. Replace `src` as the federation's own photography and

@@ -149,6 +149,9 @@ export const ROAD: readonly RoadStop[] = [
  * keeps them blank: a plausible-looking guess at a squad number is worse than
  * an obvious gap, because nobody can tell it is a guess.
  *
+ * Player order is the federation's own. Sorting it alphabetically would be
+ * tidier and would also throw away whatever the order is saying.
+ *
  * Names are the highest-value text on this site for search. Several of these
  * players are searched by name far more often than the team is, so spelling
  * them exactly right is the whole job: "Puka Nakua" ranks for nothing.
@@ -166,16 +169,18 @@ export const COACHES: readonly Person[] = [
 ];
 
 export const ROSTER: readonly Person[] = [
+  // Order is set by the federation, not alphabetical and not by squad number.
+  // The grid fills left to right, so these three lead the first row.
+  { name: "Taulia Tagovailoa" },
+  { name: "Batchlor Johnson" },
+  { name: "Jahcour Pearson" },
   { name: "Vai Peko" },
   { name: "Tai Tiedmann" },
-  { name: "Taulia Tagovailoa" },
   { name: "John Hardy-Tulia" },
   { name: "London Iakopo" },
   { name: "Robert Regpala" },
-  { name: "Jahcour Pearson" },
   { name: "Adam Wright" },
   { name: "Bralond Brown" },
-  { name: "Batchlor Johnson" },
   { name: "Alijah Holder" },
   { name: "Antonio Hill" },
   { name: "Puka Nacua" },

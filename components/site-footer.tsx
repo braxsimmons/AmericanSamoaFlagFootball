@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { NAV, TEAM } from "@/lib/content";
-import { SpearRow } from "./tatau";
+import { BandStack } from "./tatau";
 
 export function SiteFooter() {
   return (
     <footer className="bg-navy-deep text-bone">
-      <SpearRow className="h-3 w-full text-red" flip />
+      <BandStack className="w-full text-red" motifs={["spear", "comb"]} flip />
 
       <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">

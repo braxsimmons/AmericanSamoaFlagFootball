@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { GROUP_A, ROAD, ROSTER, TEAM, VALUES, WORLDS } from "@/lib/content";
-import { SpearRow, TatauField, TatauRing } from "./tatau";
+import { BandStack, Koru, TatauField, TatauRing } from "./tatau";
 import { Reveal } from "./reveal";
 
 function SectionLabel({ children }: { children: ReactNode }) {
@@ -99,6 +99,9 @@ export function RoadSection() {
   return (
     <section id="road" className="relative overflow-hidden bg-navy-deep py-24 text-bone sm:py-32">
       <TatauField className="absolute inset-0 text-bone" opacity={0.07} />
+      {/* The one motif here with real movement in it. Large, low contrast, and
+          bleeding off the corner so it reads as artwork rather than as an icon. */}
+      <Koru className="pointer-events-none absolute -right-16 top-8 hidden h-[520px] w-auto text-bone/[0.07] lg:block" />
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal>
@@ -144,6 +147,7 @@ export function ValuesSection() {
   return (
     <section className="relative overflow-hidden bg-red py-24 text-bone sm:py-28">
       <TatauField className="absolute inset-0 text-white" opacity={0.12} />
+      <BandStack className="absolute inset-x-0 top-0 w-full text-bone/35" motifs={["comb", "spear"]} />
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal>
@@ -201,9 +205,10 @@ export function TeamSection() {
                 {/* `contain` on a navy field: `cover` cropped the eagle and the
                     point off the flag's triangle. */}
                 <Image
-                  src="/media/american-samoa-flag.svg"
+                  src="/media/american-samoa-flag.png"
                   alt="Flag of American Samoa"
                   fill
+                  sizes="(min-width: 1024px) 28rem, 60vw"
                   className="bg-navy-deep object-contain p-2"
                   priority={false}
                 />
@@ -239,7 +244,10 @@ export function TeamSection() {
         </Reveal>
       </div>
 
-      <SpearRow className="mt-20 h-3 w-full text-navy/20" />
+      {/* Three different motifs at three different weights — the way the
+          reference artwork builds an edge. One repeated row reads as a border;
+          this reads as tatau. */}
+      <BandStack className="mt-20 w-full text-navy/25" motifs={["spear", "comb", "bird"]} />
     </section>
   );
 }

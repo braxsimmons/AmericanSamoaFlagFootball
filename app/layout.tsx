@@ -46,7 +46,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en">
+    // `suppressHydrationWarning` is required here, not a smell: the inline
+    // script below adds a `js` class to <html> before React hydrates, so React
+    // finds an attribute it did not render. Scoped to this one element.
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/*
           Runs before first paint, so the reveal styles apply without a flash of

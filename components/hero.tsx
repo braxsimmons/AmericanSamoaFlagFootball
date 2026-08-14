@@ -1,5 +1,5 @@
 import { WORLDS } from "@/lib/content";
-import { SpearRow, TatauField, TatauFlank } from "./tatau";
+import { BandStack, Koru, TatauField, TatauFlank } from "./tatau";
 
 /**
  * The hero.
@@ -19,9 +19,12 @@ export function Hero() {
       <TatauField className="absolute inset-0 text-bone" opacity={0.09} />
 
       {/* The flank panel from the side of the jersey, bleeding off the right. */}
-      <TatauFlank
-        className="absolute right-0 top-0 hidden h-full w-24 text-bone/10 lg:block"
-      />
+      <TatauFlank className="absolute right-0 top-0 hidden h-full w-14 text-bone/15 lg:block" />
+
+      {/* The right half was empty navy. A koru fills it now and, when the
+          federation's photography arrives, this is the element it replaces —
+          same cell, same bleed, so the type scale does not have to be redone. */}
+      <Koru className="pointer-events-none absolute -right-10 top-1/2 hidden h-[86%] w-auto -translate-y-1/2 text-bone/[0.09] lg:block xl:right-16" />
 
       {/* A wash so type stays legible once real photography lands behind it. */}
       <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/70 to-navy-deep/30" />
@@ -84,7 +87,7 @@ export function Hero() {
         </div>
       </div>
 
-      <SpearRow className="absolute bottom-0 left-0 h-3 w-full text-red" />
+      <BandStack className="absolute bottom-0 left-0 w-full text-red" motifs={["comb", "spear"]} />
     </section>
   );
 }

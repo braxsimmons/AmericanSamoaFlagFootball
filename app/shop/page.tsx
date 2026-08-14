@@ -41,9 +41,7 @@ export default function ShopPage() {
             <span className="block text-red">with pride</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-bone/70">
-            The same navy, white and red the squad wears in Düsseldorf. Every
-            purchase goes back into the national programme, travel, kit, and
-            getting the next group of players off the island and onto the field.
+            The same navy, white and red the squad wears in Düsseldorf.
           </p>
         </div>
         <SpearRow className="absolute bottom-0 left-0 h-3 w-full text-red" />
@@ -89,6 +87,21 @@ export default function ShopPage() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section className="bg-navy-deep py-14 text-bone sm:py-16">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="max-w-3xl">
+            <p className="display text-3xl leading-tight sm:text-4xl">
+              All proceeds go to the team.
+            </p>
+            <div className="mt-5 h-[3px] w-24 bg-red" />
+            <p className="mt-5 max-w-xl leading-relaxed text-bone/70">
+              Every order funds the national programme: travel, kit, and getting
+              the next group of players off the island and onto the field.
+            </p>
+          </div>
         </div>
       </section>
 

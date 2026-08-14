@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { TEAM } from "@/lib/content";
+import Image from "next/image";
+import { KIT, TEAM } from "@/lib/content";
 import { SpearRow, TatauField } from "@/components/tatau";
 
 export const metadata: Metadata = {
@@ -20,7 +20,8 @@ export const metadata: Metadata = {
   See README for exactly where each provider's snippet goes.
 */
 export default function ShopPage() {
-  const embed = process.env.NEXT_PUBLIC_STORE_EMBED_URL;
+  // Ecwid store id. Just the number, e.g. 12345678.
+  const storeId = process.env.NEXT_PUBLIC_ECWID_STORE_ID;
 
   return (
     <>
@@ -47,33 +48,60 @@ export default function ShopPage() {
         <SpearRow className="absolute bottom-0 left-0 h-3 w-full text-red" />
       </section>
 
+      {/* The lookbook. All four kits, large, before anybody is asked to buy. */}
       <section className="bg-bone py-20">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          {embed ? (
-            <div className="overflow-hidden border border-navy/10 bg-white">
-              {/* The storefront. Sandboxed, and titled for screen readers. */}
-              <iframe
-                src={embed}
-                title="Team American Samoa official store"
-                className="h-[1200px] w-full"
-                loading="lazy"
-                sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+          <ul className="grid gap-10 sm:grid-cols-2">
+            {KIT.map((item) => (
+              <li key={item.id}>
+                <div className="overflow-hidden border border-navy/15 bg-white">
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    width={1400}
+                    height={1122}
+                    sizes="(min-width: 640px) 34rem, 90vw"
+                    className="h-auto w-full"
+                  />
+                </div>
+                <p className="display mt-4 text-2xl text-navy-deep">{item.name}</p>
+                <p className="mt-1 text-sm text-navy/70">{item.detail}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="bg-bone pb-24">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          {storeId ? (
+            <>
+              {/*
+                Ecwid mounts into a div and is driven by a store-specific script,
+                rather than by an iframe. `defer` so it never blocks first paint,
+                and the mount point is rendered server-side so the layout does
+                not jump when the script arrives.
+              */}
+              <div id={`my-store-${storeId}`} />
+              <script
+                data-cfasync="false"
+                src={`https://app.ecwid.com/script.js?${storeId}&data_platform=code&data_date=2026-08-14`}
+                defer
               />
-            </div>
+              <script
+                dangerouslySetInnerHTML={{
+                  __html: `xProductBrowser("categoriesPerRow=3","views=grid(3,3) list(10) table(20)","categoryView=grid","searchView=list","id=my-store-${storeId}");`,
+                }}
+              />
+            </>
           ) : (
             <div className="border border-dashed border-navy/25 bg-white/60 p-12 text-center">
               <h2 className="display text-3xl text-navy-deep">Store opening soon</h2>
-              <p className="mx-auto mt-4 max-w-lg leading-relaxed text-navy/60">
-                Jerseys, training tees and sideline wear are on the way. Put your
-                email in on the home page and we will tell you the day it opens.
+              <p className="mx-auto mt-4 max-w-lg leading-relaxed text-navy/70">
+                Everything above is what the squad is wearing in Düsseldorf.
+                Ordering opens here shortly.
               </p>
-              <Link
-                href="/#follow"
-                className="display mt-8 inline-flex h-14 items-center bg-red px-8 text-lg tracking-[0.1em] text-bone transition-transform duration-200 hover:-translate-y-0.5"
-              >
-                Tell me when it opens
-              </Link>
-              <p className="mt-10 text-xs text-navy/65">
+              <p className="mt-8 text-xs text-navy/65">
                 Following the team in the meantime:{" "}
                 <a
                   href={TEAM.instagram}
@@ -88,6 +116,7 @@ export default function ShopPage() {
           )}
         </div>
       </section>
+
     </>
   );
 }

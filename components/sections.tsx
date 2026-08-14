@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { GROUP_A, ROAD, ROSTER, TEAM, VALUES, WORLDS } from "@/lib/content";
+import Link from "next/link";
+import { GROUP_A, KIT, ROAD, ROSTER, TEAM, VALUES, WORLDS } from "@/lib/content";
 import { BandStack, TatauField, TatauRing } from "./tatau";
 import { Reveal } from "./reveal";
 
@@ -21,7 +22,8 @@ export function WorldsSection() {
           </p>
         </Reveal>
 
-        <div className="mt-14 overflow-hidden border border-navy/10 bg-white">
+        <div className="mt-14 grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-start">
+        <div className="overflow-hidden border border-navy/10 bg-white">
           <div className="flex items-center justify-between border-b border-navy/10 bg-navy px-6 py-4">
             <span className="display text-sm tracking-[0.24em] text-bone">
               Group {WORLDS.group}
@@ -68,6 +70,40 @@ export function WorldsSection() {
               </Reveal>
             ))}
           </ul>
+          </div>
+
+          <Reveal delay={120}>
+            {/* The shirt they are wearing in that bracket, linked to the shop.
+                Somebody who can see the kit is the person who buys it, and the
+                shop was previously a page nobody had a reason to open. */}
+            <Link href="/shop" className="group block">
+              <div className="overflow-hidden border border-navy/15 bg-white">
+                <Image
+                  src={KIT[0].src}
+                  alt={KIT[0].alt}
+                  width={1400}
+                  height={1122}
+                  sizes="(min-width: 1024px) 34rem, 90vw"
+                  className="h-auto w-full transition-transform duration-500 ease-[var(--ease-out-quint)] group-hover:scale-[1.03]"
+                />
+              </div>
+              <div className="mt-4 flex items-baseline justify-between gap-4">
+                <div>
+                  <p className="display text-2xl text-navy-deep">The kit</p>
+                  <p className="mt-1 text-sm text-navy/70">{KIT[0].detail}</p>
+                </div>
+                <span className="display shrink-0 text-sm tracking-[0.14em] text-red">
+                  Shop
+                  <span
+                    aria-hidden
+                    className="ml-2 inline-block transition-transform duration-300 group-hover:translate-x-1"
+                  >
+                    &rarr;
+                  </span>
+                </span>
+              </div>
+            </Link>
+          </Reveal>
         </div>
 
         <Reveal delay={100}>

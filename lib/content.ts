@@ -193,6 +193,44 @@ export const HIGHLIGHTS: {
  * scroll, which is the opposite of the job. Everything they pointed at is still
  * one scroll away, and the crest still goes home.
  */
+/**
+ * The kit.
+ *
+ * Every card links to the shop. The point of putting these on the landing page
+ * is not decoration: somebody who can see the shirt is the person who signs up
+ * to buy it, and until now the shop was a page nobody had a reason to open.
+ */
+export const KIT = [
+  {
+    id: "jersey-navy",
+    src: "/kit/jersey-navy.webp",
+    name: "Home jersey",
+    detail: "Navy, full tatau flank, flag on the chest",
+    alt: "Team American Samoa navy jersey, front and back, with Polynesian tatau panels and the American Samoa flag.",
+  },
+  {
+    id: "jersey-white",
+    src: "/kit/jersey-white.webp",
+    name: "Away jersey",
+    detail: "White, navy tatau, red piping",
+    alt: "Team American Samoa white jersey, front and back, with navy tatau panels and red piping.",
+  },
+  {
+    id: "tank-navy",
+    src: "/kit/tank-navy.webp",
+    name: "Training tank",
+    detail: "Navy. Unity, culture, family across the back",
+    alt: "Team American Samoa navy training tank, front and back.",
+  },
+  {
+    id: "tank-white",
+    src: "/kit/tank-white.webp",
+    name: "Training tank",
+    detail: "White. Unity, culture, family across the back",
+    alt: "Team American Samoa white training tank, front and back.",
+  },
+] as const;
+
 export const NAV = [
   { href: "/", label: "Home" },
   { href: "/shop", label: "Shop" },

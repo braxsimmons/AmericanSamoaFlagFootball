@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { TEAM } from "@/lib/content";
 import { SpearRow, TatauField } from "@/components/tatau";
 
@@ -70,12 +71,12 @@ export default function ShopPage() {
                 Jerseys, training tees and sideline wear are on the way. Put your
                 email in on the home page and we will tell you the day it opens.
               </p>
-              <a
+              <Link
                 href="/#follow"
                 className="display mt-8 inline-flex h-14 items-center bg-red px-8 text-lg tracking-[0.1em] text-bone transition-transform duration-200 hover:-translate-y-0.5"
               >
                 Tell me when it opens
-              </a>
+              </Link>
               <p className="mt-10 text-xs text-navy/65">
                 Following the team in the meantime:{" "}
                 <a

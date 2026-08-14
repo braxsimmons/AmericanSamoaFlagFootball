@@ -30,6 +30,27 @@ export function GoogleAnalytics({ id }: { id: string }) {
         strategy="afterInteractive"
       />
       {/*
+        Page views are left entirely to gtag. No route-change tracker here,
+        even though this is an App Router site that navigates with pushState
+        and never reloads, which is normally the case for adding one.
+
+        It was added, and measured, and it double counted. GA4 enhanced
+        measurement already sends a page view on browser history events, so a
+        manual tracker is a second source for the same navigation. One click
+        through to /shop produced two page views for /shop; with the tracker
+        removed it produces exactly one.
+
+        Sending them by hand *instead* is worse: `send_page_view: false` plus a
+        manual send loses the first page view altogether, because the effect can
+        run before this `afterInteractive` snippet has executed and a page_view
+        reaching gtag.js ahead of `config` has no measurement id attached and is
+        discarded. A returning visitor with consent stored, landing straight on
+        /shop, produced no hit at all.
+
+        If enhanced measurement is ever turned off in the GA property, page
+        views on navigation stop and a tracker has to come back. That is the one
+        thing this depends on.
+
         Consent Mode v2. Everything is denied before gtag.js loads, so no cookie
         is written until a visitor accepts in the banner, which then pushes a
         consent update.

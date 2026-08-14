@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { pageView, setAnalyticsConsent } from "@/lib/gtag";
 
 /*
   Cookie consent.
@@ -37,34 +38,6 @@ type Choice = "granted" | "denied";
 /** Fired by the footer link to reopen the banner after a choice was made. */
 export const CONSENT_EVENT = "asff:open-consent";
 
-declare global {
-  interface Window {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    gtag?: (...args: any[]) => void;
-    dataLayer?: unknown[];
-  }
-}
-
-function tellGoogle(choice: Choice) {
-  // Queue onto dataLayer directly rather than calling window.gtag. If a visitor
-  // decides before gtag.js has finished loading, that helper does not exist yet
-  // and the update would be dropped silently. The queue always exists, and
-  // gtag.js drains it in order once it arrives, so an early answer still counts.
-  //
-  // It has to be an `arguments` object rather than an array literal: that is the
-  // shape gtag.js expects, and the reason the official snippet defines a
-  // function whose only job is to forward `arguments`.
-  window.dataLayer = window.dataLayer || [];
-  const gtag = function () {
-    // eslint-disable-next-line prefer-rest-params
-    window.dataLayer!.push(arguments);
-  } as (...args: unknown[]) => void;
-
-  gtag("consent", "update", {
-    analytics_storage: choice === "granted" ? "granted" : "denied",
-  });
-}
-
 export function ConsentBanner() {
   const [open, setOpen] = useState(false);
   const [managing, setManaging] = useState(false);
@@ -80,7 +53,7 @@ export function ConsentBanner() {
     }
 
     if (stored === "granted" || stored === "denied") {
-      tellGoogle(stored);
+      setAnalyticsConsent(stored === "granted");
     } else {
       // react-hooks/set-state-in-effect flags this, and is wrong here. Whether
       // the banner shows depends on localStorage, which does not exist during
@@ -115,7 +88,14 @@ export function ConsentBanner() {
     } catch {
       // If the answer cannot be remembered, still honour it for this page view.
     }
-    tellGoogle(choice);
+    setAnalyticsConsent(choice === "granted");
+
+    // The load-time page view already went out under the denied default, as a
+    // cookieless ping. Granting does not retroactively upgrade it, so without
+    // this a visitor who accepts and then reads the page without navigating is
+    // never recorded as a session at all.
+    if (choice === "granted") pageView();
+
     setOpen(false);
     setManaging(false);
   }, []);

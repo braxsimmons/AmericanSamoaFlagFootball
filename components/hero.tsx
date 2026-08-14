@@ -78,7 +78,7 @@ export function Hero() {
             href="/shop"
             className="display group relative inline-flex h-14 items-center gap-3 bg-red px-8 text-lg tracking-[0.1em] text-bone transition-transform duration-200 ease-[var(--ease-out-quint)] hover:-translate-y-0.5 active:translate-y-0"
           >
-            Shop the kit
+            Shop our Merch
             <svg viewBox="0 0 24 24" className="size-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth="2.5">
               <path d="M4 12h15M13 6l6 6-6 6" />
             </svg>

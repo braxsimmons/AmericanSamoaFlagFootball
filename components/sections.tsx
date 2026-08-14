@@ -265,9 +265,23 @@ export function TeamSection() {
         */}
         <Reveal delay={100}>
           <div className="mt-16">
-            <h3 className="display text-sm tracking-[0.24em] text-navy/55">
-              The squad
-            </h3>
+            <div className="flex flex-wrap items-baseline justify-between gap-4">
+              <h3 className="display text-sm tracking-[0.24em] text-navy/55">
+                The squad
+              </h3>
+              <Link
+                href="/squad"
+                className="display group text-sm tracking-[0.14em] text-red"
+              >
+                Full squad and staff
+                <span
+                  aria-hidden
+                  className="ml-2 inline-block transition-transform duration-300 group-hover:translate-x-1"
+                >
+                  &rarr;
+                </span>
+              </Link>
+            </div>
             <ul className="mt-5 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
               {ROSTER.map((person) => (
                 <li

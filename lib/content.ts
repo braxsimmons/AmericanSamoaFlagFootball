@@ -158,6 +158,16 @@ export interface Person {
   number?: number;
   position?: string;
   village?: string;
+  /**
+   * Portrait, once there are any.
+   *
+   * The squad page renders portraits only when every person has one. Half a
+   * grid of faces and half a grid of grey squares is the single most obvious
+   * "unfinished site" signal there is, and photographs of a touring squad
+   * arrive in ones and twos rather than all at once. Until the set is complete
+   * the page stays typographic, which is a design rather than a gap.
+   */
+  photo?: string;
 }
 
 export const COACHES: readonly Person[] = [

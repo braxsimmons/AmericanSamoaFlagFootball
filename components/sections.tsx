@@ -43,15 +43,26 @@ export function WorldsSection() {
                   }`}
                 >
                   <div className="flex min-w-0 items-center gap-4">
-                    {team.isUs ? (
-                      <span className="display flex size-9 shrink-0 items-center justify-center bg-red text-xs text-bone">
-                        AS
-                      </span>
-                    ) : (
-                      <span className="display flex size-9 shrink-0 items-center justify-center border border-navy/20 text-xs text-navy/65">
-                        {team.code}
-                      </span>
-                    )}
+                    {/*
+                      The flag rather than a two-letter code. American Samoa
+                      keeps its emphasis through a red ring rather than through
+                      being the only row without a flag, which is what swapping
+                      the code box for an image would otherwise have cost.
+                    */}
+                    <span
+                      className={`relative flex size-9 shrink-0 overflow-hidden rounded-full ${
+                        team.isUs ? "ring-2 ring-red ring-offset-2 ring-offset-white" : ""
+                      }`}
+                    >
+                      <Image
+                        src={team.flag}
+                        alt=""
+                        width={128}
+                        height={128}
+                        sizes="36px"
+                        className="size-full object-cover"
+                      />
+                    </span>
                     <span
                       className={`display truncate text-2xl sm:text-3xl ${
                         team.isUs ? "text-navy-deep" : "text-navy/70"

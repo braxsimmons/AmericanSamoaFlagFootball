@@ -78,15 +78,21 @@ export interface GroupTeam {
   country: string;
   code: string;
   worldRank: number;
+  /**
+   * Flag roundel. All four are cut to one diameter on a transparent circle by
+   * `scripts/flags.mjs`; see that file for why each source needs a different
+   * method to find its disc.
+   */
+  flag: string;
   /** Marks the home side, so the table can weight one row without a name check. */
   isUs?: boolean;
 }
 
 export const GROUP_A: readonly GroupTeam[] = [
-  { country: "United States", code: "US", worldRank: 1 },
-  { country: "Australia", code: "AU", worldRank: 8 },
-  { country: "Israel", code: "IL", worldRank: 12 },
-  { country: "American Samoa", code: "AS", worldRank: 33, isUs: true },
+  { country: "United States", code: "US", worldRank: 1, flag: "/flags/us.png" },
+  { country: "Australia", code: "AU", worldRank: 8, flag: "/flags/au.png" },
+  { country: "Israel", code: "IL", worldRank: 12, flag: "/flags/il.png" },
+  { country: "American Samoa", code: "AS", worldRank: 33, flag: "/flags/as.png", isUs: true },
 ];
 
 /**
@@ -185,34 +191,18 @@ export const HIGHLIGHTS: {
 ];
 
 /**
- * Two pages, two links.
- *
- * The nav used to carry six items, four of which were anchors to sections of
- * the page a visitor was already on. In-page anchors in a top nav make a site
- * look larger than it is and give somebody a menu to read instead of a page to
- * scroll, which is the opposite of the job. Everything they pointed at is still
- * one scroll away, and the crest still goes home.
- */
-/**
- * The kit.
- *
- * Every card links to the shop. The point of putting these on the landing page
- * is not decoration: somebody who can see the shirt is the person who signs up
- * to buy it, and until now the shop was a page nobody had a reason to open.
- */
-/**
- * Intrinsic pixel size of every kit render. All five are padded to one canvas
- * by `scripts/kit-images.mjs`, so a single pair of numbers is correct for all
- * of them, and Next reserves the right box before the image loads. Re-shoot the
- * kit and this is the only place the numbers change.
- */
-/**
  * Google Analytics 4 measurement id. Public by design: it is visible in the
  * page source of every GA-instrumented site on the web, so hiding it in an env
  * var buys nothing and costs the next person ten minutes finding it.
  */
 export const GA_MEASUREMENT_ID = "G-VGG3Q8M8GY";
 
+/**
+ * Intrinsic pixel size of every kit render. All five are padded to one canvas
+ * by `scripts/kit-images.mjs`, so a single pair of numbers is correct for all
+ * of them, and Next reserves the right box before the image loads. Re-shoot the
+ * kit and this is the only place the numbers change.
+ */
 export const KIT_W = 1401;
 export const KIT_H = 920;
 
@@ -271,6 +261,15 @@ export const KIT = [
   },
 ] as const;
 
+/**
+ * Two pages, two links.
+ *
+ * The nav used to carry six items, four of which were anchors to sections of
+ * the page a visitor was already on. In-page anchors in a top nav make a site
+ * look larger than it is and give somebody a menu to read instead of a page to
+ * scroll, which is the opposite of the job. Everything they pointed at is still
+ * one scroll away, and the crest still goes home.
+ */
 export const NAV = [
   { href: "/", label: "Home" },
   { href: "/shop", label: "Shop" },

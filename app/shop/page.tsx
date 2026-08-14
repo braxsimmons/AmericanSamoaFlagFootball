@@ -27,10 +27,6 @@ export default function ShopPage() {
       <section className="relative overflow-hidden bg-navy-deep pb-16 pt-36 text-bone sm:pt-44">
         <TatauField className="absolute inset-0 text-bone" opacity={0.08} />
         <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
-          <div className="flex items-center gap-4">
-            <span className="h-[2px] w-10 bg-red" />
-            <span className="display text-xs tracking-[0.3em] text-red">Official apparel</span>
-          </div>
           {/*
             Not "wear the tatau". A tatau is earned through tā tatau and carries
             the wearer's rank and lineage, it is not something bought. Using it

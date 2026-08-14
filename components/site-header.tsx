@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { NAV, TEAM } from "@/lib/content";
@@ -33,7 +34,16 @@ export function SiteHeader() {
     >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8">
         <Link href="/" className="group flex items-center gap-3">
-          <Crest />
+          {/* The federation's real crest. The previous mark was an invented
+              shield, which is the one asset a national team cannot approximate. */}
+          <Image
+            src="/media/asnff-crest.png"
+            alt="American Samoa National Football Federation"
+            width={44}
+            height={44}
+            priority
+            className="size-10 shrink-0 object-contain"
+          />
           <span className="display text-bone leading-none">
             <span className="block text-[11px] tracking-[0.28em] opacity-70">
               American Samoa
@@ -138,23 +148,5 @@ export function SiteHeader() {
 
       <SpearRow className="h-[6px] w-full text-red/70" />
     </header>
-  );
-}
-
-/** The shield from the jersey tag, reduced to something legible at 40px. */
-function Crest() {
-  return (
-    <svg viewBox="0 0 40 44" className="size-9 shrink-0" aria-hidden="true">
-      <path
-        d="M20 1 L38 7 v18 c0 9-8 15-18 18 C10 40 2 34 2 25 V7 Z"
-        fill="#14224f"
-        stroke="#f5f2ec"
-        strokeWidth="2"
-      />
-      <path d="M20 8 L34 12 v12 c0 6-6 10-14 12 C12 30 6 26 6 20 V12 Z" fill="#c8102e" opacity="0.9" />
-      <ellipse cx="20" cy="22" rx="9" ry="6" fill="#f5f2ec" />
-      <path d="M13 22 h14" stroke="#14224f" strokeWidth="1.6" />
-      <path d="M15 19.5 h10 M15 24.5 h10" stroke="#14224f" strokeWidth="1" opacity="0.6" />
-    </svg>
   );
 }

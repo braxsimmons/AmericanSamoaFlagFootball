@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { WORLDS } from "@/lib/content";
 import { BandStack, TatauArc, TatauField } from "./tatau";
 
@@ -73,15 +74,15 @@ export function Hero() {
           className="hero-fade mt-9 flex flex-wrap items-center gap-4"
           style={{ "--delay": "720ms" } as React.CSSProperties}
         >
-          <a
-            href="#follow"
+          <Link
+            href="/shop"
             className="display group relative inline-flex h-14 items-center gap-3 bg-red px-8 text-lg tracking-[0.1em] text-bone transition-transform duration-200 ease-[var(--ease-out-quint)] hover:-translate-y-0.5 active:translate-y-0"
           >
-            Follow the run
+            Shop the kit
             <svg viewBox="0 0 24 24" className="size-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth="2.5">
               <path d="M4 12h15M13 6l6 6-6 6" />
             </svg>
-          </a>
+          </Link>
           <a
             href="#road"
             className="display inline-flex h-14 items-center border border-bone/30 px-8 text-lg tracking-[0.1em] text-bone/90 transition-colors hover:border-bone hover:text-bone"

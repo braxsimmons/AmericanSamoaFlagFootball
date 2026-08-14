@@ -42,7 +42,6 @@ export function SiteFooter() {
 
         <div className="mt-14 flex flex-col gap-3 border-t border-bone/12 pt-8 text-sm text-bone/65 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} {TEAM.federation}. All rights reserved.</p>
-          <p>Fa&apos;afetai for the support. Soifua.</p>
         </div>
       </div>
     </footer>

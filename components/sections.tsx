@@ -1,17 +1,7 @@
 import Image from "next/image";
-import type { ReactNode } from "react";
 import { GROUP_A, ROAD, ROSTER, TEAM, VALUES, WORLDS } from "@/lib/content";
 import { BandStack, TatauField, TatauRing } from "./tatau";
 import { Reveal } from "./reveal";
-
-function SectionLabel({ children }: { children: ReactNode }) {
-  return (
-    <div className="flex items-center gap-4">
-      <span className="h-[2px] w-10 bg-red" />
-      <span className="display text-xs tracking-[0.3em] text-red">{children}</span>
-    </div>
-  );
-}
 
 /* ------------------------------------------------------------- Düsseldorf -- */
 
@@ -20,7 +10,6 @@ export function WorldsSection() {
     <section id="worlds" className="relative overflow-hidden bg-bone py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal>
-          <SectionLabel>13–16 August 2026</SectionLabel>
           <h2 className="display display-balanced mt-5 max-w-3xl text-5xl text-navy-deep sm:text-6xl">
             First world championship,{" "}
             <span className="text-red">and the bracket knows it</span>
@@ -104,7 +93,6 @@ export function RoadSection() {
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal>
-          <SectionLabel>The road here</SectionLabel>
           <h2 className="display display-balanced mt-5 max-w-2xl text-5xl sm:text-6xl">
             Nobody gave us
             <span className="block text-red">this place</span>
@@ -175,7 +163,6 @@ export function TeamSection() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid gap-14 lg:grid-cols-[1.1fr_1fr] lg:items-center">
           <Reveal>
-            <SectionLabel>The team</SectionLabel>
             <h2 className="display display-balanced mt-5 max-w-xl text-5xl text-navy-deep sm:text-6xl">
               Fifty-five square miles,
               <span className="block text-red">one national team</span>

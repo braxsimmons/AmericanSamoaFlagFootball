@@ -28,10 +28,6 @@ export function InstagramSection() {
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <div className="flex items-center gap-4">
-              <span className="h-[2px] w-10 bg-red" />
-              <span className="display text-xs tracking-[0.3em] text-red">From the team</span>
-            </div>
             <h2 className="display display-balanced mt-5 max-w-2xl text-5xl text-navy-deep sm:text-6xl">
               Training, travel,
               <span className="block text-red">and the games themselves</span>

@@ -1,3 +1,5 @@
+export const SITE_URL = "https://american-samoa-flag-football.vercel.app";
+
 /*
   Everything the site says, in one place.
 
@@ -154,11 +156,29 @@ export const MEDIA: {
   },
 ];
 
+/**
+ * Match footage. `id` is the YouTube video id, not a full URL, because the
+ * thumbnail, the watch link and any future embed all derive from it.
+ *
+ * Add a line per clip as the federation posts them.
+ */
+export const HIGHLIGHTS: {
+  id: string;
+  title: string;
+  note?: string;
+}[] = [
+  {
+    id: "iP_w9qhaKsc",
+    title: "Düsseldorf 2026",
+    note: "American Samoa at its first IFAF World Championship.",
+  },
+];
+
 export const NAV = [
   { href: "/#worlds", label: "Düsseldorf" },
+  { href: "/#highlights", label: "Highlights" },
   { href: "/#road", label: "The road" },
   { href: "/#team", label: "The team" },
   { href: "/shop", label: "Shop" },
-  { href: "/#follow-social", label: "Watch" },
-  { href: "/#follow", label: "Follow" },
+  { href: "/#follow-social", label: "Follow" },
 ] as const;

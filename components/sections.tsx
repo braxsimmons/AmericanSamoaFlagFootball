@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { GROUP_A, ROAD, ROSTER, TEAM, VALUES, WORLDS } from "@/lib/content";
-import { BandStack, Koru, TatauField, TatauRing } from "./tatau";
+import { BandStack, TatauArc, TatauField, TatauRing } from "./tatau";
 import { Reveal } from "./reveal";
 
 function SectionLabel({ children }: { children: ReactNode }) {
@@ -99,9 +99,13 @@ export function RoadSection() {
   return (
     <section id="road" className="relative overflow-hidden bg-navy-deep py-24 text-bone sm:py-32">
       <TatauField className="absolute inset-0 text-bone" opacity={0.07} />
+      <TatauArc
+        className="pointer-events-none absolute -right-20 top-0 hidden size-[620px] text-bone lg:block"
+        opacity={0.08}
+        position="center"
+      />
       {/* The one motif here with real movement in it. Large, low contrast, and
           bleeding off the corner so it reads as artwork rather than as an icon. */}
-      <Koru className="pointer-events-none absolute -right-16 top-8 hidden h-[520px] w-auto text-bone/[0.07] lg:block" />
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal>

@@ -77,6 +77,25 @@ With no variable set the endpoint accepts submissions, logs them, and returns
 `stored: false` — so the form is testable before a provider is chosen, and
 nothing can quietly believe an address was captured when it was not.
 
+## Instagram feed
+
+Instagram removed free *profile* feed embeds. There is no supported way to
+render "the latest N posts from @amsnff_" without one of:
+
+- **A third-party widget** — SnapWidget, LightWidget or Elfsight all have free
+  tiers. Create one, copy its iframe `src`, and set it. This is the fastest path.
+- **The Instagram Graph API** — needs a Business/Creator account, a linked
+  Facebook Page, an app, and a long-lived token. More work, no third party.
+
+```
+NEXT_PUBLIC_INSTAGRAM_EMBED_URL=...
+```
+
+Without it the section renders two designed link-out cards to Instagram and
+YouTube rather than fake post placeholders. That is deliberate: grey rectangles
+pretending to be posts are the clearest "unfinished site" signal there is, and
+both accounts are live and worth sending people to.
+
 ## Store
 
 `/shop` renders a real page with a slot for a storefront. Set:
@@ -102,17 +121,37 @@ navy, white and one red.
 The jersey wordmark is tall, condensed and heavy; the type has to sit next to
 that artwork without looking like a different project.
 
-**The tatau motifs** in [`components/tatau.tsx`](components/tatau.tsx) are
-hand-drawn SVG — spearhead rows, chevron fields, a ring of teeth. A repeating
-vector stays crisp full-bleed at any size and costs a few hundred bytes, but the
-real reason is that a generic decorative blur is exactly what makes a site feel
-machine-assembled.
+**The patterns** are the client's own supplied artwork. `scripts/knockout.mjs`
+turns each black-on-white reference into a transparent PNG by using inverted
+luminance as the alpha channel — ink becomes opaque, paper becomes transparent,
+and the anti-aliased greys survive as partial alpha so edges stay smooth. They
+are then used as CSS `mask-image` over `currentColor`, so one file serves navy,
+red and bone without three copies.
 
-> **Before launch:** these are respectful geometric motifs in the spirit of the
-> jersey artwork, not reproductions of any specific pe'a or malu. Samoan tatau
-> carries meaning earned by the wearer. They should be reviewed by the team, and
-> ideally redrawn by a Samoan designer who can make them say something specific
-> rather than merely look right.
+Real artwork carries irregularities — a hand's line weight, motifs that do not
+tile perfectly — that a generated pattern does not, and those irregularities are
+most of why it reads as authentic rather than as decoration.
+
+Only the thin divider bands in [`components/tatau.tsx`](components/tatau.tsx)
+are still drawn in code, because a 360px raster cropped to a 12px strip cannot
+stay crisp.
+
+Re-run after replacing a source image:
+
+```bash
+node scripts/knockout.mjs
+```
+
+> **Before launch — two things.**
+>
+> **Licensing.** The supplied pattern images look like stock illustrations. If
+> they were licensed, confirm the licence covers commercial web use. If not, the
+> federation's kit supplier already owns finished artwork for these jerseys —
+> that is the better source.
+>
+> **Attribution.** Samoan tatau is earned through tā tatau and carries the
+> wearer's rank and lineage. Whoever's pattern work ships here should be
+> credited by name in the footer.
 
 **Motion** is CSS behind a `.js` class added by an inline script before first
 paint. Turn JavaScript off and every section is simply visible. The first build

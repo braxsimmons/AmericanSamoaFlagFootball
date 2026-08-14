@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { TEAM } from "@/lib/content";
-import { Koru, TatauField } from "./tatau";
+import { TatauField } from "./tatau";
 import { Reveal } from "./reveal";
 
 type State = "idle" | "sending" | "done" | "error";
@@ -66,7 +66,6 @@ export function FollowSection() {
   return (
     <section id="follow" className="relative overflow-hidden bg-navy py-24 text-bone sm:py-32">
       <TatauField className="absolute inset-0 text-bone" opacity={0.08} />
-      <Koru className="pointer-events-none absolute -left-20 bottom-0 hidden h-[420px] w-auto scale-x-[-1] text-bone/[0.06] lg:block" />
 
       <div className="relative mx-auto max-w-3xl px-5 text-center sm:px-8">
         <Reveal>

@@ -8,6 +8,7 @@ export const revalidate = 3600;
 
 import { Hero } from "@/components/hero";
 import { FollowSection } from "@/components/follow";
+import { InstagramSection } from "@/components/instagram";
 import { RoadSection, TeamSection, ValuesSection, WorldsSection } from "@/components/sections";
 
 export default function Home() {
@@ -18,6 +19,7 @@ export default function Home() {
       <ValuesSection />
       <RoadSection />
       <TeamSection />
+      <InstagramSection />
       <FollowSection />
     </>
   );

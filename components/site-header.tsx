@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { NAV, TEAM } from "@/lib/content";
 import { SpearRow } from "./tatau";
+import { InstagramIcon, YouTubeIcon } from "./social";
 
 /**
  * Fixed header.
@@ -55,8 +56,30 @@ export function SiteHeader() {
               <span className="absolute -bottom-1.5 left-0 h-[2px] w-0 bg-red transition-[width] duration-300 ease-[var(--ease-out-quint)] group-hover:w-full" />
             </Link>
           ))}
-        </nav>
 
+          {/* The two places the team actually publishes. Icon-only is fine
+              here — the labelled buttons live in the section and the footer —
+              but each still carries an accessible name. */}
+          <span className="h-5 w-px bg-bone/25" />
+          <a
+            href={TEAM.instagram}
+            target="_blank"
+            rel="noreferrer"
+            className="text-bone/70 transition-transform duration-200 hover:scale-110 hover:text-bone"
+          >
+            <InstagramIcon className="size-[18px]" />
+            <span className="sr-only">Instagram, opens in a new tab</span>
+          </a>
+          <a
+            href={TEAM.youtube}
+            target="_blank"
+            rel="noreferrer"
+            className="text-bone/70 transition-transform duration-200 hover:scale-110 hover:text-bone"
+          >
+            <YouTubeIcon className="size-[18px]" />
+            <span className="sr-only">YouTube, opens in a new tab</span>
+          </a>
+        </nav>
       </div>
 
       {/*
@@ -90,14 +113,26 @@ export function SiteHeader() {
               </li>
             ))}
           </ul>
-          <a
-            href={TEAM.instagram}
-            target="_blank"
-            rel="noreferrer"
-            className="display block px-5 pb-5 pt-2 text-sm tracking-[0.2em] text-red-bright"
-          >
-            {TEAM.instagramHandle}
-          </a>
+          <div className="flex items-center gap-6 px-5 pb-5 pt-3">
+            <a
+              href={TEAM.instagram}
+              target="_blank"
+              rel="noreferrer"
+              className="display inline-flex items-center gap-2 text-sm tracking-[0.16em] text-red-bright"
+            >
+              <InstagramIcon className="size-5" />
+              Instagram
+            </a>
+            <a
+              href={TEAM.youtube}
+              target="_blank"
+              rel="noreferrer"
+              className="display inline-flex items-center gap-2 text-sm tracking-[0.16em] text-red-bright"
+            >
+              <YouTubeIcon className="size-5" />
+              YouTube
+            </a>
+          </div>
         </nav>
       </details>
 

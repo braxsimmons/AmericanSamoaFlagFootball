@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { NAV, TEAM } from "@/lib/content";
 import { BandStack } from "./tatau";
+import { SocialButtons } from "./social";
 
 export function SiteFooter() {
   return (
@@ -35,18 +36,7 @@ export function SiteFooter() {
 
           <div>
             <p className="display text-xs tracking-[0.24em] text-bone/65">Follow</p>
-            <ul className="mt-4 space-y-2.5">
-              <li>
-                <a
-                  href={TEAM.instagram}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-bone/70 transition-colors hover:text-bone"
-                >
-                  Instagram {TEAM.instagramHandle}
-                </a>
-              </li>
-            </ul>
+            <SocialButtons className="mt-4" tone="dark" />
           </div>
         </div>
 

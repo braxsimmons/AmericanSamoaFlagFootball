@@ -15,6 +15,8 @@ export const TEAM = {
   federation: "American Samoa National Football Federation",
   instagram: "https://www.instagram.com/amsnff_/",
   instagramHandle: "@amsnff_",
+  youtube: "https://youtube.com/@amsnff",
+  youtubeHandle: "@amsnff",
 } as const;
 
 /**
@@ -157,5 +159,6 @@ export const NAV = [
   { href: "/#road", label: "The road" },
   { href: "/#team", label: "The team" },
   { href: "/shop", label: "Shop" },
+  { href: "/#follow-social", label: "Watch" },
   { href: "/#follow", label: "Follow" },
 ] as const;

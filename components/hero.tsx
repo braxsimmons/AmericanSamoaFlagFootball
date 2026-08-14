@@ -1,5 +1,5 @@
 import { WORLDS } from "@/lib/content";
-import { BandStack, Koru, TatauField, TatauFlank } from "./tatau";
+import { BandStack, TatauArc, TatauField } from "./tatau";
 
 /**
  * The hero.
@@ -19,12 +19,16 @@ export function Hero() {
       <TatauField className="absolute inset-0 text-bone" opacity={0.09} />
 
       {/* The flank panel from the side of the jersey, bleeding off the right. */}
-      <TatauFlank className="absolute right-0 top-0 hidden h-full w-14 text-bone/15 lg:block" />
 
-      {/* The right half was empty navy. A koru fills it now and, when the
-          federation's photography arrives, this is the element it replaces —
-          same cell, same bleed, so the type scale does not have to be redone. */}
-      <Koru className="pointer-events-none absolute -right-10 top-1/2 hidden h-[86%] w-auto -translate-y-1/2 text-bone/[0.09] lg:block xl:right-16" />
+
+      {/* The client's own arc artwork, large and bled off the right edge. When
+          the federation's photography arrives this is the element it replaces —
+          same cell, same bleed, so the type scale will not need redoing. */}
+      <TatauArc
+        className="pointer-events-none absolute -right-32 top-1/2 hidden h-[130%] w-[62%] -translate-y-1/2 text-bone lg:block"
+        opacity={0.14}
+        position="center"
+      />
 
       {/* A wash so type stays legible once real photography lands behind it. */}
       <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/70 to-navy-deep/30" />

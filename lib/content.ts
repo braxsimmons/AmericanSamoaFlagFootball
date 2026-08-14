@@ -170,17 +170,18 @@ export const COACHES: readonly Person[] = [
 
 export const ROSTER: readonly Person[] = [
   // Order is set by the federation, not alphabetical and not by squad number.
-  // The grid fills left to right, so these three lead the first row.
+  // The grid fills left to right across three columns, so the first three are
+  // the whole top row and the fourth opens the second.
   { name: "Taulia Tagovailoa" },
   { name: "Batchlor Johnson" },
   { name: "Jahcour Pearson" },
+  { name: "Bralond Brown" },
   { name: "Vai Peko" },
   { name: "Tai Tiedmann" },
   { name: "John Hardy-Tulia" },
   { name: "London Iakopo" },
   { name: "Robert Regpala" },
   { name: "Adam Wright" },
-  { name: "Bralond Brown" },
   { name: "Alijah Holder" },
   { name: "Antonio Hill" },
   { name: "Puka Nacua" },

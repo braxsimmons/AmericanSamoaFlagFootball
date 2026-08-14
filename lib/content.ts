@@ -1,4 +1,14 @@
-export const SITE_URL = "https://american-samoa-flag-football.vercel.app";
+/*
+  The canonical origin. Everything SEO reads from here: the canonical link, the
+  sitemap, robots.txt and the structured data.
+
+  It must match the domain that answers 200, not the one that redirects. The
+  vercel.app URL now 307s to this domain and the apex 308s to www, so pointing
+  any of the above at either would hand a crawler a canonical URL that is itself
+  a redirect, which is the fastest way to split ranking signals between two
+  hostnames.
+*/
+export const SITE_URL = "https://www.americansamoaflagfootball.com";
 
 /*
   Everything the site says, in one place.

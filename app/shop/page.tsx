@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "Shop",
   description:
     "Official Team American Samoa flag football apparel. Every purchase supports the national programme.",
+  // Without this it would inherit the root layout's canonical and tell Google
+  // the shop is the home page.
+  alternates: { canonical: "/shop" },
 };
 
 /*

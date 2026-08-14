@@ -32,7 +32,39 @@ const barlow = Barlow({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://americansamoaflagfootball.com"),
+  // The www host, not the apex. Every absolute URL Next builds hangs off this,
+  // and the apex 308s to www: og:image was being published as an apex URL that
+  // redirected, and image crawlers do not reliably follow redirects.
+  metadataBase: new URL(SITE_URL),
+
+  // Set per page. Without it there was no canonical tag at all, which leaves
+  // Google to decide for itself which host and which URL variant is the real
+  // one. `/shop` sets its own; anything that does not would inherit this and
+  // wrongly canonicalise itself to the home page.
+  alternates: { canonical: "/" },
+
+  /*
+    Without a robots directive Google picks a preview size itself, and what it
+    picked was a small thumbnail. `max-image-preview: large` is what permits a
+    full-size image beside the result. The two -1s lift the snippet and video
+    preview caps for the same reason: nothing here needs withholding.
+  */
+  robots: {
+    index: true,
+    follow: true,
+    // Repeated on the generic directive as well as the Googlebot one, because
+    // Bing reads `robots` and not `googlebot`, and DuckDuckGo is Bing.
+    "max-image-preview": "large",
+    "max-snippet": -1,
+    "max-video-preview": -1,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   title: {
     default: "American Samoa National Flag Football",
     template: "%s · American Samoa Flag Football",
@@ -45,6 +77,8 @@ export const metadata: Metadata = {
       "A first world championship, won on the field. Group A in Düsseldorf, 13–16 August 2026.",
     type: "website",
     locale: "en_AS",
+    url: SITE_URL,
+    siteName: "American Samoa Flag Football",
   },
   twitter: { card: "summary_large_image" },
 };
@@ -92,7 +126,19 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               sport: "Flag football",
               url: SITE_URL,
               logo: `${SITE_URL}/media/asnff-crest.png`,
-              image: `${SITE_URL}/opengraph-image.png`,
+              /*
+                What Google may show beside the result. It picks a representative
+                image from the page rather than reading og:image, which only
+                drives social cards, so the squad photograph is offered here at
+                the three aspect ratios Google's own guidance asks for. Before
+                this the only strong signal on the page was a jersey render, and
+                a jersey is what the search result showed.
+              */
+              image: [
+                `${SITE_URL}/photos/squad-16x9.jpg`,
+                `${SITE_URL}/photos/squad-4x3.jpg`,
+                `${SITE_URL}/photos/squad-1x1.jpg`,
+              ],
               description:
                 "The national flag football team of American Samoa. First ever IFAF World Championship berth, qualified by beating China 41 to 34 in Ningbo.",
               sameAs: [TEAM.instagram, TEAM.youtube],

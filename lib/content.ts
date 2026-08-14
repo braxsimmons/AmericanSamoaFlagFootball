@@ -203,23 +203,19 @@ export const HIGHLIGHTS: {
   carousel whose slides disagree on height drags the headline beside it around
   every time it advances.
 
-  Captions say where a photograph was taken. They are not there to narrate it.
 */
 export const HERO_PHOTOS = [
   {
     src: "/photos/squad-dusseldorf.webp",
     alt: "The American Samoa squad on the field in Düsseldorf, holding two American Samoa flags in front of the IFAF World Flag Düsseldorf 2026 backdrop.",
-    caption: "On the field in Düsseldorf.",
   },
   {
     src: "/photos/squad-backdrop.webp",
     alt: "The squad in blue Amerika Sāmoa jerseys wearing ʻula, throwing shakas in front of the IFAF World Flag Düsseldorf 2026 backdrop.",
-    caption: "ʻUla on, at the tournament backdrop.",
   },
   {
     src: "/photos/squad-delegation.webp",
     alt: "The full travelling party, players, coaches and staff, standing together indoors behind the flag of American Samoa.",
-    caption: "The whole travelling party, players, coaches and staff.",
   },
 ] as const;
 

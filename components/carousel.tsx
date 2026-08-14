@@ -24,15 +24,14 @@ import Image from "next/image";
 
 export interface Slide {
   src: string;
+  /** Never rendered as visible text. Alt is for people who cannot see the photo. */
   alt: string;
-  /** Shown under the photograph. Says where it is, not how to feel about it. */
-  caption: string;
 }
 
 const W = 1600;
 const H = 1317;
 
-/** Long enough to read a caption. Shorter and it feels like a slideshow. */
+/** Long enough to take a photograph in. Shorter and it feels like a slideshow. */
 const ADVANCE_MS = 6500;
 
 export function HeroCarousel({ slides }: { slides: Slide[] }) {
@@ -142,13 +141,16 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
                 priority={i === 0}
                 className="h-auto w-full"
               />
+              {/*
+                A light wash only, to settle the photograph into the navy around
+                it. The heavier bottom ramp that used to be here existed to carry
+                a caption; with the captions gone it was just darkening the
+                players' legs for no reason.
+              */}
               <span
                 aria-hidden
-                className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-navy-deep/85 via-navy-deep/35 to-transparent"
+                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-deep/30 to-transparent"
               />
-              <p className="absolute inset-x-0 bottom-0 p-4 text-sm text-bone sm:p-5">
-                {slide.caption}
-              </p>
             </div>
           </li>
         ))}

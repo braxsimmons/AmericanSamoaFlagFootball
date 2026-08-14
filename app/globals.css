@@ -199,3 +199,28 @@ body {
     animation: none;
   }
 }
+
+/*
+  Carousel controls only exist if JavaScript does.
+
+  The track itself is a scroll-snap list, so with scripting off every slide is
+  still reachable by swiping or dragging the scrollbar, and the first one is
+  visible without touching anything. What would be useless is the dots and
+  arrows, which do nothing without the script that moves the track. Hiding them
+  is honest; leaving dead buttons on the page is not.
+*/
+.carousel-controls {
+  display: none;
+}
+.js .carousel-controls {
+  display: flex;
+}
+
+/* Scrollbar hidden on the track: the dots are the affordance, and a native bar
+   under a photograph reads as a rendering fault rather than as a control. */
+.carousel-track {
+  scrollbar-width: none;
+}
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}

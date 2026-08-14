@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
-import { WORLDS } from "@/lib/content";
+import { HERO_PHOTOS, WORLDS } from "@/lib/content";
+import { HeroCarousel } from "./carousel";
 import { BandStack, TatauArc, TatauField } from "./tatau";
 
 /**
@@ -116,20 +116,8 @@ export function Hero() {
           `priority` because it is above the fold on desktop and is the largest
           contentful paint there.
         */}
-        <div className="relative w-full overflow-hidden border border-bone/15 lg:max-w-none">
-          <Image
-            src="/photos/squad-dusseldorf.webp"
-            alt="The American Samoa squad on the field in Düsseldorf after the group stage, holding two American Samoa flags in front of the IFAF World Flag Düsseldorf 2026 backdrop."
-            width={1600}
-            height={1317}
-            sizes="(min-width: 1024px) 40rem, 92vw"
-            priority
-            className="h-auto w-full"
-          />
-          <span
-            aria-hidden
-            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-deep/35 to-transparent"
-          />
+        <div className="relative w-full lg:max-w-none">
+          <HeroCarousel slides={[...HERO_PHOTOS]} />
         </div>
       </div>
 

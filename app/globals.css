@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+/*
+  Palette sampled directly from the team's own jersey artwork, not invented.
+  The navy is the field of the American Samoa flag; the red is the flag's
+  triangle border; the gold is the fue and uatogi the eagle carries.
+
+  Deliberately only these. A site that reaches for a second accent hue starts
+  looking like a template — the jerseys get all of their energy from navy,
+  white and one red, and so does this.
+*/
+@theme {
+  --color-navy: #14224f;
+  --color-navy-deep: #0b1533;
+  --color-navy-soft: #1e3268;
+  --color-red: #c8102e;
+  --color-red-bright: #e11933;
+  --color-gold: #b5822e;
+  --color-bone: #f5f2ec;
+  --color-sand: #e6e0d4;
+
+  --font-display: var(--font-barlow-condensed), "Arial Narrow", sans-serif;
+  --font-body: var(--font-barlow), system-ui, sans-serif;
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  /* The nav is fixed; anchors that land under it look like broken links. */
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: var(--color-bone);
+  color: var(--color-navy-deep);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+  Headlines are set the way the jersey sets them: condensed, uppercase, tight,
+  and large enough that the letterforms themselves are the graphic. Anything
+  looser reads as a corporate landing page.
+*/
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.88;
+}
+
+/*
+  The jersey's lettering has a red keyline under a white face on navy. This is
+  that, as type: a hard offset rather than a blur, so it reads as printed
+  rather than as a CSS shadow.
+*/
+.jersey-type {
+  text-shadow:
+    0 2px 0 var(--color-red),
+    0 4px 0 rgba(0, 0, 0, 0.28);
+}
+
+/* A hairline rule that matches the piping on the jersey sleeves. */
+.sleeve-rule {
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-red) 12%,
+    var(--color-red) 88%,
+    transparent
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/*
+  Reveal-on-scroll, done so the site still works without JavaScript.
+
+  The obvious implementation — a motion library with `initial={{opacity: 0}}` —
+  renders `opacity: 0` into the server HTML and only recovers on hydration. Turn
+  JavaScript off, or let one script fail, and the page is blank. That was true
+  of this page: the hero headline itself did not render.
+
+  So the hidden state is scoped behind `.js`, a class an inline script in the
+  document head adds before first paint. No JavaScript, no `.js`, and every
+  element is simply visible — which is also what a crawler and a screen reader
+  get. With JavaScript, the script runs before paint, so there is no flash of
+  visible content collapsing into a hidden one.
+*/
+.js .reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 700ms var(--ease-out-quint),
+    transform 700ms var(--ease-out-quint);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/*
+  The hero wordmark rises line by line, the way a jersey number is stamped.
+  A pure CSS animation rather than an observer: it is above the fold, so it
+  should start the instant the page paints, not when something scrolls.
+*/
+@keyframes rise-in {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes draw-rule {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.js .hero-line {
+  animation: rise-in 900ms var(--ease-out-quint) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+.js .hero-fade {
+  animation: fade-up 700ms var(--ease-out-quint) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+.js .hero-rule {
+  transform-origin: left;
+  animation: draw-rule 800ms var(--ease-out-quint) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+/* Reduced motion: everything lands immediately, in its final position. */
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .js .hero-line,
+  .js .hero-fade,
+  .js .hero-rule {
+    animation: none;
+  }
+}

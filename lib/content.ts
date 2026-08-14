@@ -11,7 +11,7 @@
 
 export const TEAM = {
   name: "American Samoa National Flag Football",
-  shortName: "Amerika Sāmoa",
+  shortName: "American Samoa",
   federation: "American Samoa National Football Federation",
   instagram: "https://www.instagram.com/amsnff_/",
   instagramHandle: "@amsnff_",

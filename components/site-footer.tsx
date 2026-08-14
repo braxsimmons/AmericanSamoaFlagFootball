@@ -12,7 +12,7 @@ export function SiteFooter() {
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
             <p className="display text-3xl leading-none">
-              Amerika Sāmoa
+              American Samoa
               <span className="block text-red">Flag Football</span>
             </p>
             <p className="mt-4 max-w-sm text-bone/55">

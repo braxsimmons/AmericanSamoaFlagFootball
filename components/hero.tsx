@@ -42,7 +42,7 @@ export function Hero() {
               className="hero-line block text-[13vw] leading-[0.84] sm:text-[9vw] lg:text-[7.5rem]"
               style={{ "--delay": "60ms" } as React.CSSProperties}
             >
-              Amerika
+              American
             </span>
           </span>
           <span className="block overflow-hidden">
@@ -50,7 +50,7 @@ export function Hero() {
               className="jersey-type hero-line block text-[13vw] leading-[0.84] sm:text-[9vw] lg:text-[7.5rem]"
               style={{ "--delay": "160ms" } as React.CSSProperties}
             >
-              Sāmoa
+              Samoa
             </span>
           </span>
         </h1>

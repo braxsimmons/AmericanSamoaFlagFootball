@@ -36,7 +36,7 @@ export function SiteHeader() {
           <Crest />
           <span className="display text-bone leading-none">
             <span className="block text-[11px] tracking-[0.28em] opacity-70">
-              Amerika Sāmoa
+              American Samoa
             </span>
             <span className="block text-xl sm:text-2xl">Flag Football</span>
           </span>

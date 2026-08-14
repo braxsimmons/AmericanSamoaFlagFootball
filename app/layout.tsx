@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://americansamoaflagfootball.com"),
   title: {
     default: "American Samoa National Flag Football",
-    template: "%s · Amerika Sāmoa Flag Football",
+    template: "%s · American Samoa Flag Football",
   },
   description:
     "The American Samoa national flag football team. First-ever IFAF World Championship berth, won 41–34 over China. Group A in Düsseldorf, 13–16 August 2026.",

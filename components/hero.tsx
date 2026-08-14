@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { WORLDS } from "@/lib/content";
 import { BandStack, TatauArc, TatauField } from "./tatau";
@@ -22,73 +23,105 @@ export function Hero() {
       {/* The flank panel from the side of the jersey, bleeding off the right. */}
 
 
-      {/* The client's own arc artwork, large and bled off the right edge. When
-          the federation's photography arrives this is the element it replaces,
-          same cell, same bleed, so the type scale will not need redoing. */}
+      {/* The arc artwork this cell used to hold has been replaced by the squad
+          photograph below, which is what it was always a placeholder for. It is
+          pulled back to a faint wash so the corner is not empty behind the
+          photo's edge. */}
       <TatauArc
         className="pointer-events-none absolute -right-32 top-1/2 hidden h-[130%] w-[62%] -translate-y-1/2 text-bone lg:block"
-        opacity={0.14}
+        opacity={0.05}
         position="center"
       />
 
       {/* A wash so type stays legible once real photography lands behind it. */}
       <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/70 to-navy-deep/30" />
 
-      <div className="relative mx-auto w-full max-w-7xl px-5 pb-20 pt-32 sm:px-8 sm:pb-24">
-        <LiveBadge />
+      <div className="relative mx-auto grid w-full max-w-7xl gap-10 px-5 pb-20 pt-32 sm:px-8 sm:pb-24 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-end lg:gap-14">
+        <div>
+          <LiveBadge />
 
-        <h1 className="display mt-7 text-bone">
-          <span className="block overflow-hidden">
-            <span
-              className="hero-line block text-[13vw] leading-[0.84] sm:text-[9vw] lg:text-[7.5rem]"
-              style={{ "--delay": "60ms" } as React.CSSProperties}
-            >
-              American
+          <h1 className="display mt-7 text-bone">
+            <span className="block overflow-hidden">
+              <span
+                className="hero-line block text-[13vw] leading-[0.84] sm:text-[9vw] lg:text-[7.5rem]"
+                style={{ "--delay": "60ms" } as React.CSSProperties}
+              >
+                American
+              </span>
             </span>
-          </span>
-          <span className="block overflow-hidden">
-            <span
-              className="jersey-type hero-line block text-[13vw] leading-[0.84] sm:text-[9vw] lg:text-[7.5rem]"
-              style={{ "--delay": "160ms" } as React.CSSProperties}
-            >
-              Samoa
+            <span className="block overflow-hidden">
+              <span
+                className="jersey-type hero-line block text-[13vw] leading-[0.84] sm:text-[9vw] lg:text-[7.5rem]"
+                style={{ "--delay": "160ms" } as React.CSSProperties}
+              >
+                Samoa
+              </span>
             </span>
-          </span>
-        </h1>
+          </h1>
 
-        <div
-          className="hero-rule mt-6 h-[3px] w-full max-w-md bg-red"
-          style={{ "--delay": "480ms" } as React.CSSProperties}
-        />
+          <div
+            className="hero-rule mt-6 h-[3px] w-full max-w-md bg-red"
+            style={{ "--delay": "480ms" } as React.CSSProperties}
+          />
 
-        <p
-          className="hero-fade mt-6 max-w-xl text-lg leading-relaxed text-bone/75 sm:text-xl"
-          style={{ "--delay": "600ms" } as React.CSSProperties}
-        >
-          Fifty-five square miles. One national team. A first world championship,
-          won on the field against China, and a bracket in Düsseldorf that nobody
-          drew us into.
-        </p>
-
-        <div
-          className="hero-fade mt-9 flex flex-wrap items-center gap-4"
-          style={{ "--delay": "720ms" } as React.CSSProperties}
-        >
-          <Link
-            href="/shop"
-            className="display group relative inline-flex h-14 items-center gap-3 bg-red px-8 text-lg tracking-[0.1em] text-bone transition-transform duration-200 ease-[var(--ease-out-quint)] hover:-translate-y-0.5 active:translate-y-0"
+          <p
+            className="hero-fade mt-6 max-w-xl text-lg leading-relaxed text-bone/75 sm:text-xl"
+            style={{ "--delay": "600ms" } as React.CSSProperties}
           >
-            Shop our Merch
-            <svg viewBox="0 0 24 24" className="size-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M4 12h15M13 6l6 6-6 6" />
-            </svg>
-          </Link>
-          <a
-            href="#road"
-            className="display inline-flex h-14 items-center border border-bone/30 px-8 text-lg tracking-[0.1em] text-bone/90 transition-colors hover:border-bone hover:text-bone"
+            Fifty-five square miles. One national team. A first world championship,
+            won on the field against China, and a bracket in Düsseldorf that nobody
+            drew us into.
+          </p>
+
+          <div
+            className="hero-fade mt-9 flex flex-wrap items-center gap-4"
+            style={{ "--delay": "720ms" } as React.CSSProperties}
           >
-            How we got here
-          </a>
+            <Link
+              href="/shop"
+              className="display group relative inline-flex h-14 items-center gap-3 bg-red px-8 text-lg tracking-[0.1em] text-bone transition-transform duration-200 ease-[var(--ease-out-quint)] hover:-translate-y-0.5 active:translate-y-0"
+            >
+              Shop our Merch
+              <svg viewBox="0 0 24 24" className="size-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M4 12h15M13 6l6 6-6 6" />
+              </svg>
+            </Link>
+            <a
+              href="#road"
+              className="display inline-flex h-14 items-center border border-bone/30 px-8 text-lg tracking-[0.1em] text-bone/90 transition-colors hover:border-bone hover:text-bone"
+            >
+              How we got here
+            </a>
+        </div>
+        </div>
+
+        {/*
+          The squad in Düsseldorf, after the group stage. This is the single
+          most valuable asset on the site: a real photograph of the real team,
+          in front of the tournament's own backdrop, which does more to prove
+          the whole page than any amount of copy.
+
+          Sized down rather than bled full-height. It sits beside the type on
+          desktop and under the buttons on mobile, where the hero is already
+          tall and a large image would push the buttons off the first screen.
+
+          `priority` because it is above the fold on desktop and is the largest
+          contentful paint there.
+        */}
+        <div className="relative w-full overflow-hidden border border-bone/15 lg:max-w-none">
+          <Image
+            src="/photos/squad-dusseldorf.webp"
+            alt="The American Samoa squad on the field in Düsseldorf after the group stage, holding two American Samoa flags in front of the IFAF World Flag Düsseldorf 2026 backdrop."
+            width={1600}
+            height={1317}
+            sizes="(min-width: 1024px) 40rem, 92vw"
+            priority
+            className="h-auto w-full"
+          />
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-deep/35 to-transparent"
+          />
         </div>
       </div>
 

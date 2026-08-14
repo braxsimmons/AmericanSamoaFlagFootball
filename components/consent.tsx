@@ -5,28 +5,30 @@ import { useCallback, useEffect, useState } from "react";
 /*
   Cookie consent.
 
-  Built around Google Consent Mode v2 rather than around hiding the tag. The
-  GA snippet sets every consent signal to "denied" before gtag.js loads, so
+  Built around Google Consent Mode v2 rather than around hiding the tag. The GA
+  snippet queues every consent signal as "denied" before gtag.js loads, so
   nothing is written to storage until somebody says yes. Accepting fires a
   consent update in the same page view, so the visit still counts.
 
   Why this shape:
 
-  - Reject has to be as easy as accept. A banner where "Accept" is a button and
-    the refusal is a link buried in settings is the pattern EU regulators have
-    been fining people over. Both are buttons, same size, same row.
+  - Refusing is the same weight as accepting. Same size, same colour, same row.
+    A banner where accept is a button and refusal is buried behind "Manage" is
+    the specific pattern EU regulators have been fining people over.
 
   - Nothing is written before a choice is made. No cookie, no localStorage key,
     no beacon.
 
-  - It does not block the page. No overlay, no scrim, no scroll lock. A visitor
-    who ignores it can read everything, and ignoring it counts as no consent,
-    which is the correct default.
+  - It does not block the page. No overlay, no scrim, no scroll lock. Ignoring
+    it counts as no consent, which is the correct default.
 
-  - The choice is reversible, via a link in the footer. Consent that cannot be
-    withdrawn is not consent.
+  - Reversible from the footer. Consent that cannot be withdrawn is not consent.
 
-  Anyone who never chose is simply never tracked. That is the point.
+  Manage lists two categories because this site runs two things: the essentials
+  it cannot function without, and Google Analytics. There is no advertising or
+  personalisation category, because there is no advertising or personalisation
+  tag. Listing empty categories to look thorough would misdescribe what actually
+  runs, which is the thing the banner exists to get right.
 */
 
 const KEY = "asff-consent";
@@ -46,18 +48,13 @@ declare global {
 function tellGoogle(choice: Choice) {
   // Queue onto dataLayer directly rather than calling window.gtag. If a visitor
   // decides before gtag.js has finished loading, that helper does not exist yet
-  // and the update would be dropped silently. The queue is created by the
-  // inline snippet and is always there, and gtag.js drains it in order once it
-  // arrives, so an early answer is still honoured.
+  // and the update would be dropped silently. The queue always exists, and
+  // gtag.js drains it in order once it arrives, so an early answer still counts.
   //
-  // It has to be an `arguments` object, not an array literal: that is the shape
-  // gtag.js expects, which is the whole reason the official snippet defines a
+  // It has to be an `arguments` object rather than an array literal: that is the
+  // shape gtag.js expects, and the reason the official snippet defines a
   // function whose only job is to forward `arguments`.
   window.dataLayer = window.dataLayer || [];
-  // Cast rather than a rest parameter: `arguments` is what gets pushed, and a
-  // declared-but-unused parameter list only exists to satisfy the call site.
-  // `arguments` stays reachable because this is a function expression rather
-  // than an arrow.
   const gtag = function () {
     // eslint-disable-next-line prefer-rest-params
     window.dataLayer!.push(arguments);
@@ -70,6 +67,8 @@ function tellGoogle(choice: Choice) {
 
 export function ConsentBanner() {
   const [open, setOpen] = useState(false);
+  const [managing, setManaging] = useState(false);
+  const [analytics, setAnalytics] = useState(false);
 
   useEffect(() => {
     let stored: string | null = null;
@@ -83,16 +82,29 @@ export function ConsentBanner() {
     if (stored === "granted" || stored === "denied") {
       tellGoogle(stored);
     } else {
-      // react-hooks/set-state-in-effect flags this, and is wrong here. The
-      // banner's visibility depends on localStorage, which does not exist
-      // during the server render. Deriving it at render time instead would make
-      // the server and client disagree on first paint, which is the hydration
-      // mismatch this deliberately avoids. Reading after mount is the point.
+      // react-hooks/set-state-in-effect flags this, and is wrong here. Whether
+      // the banner shows depends on localStorage, which does not exist during
+      // the server render. Deriving it at render time instead would make server
+      // and client disagree on first paint, which is the hydration mismatch
+      // this deliberately avoids. Reading after mount is the point.
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setOpen(true);
     }
 
-    const reopen = () => setOpen(true);
+    const reopen = () => {
+      let current: string | null = null;
+      try {
+        current = window.localStorage.getItem(KEY);
+      } catch {
+        /* ignore */
+      }
+      // Reflect the existing choice when reopening, so the panel shows what is
+      // actually set rather than resetting to off and inviting a mis-save.
+      setAnalytics(current === "granted");
+      setManaging(false);
+      setOpen(true);
+    };
+
     window.addEventListener(CONSENT_EVENT, reopen);
     return () => window.removeEventListener(CONSENT_EVENT, reopen);
   }, []);
@@ -101,56 +113,150 @@ export function ConsentBanner() {
     try {
       window.localStorage.setItem(KEY, choice);
     } catch {
-      // If we cannot remember the answer, still honour it for this page view.
+      // If the answer cannot be remembered, still honour it for this page view.
     }
     tellGoogle(choice);
     setOpen(false);
+    setManaging(false);
   }, []);
 
   if (!open) return null;
 
   return (
     <div
-      // `region` rather than `dialog`: this does not trap focus or block the
-      // page, and announcing it as a dialog would tell a screen reader the rest
-      // of the site is inert when it is not.
+      // `region`, not `dialog`: this does not trap focus or make the rest of the
+      // page inert, and announcing it as a dialog would tell a screen reader
+      // otherwise.
       role="region"
       aria-label="Cookie choices"
-      className="fixed inset-x-0 bottom-0 z-50 border-t-2 border-red bg-navy-deep/95 text-bone backdrop-blur-sm"
+      className="fixed inset-x-0 bottom-0 z-50 border-t border-bone/15 bg-navy-deep/95 text-bone backdrop-blur-sm"
     >
-      <div className="mx-auto flex max-w-5xl flex-col gap-4 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:px-8">
-        <p className="text-sm leading-relaxed text-bone/80">
-          We use Google Analytics to see which pages people actually read. It
-          sets cookies. Nothing is stored until you choose, and nothing here
-          identifies you personally.
-        </p>
+      <div className="mx-auto max-w-5xl px-5 py-3.5 sm:px-8">
+        <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
+          <p className="text-sm text-bone/70">
+            We use cookies to improve your experience and analyze site usage.
+          </p>
 
-        <div className="flex shrink-0 gap-3">
-          <button
-            type="button"
-            onClick={() => choose("denied")}
-            className="display h-11 flex-1 border border-bone/35 px-5 text-xs tracking-[0.14em] text-bone transition-colors hover:border-bone hover:bg-bone hover:text-navy-deep sm:flex-none"
-          >
-            Decline
-          </button>
-          <button
-            type="button"
-            onClick={() => choose("granted")}
-            className="display h-11 flex-1 bg-red px-5 text-xs tracking-[0.14em] text-bone transition-colors hover:bg-red-bright sm:flex-none"
-          >
-            Accept
-          </button>
+          <div className="flex shrink-0 items-center gap-2.5 text-sm">
+            <Action onClick={() => choose("granted")}>Accept All</Action>
+            <Dot />
+            <Action onClick={() => choose("denied")}>Reject Non-Essential</Action>
+            <Dot />
+            <Action
+              onClick={() => setManaging((v) => !v)}
+              aria-expanded={managing}
+              aria-controls="consent-manage"
+            >
+              Manage
+            </Action>
+          </div>
         </div>
+
+        {managing ? (
+          <div id="consent-manage" className="mt-3.5 border-t border-bone/12 pt-3.5">
+            <ul className="space-y-2.5">
+              <li className="flex items-center justify-between gap-6">
+                <div>
+                  <p className="text-sm text-bone/85">Essential</p>
+                  <p className="text-xs text-bone/50">
+                    Needed for the site to load and remember this choice.
+                  </p>
+                </div>
+                <span className="shrink-0 text-xs tracking-[0.14em] text-bone/40">
+                  ALWAYS ON
+                </span>
+              </li>
+
+              <li className="flex items-center justify-between gap-6">
+                <div>
+                  <p className="text-sm text-bone/85">Analytics</p>
+                  <p className="text-xs text-bone/50">
+                    Google Analytics, so we can see which pages people read.
+                  </p>
+                </div>
+                <Switch checked={analytics} onChange={setAnalytics} label="Analytics cookies" />
+              </li>
+            </ul>
+
+            <div className="mt-3.5 flex justify-end">
+              <Action onClick={() => choose(analytics ? "granted" : "denied")}>
+                Save choices
+              </Action>
+            </div>
+          </div>
+        ) : null}
       </div>
     </div>
+  );
+}
+
+function Dot() {
+  return (
+    <span aria-hidden className="text-bone/25">
+      ·
+    </span>
+  );
+}
+
+/**
+ * Every action is the same element with the same weight.
+ *
+ * The moment one of these becomes a filled button and the others stay as text,
+ * the banner starts steering the answer.
+ */
+function Action({
+  children,
+  onClick,
+  ...rest
+}: {
+  children: React.ReactNode;
+  onClick: () => void;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="whitespace-nowrap text-bone/85 underline underline-offset-4 transition-colors hover:text-bone"
+      {...rest}
+    >
+      {children}
+    </button>
+  );
+}
+
+function Switch({
+  checked,
+  onChange,
+  label,
+}: {
+  checked: boolean;
+  onChange: (v: boolean) => void;
+  label: string;
+}) {
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={checked}
+      aria-label={label}
+      onClick={() => onChange(!checked)}
+      className={`relative h-5 w-9 shrink-0 rounded-full transition-colors ${
+        checked ? "bg-red" : "bg-bone/25"
+      }`}
+    >
+      <span
+        className={`absolute top-0.5 size-4 rounded-full bg-bone transition-transform ${
+          checked ? "translate-x-[1.125rem]" : "translate-x-0.5"
+        }`}
+      />
+    </button>
   );
 }
 
 /**
  * Footer link that brings the banner back.
  *
- * Withdrawing consent has to be as reachable as giving it, and a visitor who
- * declined once may want to change their mind.
+ * Withdrawing consent has to be as reachable as giving it.
  */
 export function ConsentReopen({ className = "" }: { className?: string }) {
   return (

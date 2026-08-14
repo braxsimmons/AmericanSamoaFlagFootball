@@ -149,13 +149,7 @@ export function ValuesSection() {
       <BandStack className="absolute inset-x-0 top-0 w-full text-bone/30" motifs={["spear"]} />
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
-        <Reveal>
-          <p className="display max-w-2xl text-xs tracking-[0.3em] text-bone/70">
-            Printed on the jersey. Not written for a website.
-          </p>
-        </Reveal>
-
-        <div className="mt-12 grid gap-px bg-bone/20 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-px bg-bone/20 sm:grid-cols-2 lg:grid-cols-4">
           {VALUES.map((value, i) => (
             <Reveal key={value.samoan} delay={i * 70}>
               <div className="h-full bg-red p-7">

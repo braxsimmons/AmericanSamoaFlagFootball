@@ -23,7 +23,7 @@ export function Hero() {
 
 
       {/* The client's own arc artwork, large and bled off the right edge. When
-          the federation's photography arrives this is the element it replaces , 
+          the federation's photography arrives this is the element it replaces,
           same cell, same bleed, so the type scale will not need redoing. */}
       <TatauArc
         className="pointer-events-none absolute -right-32 top-1/2 hidden h-[130%] w-[62%] -translate-y-1/2 text-bone lg:block"
@@ -101,7 +101,7 @@ export function Hero() {
  * Where the team is, right now.
  *
  * Computed from the fixture dates rather than hardcoded, so it stops saying
- * "live" the moment the tournament ends instead of quietly lying for a year , 
+ * "live" the moment the tournament ends instead of quietly lying for a year,
  * which is the most common way a team site goes stale.
  */
 function LiveBadge() {

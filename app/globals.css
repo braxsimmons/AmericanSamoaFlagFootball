@@ -111,7 +111,7 @@ body {
 /*
   Reveal-on-scroll, done so the site still works without JavaScript.
 
-  The obvious implementation, a motion library with `initial={{opacity: 0}}` , 
+  The obvious implementation, a motion library with `initial={{opacity: 0}}`,
   renders `opacity: 0` into the server HTML and only recovers on hydration. Turn
   JavaScript off, or let one script fail, and the page is blank. That was true
   of this page: the hero headline itself did not render.

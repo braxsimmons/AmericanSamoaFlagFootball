@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { GROUP_A, KIT, ROAD, ROSTER, TEAM, VALUES, WORLDS } from "@/lib/content";
+import { GROUP_A, KIT, KIT_H, KIT_W, ROAD, ROSTER, TEAM, VALUES, WORLDS } from "@/lib/content";
 import { BandStack, TatauField, TatauRing } from "./tatau";
 import { Reveal } from "./reveal";
+import { SignatureBadge } from "./kit-badge";
 
 /* ------------------------------------------------------------- Düsseldorf -- */
 
@@ -81,15 +82,18 @@ export function WorldsSection() {
                 <Image
                   src={KIT[0].src}
                   alt={KIT[0].alt}
-                  width={1400}
-                  height={1122}
+                  width={KIT_W}
+                  height={KIT_H}
                   sizes="(min-width: 1024px) 34rem, 90vw"
                   className="h-auto w-full transition-transform duration-500 ease-[var(--ease-out-quint)] group-hover:scale-[1.03]"
                 />
               </div>
               <div className="mt-4 flex items-baseline justify-between gap-4">
                 <div>
-                  <p className="display text-2xl text-navy-deep">The kit</p>
+                  <SignatureBadge />
+                  <p className="display mt-2.5 text-2xl text-navy-deep transition-colors group-hover:text-red">
+                    {KIT[0].name}
+                  </p>
                   <p className="mt-1 text-sm text-navy/70">{KIT[0].detail}</p>
                 </div>
                 <span className="display shrink-0 text-sm tracking-[0.14em] text-red">

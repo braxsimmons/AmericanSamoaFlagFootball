@@ -38,8 +38,8 @@
   LICENSING, unresolved, and worth settling before launch. The supplied pattern
   images look like stock illustrations. If they were licensed, confirm the
   licence covers commercial web use. If not, the federation's kit supplier
-  already owns finished artwork for these jerseys, that is the better source , 
-  or commission a Samoan designer and credit them by name in the footer.
+  already owns finished artwork for these jerseys, which is the better source.
+  Otherwise commission a Samoan designer and credit them by name in the footer.
   ---------------------------------------------------------------------------
 */
 
@@ -165,7 +165,7 @@ export function BandStack({
  * `currentColor` and one file serves navy, red and bone without three copies.
  *
  * This replaces a hand-drawn approximation. Real artwork carries irregularities
- *, a hand's line weight, motifs that do not tile perfectly, that a generated
+ * (a hand's line weight, motifs that do not tile perfectly) that a generated
  * pattern does not, and those irregularities are most of why it reads as
  * authentic rather than as decoration.
  */

@@ -106,7 +106,7 @@ export const ROAD: readonly RoadStop[] = [
   {
     date: "October 2025",
     place: "Ningbo, China",
-    title: "IFAF Asia–Oceania Championship",
+    title: "IFAF Asia-Oceania Championship",
     body: "American Samoa travelled to the Fenghua Sports Center for the regional championship. It was the qualifying route to a first world championship.",
   },
   {
@@ -200,34 +200,67 @@ export const HIGHLIGHTS: {
  * is not decoration: somebody who can see the shirt is the person who signs up
  * to buy it, and until now the shop was a page nobody had a reason to open.
  */
+/**
+ * Intrinsic pixel size of every kit render. All five are padded to one canvas
+ * by `scripts/kit-images.mjs`, so a single pair of numbers is correct for all
+ * of them, and Next reserves the right box before the image loads. Re-shoot the
+ * kit and this is the only place the numbers change.
+ */
+export const KIT_W = 1401;
+export const KIT_H = 920;
+
+/*
+  The kit.
+
+  Order matters: the signature match jersey is first, because it is the one the
+  squad actually wore in Düsseldorf and the only one with a claim attached to
+  it. Everything else is training and supporter wear.
+
+  `detail` describes what is on the garment, not how it makes you feel. The
+  photographs show front and back together, so the back copy is worth naming:
+  it is the part a buyer cannot otherwise read.
+*/
 export const KIT = [
+  {
+    id: "jersey-signature",
+    src: "/kit/jersey-signature.webp",
+    name: "Match jersey",
+    detail: "The signature kit. Worn at the 2026 World Championship in Düsseldorf",
+    /** The one garment with a real claim behind it. Do not put this on the others. */
+    signature: true,
+    alt: "The signature Team American Samoa flag football match jersey, front and back. Navy with white tatau panels, the American Samoa flag on the chest and both sleeves, and Amerika Samoa above Unity, Culture, Family across the back.",
+  },
   {
     id: "jersey-navy",
     src: "/kit/jersey-navy.webp",
-    name: "Home jersey",
-    detail: "Navy, full tatau flank, flag on the chest",
-    alt: "Team American Samoa navy jersey, front and back, with Polynesian tatau panels and the American Samoa flag.",
+    name: "Navy jersey",
+    detail: "Navy, white tatau flanks, flag on the chest and both sleeves",
+    signature: false,
+    alt: "Team American Samoa navy jersey, front and back, with white tatau panels and the American Samoa flag roundel across the back.",
   },
   {
     id: "jersey-white",
     src: "/kit/jersey-white.webp",
-    name: "Away jersey",
-    detail: "White, navy tatau, red piping",
-    alt: "Team American Samoa white jersey, front and back, with navy tatau panels and red piping.",
+    name: "White jersey",
+    detail: "White, navy tatau, red piping through the flanks",
+    signature: false,
+    alt: "Team American Samoa white jersey, front and back, with navy tatau panels, red piping and the American Samoa flag roundel across the back.",
   },
   {
     id: "tank-navy",
     src: "/kit/tank-navy.webp",
     name: "Training tank",
     detail: "Navy. Unity, culture, family across the back",
-    alt: "Team American Samoa navy training tank, front and back.",
+    signature: false,
+    alt: "Team American Samoa navy training tank, front and back, with white tatau panels and the flag roundel on the reverse.",
   },
   {
     id: "tank-white",
     src: "/kit/tank-white.webp",
     name: "Training tank",
     detail: "White. Unity, culture, family across the back",
-    alt: "Team American Samoa white training tank, front and back.",
+    signature: false,
+    alt: "Team American Samoa white training tank, front and back, with navy tatau panels and the flag roundel on the reverse.",
   },
 ] as const;
 

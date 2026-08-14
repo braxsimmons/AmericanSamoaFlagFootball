@@ -68,7 +68,7 @@ export function SiteHeader() {
           ))}
 
           {/* The two places the team actually publishes. Icon-only is fine
-              here, the labelled buttons live in the section and the footer , 
+              here, the labelled buttons live in the section and the footer,
               but each still carries an accessible name. */}
           <span className="h-5 w-px bg-bone/25" />
           <a

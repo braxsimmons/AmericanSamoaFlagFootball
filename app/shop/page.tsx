@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { KIT, TEAM } from "@/lib/content";
+import { KIT, KIT_H, KIT_W, TEAM } from "@/lib/content";
+import { SignatureBadge } from "@/components/kit-badge";
 import { SpearRow, TatauField } from "@/components/tatau";
 
 export const metadata: Metadata = {
@@ -48,23 +49,42 @@ export default function ShopPage() {
         <SpearRow className="absolute bottom-0 left-0 h-3 w-full text-red" />
       </section>
 
-      {/* The lookbook. All four kits, large, before anybody is asked to buy. */}
+      {/*
+        The lookbook. Every kit, large, before anybody is asked to buy.
+
+        The signature jersey spans the full width and the rest pair off beneath
+        it. Five items in a two-column grid leaves one orphaned in the last row,
+        and the odd one out reads as an afterthought rather than as the thing
+        the team actually played in.
+      */}
       <section className="bg-bone py-20">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <ul className="grid gap-10 sm:grid-cols-2">
             {KIT.map((item) => (
-              <li key={item.id}>
+              <li key={item.id} className={item.signature ? "sm:col-span-2" : undefined}>
                 <div className="overflow-hidden border border-navy/15 bg-white">
                   <Image
                     src={item.src}
                     alt={item.alt}
-                    width={1400}
-                    height={1122}
-                    sizes="(min-width: 640px) 34rem, 90vw"
+                    width={KIT_W}
+                    height={KIT_H}
+                    sizes={
+                      item.signature
+                        ? "(min-width: 1280px) 76rem, 92vw"
+                        : "(min-width: 640px) 34rem, 90vw"
+                    }
+                    priority={item.signature}
                     className="h-auto w-full"
                   />
                 </div>
-                <p className="display mt-4 text-2xl text-navy-deep">{item.name}</p>
+                {item.signature ? <SignatureBadge className="mt-5" /> : null}
+                <p
+                  className={`display text-navy-deep ${
+                    item.signature ? "mt-3 text-3xl sm:text-4xl" : "mt-4 text-2xl"
+                  }`}
+                >
+                  {item.name}
+                </p>
                 <p className="mt-1 text-sm text-navy/70">{item.detail}</p>
               </li>
             ))}

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { KIT } from "@/lib/content";
+import { KIT, KIT_H, KIT_W } from "@/lib/content";
 import { BandStack } from "./tatau";
 import { Reveal } from "./reveal";
 
@@ -35,16 +35,22 @@ export function KitSection() {
           </div>
         </Reveal>
 
+        {/*
+          The white jersey and the navy tank, not the next two in the array.
+          The signature jersey sits directly above this band and is navy; a
+          second navy jersey underneath it reads as the same photograph twice.
+          Different colourway, different cut.
+        */}
         <ul className="mt-14 grid gap-8 sm:grid-cols-2">
-          {KIT.slice(1, 3).map((item, i) => (
+          {KIT.slice(2, 4).map((item, i) => (
             <Reveal as="li" key={item.id} delay={i * 90} className="block">
               <Link href="/shop" className="group block">
                 <div className="overflow-hidden border border-navy/15 bg-white">
                   <Image
                     src={item.src}
                     alt={item.alt}
-                    width={1400}
-                    height={1122}
+                    width={KIT_W}
+                    height={KIT_H}
                     sizes="(min-width: 640px) 34rem, 90vw"
                     className="h-auto w-full transition-transform duration-500 ease-[var(--ease-out-quint)] group-hover:scale-[1.03]"
                   />

@@ -222,7 +222,7 @@ export const KIT = [
     id: "jersey-signature",
     src: "/kit/jersey-signature.webp",
     name: "Match jersey",
-    detail: "The signature kit. Worn at the 2026 World Championship in Düsseldorf",
+    detail: "The Signature fit. Worn at the 2026 IFAF World Championships.",
     /** The one garment with a real claim behind it. Do not put this on the others. */
     signature: true,
     alt: "The signature Team American Samoa flag football match jersey, front and back. Navy with white tatau panels, the American Samoa flag on the chest and both sleeves, and Amerika Samoa above Unity, Culture, Family across the back.",

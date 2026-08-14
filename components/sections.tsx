@@ -13,17 +13,18 @@ export function WorldsSection() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal>
           <h2 className="display display-balanced mt-5 max-w-3xl text-5xl text-navy-deep sm:text-6xl">
-            First world championship,{" "}
-            <span className="text-red">and the bracket knows it</span>
+            World Championships.{" "}
+            <span className="text-red">Against all odds.</span>
           </h2>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-navy/70">
-            The {WORLDS.event} runs in {WORLDS.city} from 13 to 16 August.
-            American Samoa is in Group {WORLDS.group}, drawn against the
-            top-ranked United States, Australia and Israel. {WORLDS.stakes}
+            The {WORLDS.event} runs in {WORLDS.city}, Germany from 13 to 16
+            August. Team American Samoa lands on the world stage as one of 16
+            teams fighting for a berth at the LA28 Olympics.
           </p>
         </Reveal>
 
         <div className="mt-14 grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-start">
+          <div>
         <div className="overflow-hidden border border-navy/10 bg-white">
           <div className="flex items-center justify-between border-b border-navy/10 bg-navy px-6 py-4">
             <span className="display text-sm tracking-[0.24em] text-bone">
@@ -84,6 +85,15 @@ export function WorldsSection() {
           </ul>
           </div>
 
+            <Reveal delay={100}>
+              <p className="mt-5 text-sm text-navy/65">
+                Rankings as published by the International Federation of American
+                Football. American Samoa entered the rankings for the first time
+                in November 2025.
+              </p>
+            </Reveal>
+          </div>
+
           <Reveal delay={120}>
             {/* The shirt they are wearing in that bracket, linked to the shop.
                 Somebody who can see the kit is the person who buys it, and the
@@ -121,13 +131,6 @@ export function WorldsSection() {
           </Reveal>
         </div>
 
-        <Reveal delay={100}>
-          <p className="mt-6 text-sm text-navy/65">
-            Rankings as published by the International Federation of American
-            Football. American Samoa entered the rankings for the first time in
-            November 2025.
-          </p>
-        </Reveal>
       </div>
     </section>
   );
@@ -145,8 +148,8 @@ export function RoadSection() {
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal>
           <h2 className="display display-balanced mt-5 max-w-2xl text-5xl sm:text-6xl">
-            Nobody gave us
-            <span className="block text-red">this place</span>
+            Earned.
+            <span className="block text-red">Not given.</span>
           </h2>
         </Reveal>
 

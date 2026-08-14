@@ -40,24 +40,32 @@ export function Hero() {
         <div>
           <LiveBadge />
 
-          <h1 className="display mt-7 text-bone">
-            <span className="block overflow-hidden">
+          {/*
+          Three deliberate lines, the way the jersey breaks it: TEAM above
+          AMERICAN SAMOA. Written as one string it wrapped on its own and landed
+          in the same place here, but the wrap point moves with the column
+          width, so at some sizes it would have read "Team American" over
+          "Samoa" instead. `whitespace-nowrap` pins each line so the lockup is
+          the same shape at every breakpoint.
+        */}
+        <h1 className="display mt-7 text-bone">
+          {[
+            { word: "Team", delay: 60, jersey: false },
+            { word: "American", delay: 150, jersey: false },
+            { word: "Samoa", delay: 240, jersey: true },
+          ].map(({ word, delay, jersey }) => (
+            <span key={word} className="block overflow-hidden">
               <span
-                className="hero-line block text-[13vw] leading-[0.84] sm:text-[9vw] lg:text-[7.5rem]"
-                style={{ "--delay": "60ms" } as React.CSSProperties}
+                className={`hero-line block whitespace-nowrap text-[11vw] leading-[0.86] sm:text-[7.5vw] lg:text-[5.25rem] xl:text-[6rem] ${
+                  jersey ? "jersey-type" : ""
+                }`}
+                style={{ "--delay": `${delay}ms` } as React.CSSProperties}
               >
-                American
+                {word}
               </span>
             </span>
-            <span className="block overflow-hidden">
-              <span
-                className="jersey-type hero-line block text-[13vw] leading-[0.84] sm:text-[9vw] lg:text-[7.5rem]"
-                style={{ "--delay": "160ms" } as React.CSSProperties}
-              >
-                Samoa
-              </span>
-            </span>
-          </h1>
+          ))}
+        </h1>
 
           <div
             className="hero-rule mt-6 h-[3px] w-full max-w-md bg-red"
@@ -68,9 +76,9 @@ export function Hero() {
             className="hero-fade mt-6 max-w-xl text-lg leading-relaxed text-bone/75 sm:text-xl"
             style={{ "--delay": "600ms" } as React.CSSProperties}
           >
-            Fifty-five square miles. One national team. A first world championship,
-            won on the field against China, and a bracket in Düsseldorf that nobody
-            drew us into.
+            Fifty-five square miles. One national team. Current Asia-Oceania
+            bronze medalists, and headed to the World Championships. Unity.
+            Culture. Family.
           </p>
 
           <div

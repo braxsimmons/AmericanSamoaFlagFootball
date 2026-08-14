@@ -174,11 +174,16 @@ export const HIGHLIGHTS: {
   },
 ];
 
+/**
+ * Two pages, two links.
+ *
+ * The nav used to carry six items, four of which were anchors to sections of
+ * the page a visitor was already on. In-page anchors in a top nav make a site
+ * look larger than it is and give somebody a menu to read instead of a page to
+ * scroll, which is the opposite of the job. Everything they pointed at is still
+ * one scroll away, and the crest still goes home.
+ */
 export const NAV = [
-  { href: "/#worlds", label: "Düsseldorf" },
-  { href: "/#highlights", label: "Highlights" },
-  { href: "/#road", label: "The road" },
-  { href: "/#team", label: "The team" },
+  { href: "/", label: "Home" },
   { href: "/shop", label: "Shop" },
-  { href: "/#follow-social", label: "Follow" },
 ] as const;

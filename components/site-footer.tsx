@@ -5,7 +5,7 @@ import { SpearRow } from "./tatau";
 export function SiteFooter() {
   return (
     <footer className="bg-navy-deep text-bone">
-      <SpearRow className="h-3 w-full text-red" color="currentColor" flip />
+      <SpearRow className="h-3 w-full text-red" flip />
 
       <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
@@ -21,7 +21,7 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <p className="display text-xs tracking-[0.24em] text-bone/45">Site</p>
+            <p className="display text-xs tracking-[0.24em] text-bone/65">Site</p>
             <ul className="mt-4 space-y-2.5">
               {NAV.map((item) => (
                 <li key={item.href}>
@@ -34,7 +34,7 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <p className="display text-xs tracking-[0.24em] text-bone/45">Follow</p>
+            <p className="display text-xs tracking-[0.24em] text-bone/65">Follow</p>
             <ul className="mt-4 space-y-2.5">
               <li>
                 <a
@@ -50,7 +50,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-3 border-t border-bone/12 pt-8 text-sm text-bone/40 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col gap-3 border-t border-bone/12 pt-8 text-sm text-bone/65 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} {TEAM.federation}. All rights reserved.</p>
           <p>Fa&apos;afetai for the support. Soifua.</p>
         </div>

@@ -46,7 +46,7 @@ export function WorldsSection() {
             {GROUP_A.map((team, i) => (
               <Reveal as="li" key={team.code} delay={i * 60} className="block">
                 <div
-                  className={`flex items-center justify-between gap-4 border-b border-navy/8 px-6 py-5 last:border-0 ${
+                  className={`flex items-center justify-between gap-4 border-b border-navy/15 px-6 py-5 last:border-0 ${
                     team.isUs ? "bg-navy/[0.04]" : ""
                   }`}
                 >
@@ -56,13 +56,13 @@ export function WorldsSection() {
                         AS
                       </span>
                     ) : (
-                      <span className="display flex size-9 shrink-0 items-center justify-center border border-navy/20 text-xs text-navy/50">
+                      <span className="display flex size-9 shrink-0 items-center justify-center border border-navy/20 text-xs text-navy/65">
                         {team.code}
                       </span>
                     )}
                     <span
                       className={`display truncate text-2xl sm:text-3xl ${
-                        team.isUs ? "text-navy-deep" : "text-navy/45"
+                        team.isUs ? "text-navy-deep" : "text-navy/70"
                       }`}
                     >
                       {team.country}
@@ -70,7 +70,7 @@ export function WorldsSection() {
                   </div>
                   <span
                     className={`display shrink-0 text-2xl tabular-nums sm:text-3xl ${
-                      team.isUs ? "text-red" : "text-navy/30"
+                      team.isUs ? "text-red" : "text-navy/60"
                     }`}
                   >
                     #{team.worldRank}
@@ -82,7 +82,7 @@ export function WorldsSection() {
         </div>
 
         <Reveal delay={100}>
-          <p className="mt-6 text-sm text-navy/50">
+          <p className="mt-6 text-sm text-navy/65">
             Rankings as published by the International Federation of American
             Football. American Samoa entered the rankings for the first time in
             November 2025.
@@ -98,7 +98,7 @@ export function WorldsSection() {
 export function RoadSection() {
   return (
     <section id="road" className="relative overflow-hidden bg-navy-deep py-24 text-bone sm:py-32">
-      <TatauField className="absolute inset-0" color="#f5f2ec" opacity={0.06} />
+      <TatauField className="absolute inset-0 text-bone" opacity={0.07} />
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal>
@@ -115,7 +115,7 @@ export function RoadSection() {
               <div className="group relative grid gap-4 border-t border-bone/15 py-9 sm:grid-cols-[13rem_1fr] sm:gap-10">
                 <div>
                   <p className="display text-sm tracking-[0.18em] text-red">{stop.date}</p>
-                  <p className="mt-1 text-sm text-bone/45">{stop.place}</p>
+                  <p className="mt-1 text-sm text-bone/65">{stop.place}</p>
                 </div>
                 <div>
                   <h3
@@ -143,7 +143,7 @@ export function RoadSection() {
 export function ValuesSection() {
   return (
     <section className="relative overflow-hidden bg-red py-24 text-bone sm:py-28">
-      <TatauField className="absolute inset-0" color="#ffffff" opacity={0.1} />
+      <TatauField className="absolute inset-0 text-white" opacity={0.12} />
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal>
@@ -196,13 +196,15 @@ export function TeamSection() {
 
           <Reveal delay={120}>
             <div className="relative mx-auto aspect-square w-full max-w-md">
-              <TatauRing className="absolute inset-0 size-full text-navy/85" color="currentColor" />
+              <TatauRing className="absolute inset-0 size-full text-navy" />
               <div className="absolute inset-[18%] overflow-hidden rounded-full border-4 border-bone shadow-2xl">
+                {/* `contain` on a navy field: `cover` cropped the eagle and the
+                    point off the flag's triangle. */}
                 <Image
                   src="/media/american-samoa-flag.svg"
                   alt="Flag of American Samoa"
                   fill
-                  className="object-cover"
+                  className="bg-navy-deep object-contain p-2"
                   priority={false}
                 />
               </div>
@@ -237,7 +239,7 @@ export function TeamSection() {
         </Reveal>
       </div>
 
-      <SpearRow className="mt-20 h-3 w-full text-navy/20" color="currentColor" />
+      <SpearRow className="mt-20 h-3 w-full text-navy/20" />
     </section>
   );
 }

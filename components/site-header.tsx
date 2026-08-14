@@ -46,37 +46,43 @@ export function SiteHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className="display relative text-sm tracking-[0.14em] text-bone/80 transition-colors hover:text-bone"
+              className="group display relative text-sm tracking-[0.14em] text-bone/80 transition-colors hover:text-bone"
             >
               {item.label}
               {/* The red keyline from the jersey sleeve, drawn on hover. */}
-              <span className="absolute -bottom-1.5 left-0 h-[2px] w-0 bg-red transition-[width] duration-300 ease-[var(--ease-out-quint)] group-hover:w-full peer-hover:w-full hover:w-full" />
+              {/* `group` lives on this link now. It was on the logo, so this
+                  underline — the header's only hover affordance — never fired. */}
+              <span className="absolute -bottom-1.5 left-0 h-[2px] w-0 bg-red transition-[width] duration-300 ease-[var(--ease-out-quint)] group-hover:w-full" />
             </Link>
           ))}
         </nav>
 
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-          aria-controls="mobile-nav"
-          className="flex size-11 items-center justify-center text-bone md:hidden"
-        >
-          <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
-          <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth="2">
-            {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M3 7h18M3 12h18M3 17h18" />}
-          </svg>
-        </button>
       </div>
 
-      {open ? (
-        <nav id="mobile-nav" aria-label="Primary" className="border-t border-white/10 md:hidden">
+      {/*
+        `<details>` rather than React state: the previous version rendered the
+        mobile links only when a `useState` flag was true, so a phone with
+        JavaScript disabled had no navigation at all — and the desktop nav is
+        hidden below `md`. A disclosure element needs no script to open.
+      */}
+      <details
+        className="group/menu md:hidden"
+        onToggle={(e) => setOpen((e.currentTarget as HTMLDetailsElement).open)}
+      >
+        <summary className="flex h-11 w-full cursor-pointer list-none items-center justify-end px-5 text-bone marker:hidden">
+          <span className="sr-only">Menu</span>
+          <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <path className="group-open/menu:hidden" d="M3 7h18M3 12h18M3 17h18" />
+            <path className="hidden group-open/menu:block" d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </summary>
+
+        <nav aria-label="Primary" className="border-t border-white/10">
           <ul className="px-5 py-2">
             {NAV.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  onClick={() => setOpen(false)}
                   className="display block border-b border-white/5 py-4 text-xl tracking-wide text-bone"
                 >
                   {item.label}
@@ -93,9 +99,9 @@ export function SiteHeader() {
             {TEAM.instagramHandle}
           </a>
         </nav>
-      ) : null}
+      </details>
 
-      <SpearRow className="h-[6px] w-full text-red/70" color="currentColor" />
+      <SpearRow className="h-[6px] w-full text-red/70" />
     </header>
   );
 }

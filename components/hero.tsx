@@ -16,12 +16,11 @@ export function Hero() {
   return (
     <section className="relative isolate flex min-h-[92svh] items-end overflow-hidden bg-navy-deep">
       {/* Field texture. Sits behind everything and never carries meaning. */}
-      <TatauField className="absolute inset-0" color="#f5f2ec" opacity={0.09} />
+      <TatauField className="absolute inset-0 text-bone" opacity={0.09} />
 
       {/* The flank panel from the side of the jersey, bleeding off the right. */}
       <TatauFlank
         className="absolute right-0 top-0 hidden h-full w-24 text-bone/10 lg:block"
-        color="currentColor"
       />
 
       {/* A wash so type stays legible once real photography lands behind it. */}
@@ -85,7 +84,7 @@ export function Hero() {
         </div>
       </div>
 
-      <SpearRow className="absolute bottom-0 left-0 h-3 w-full text-red" color="currentColor" />
+      <SpearRow className="absolute bottom-0 left-0 h-3 w-full text-red" />
     </section>
   );
 }

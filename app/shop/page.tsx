@@ -24,15 +24,22 @@ export default function ShopPage() {
   return (
     <>
       <section className="relative overflow-hidden bg-navy-deep pb-16 pt-36 text-bone sm:pt-44">
-        <TatauField className="absolute inset-0" color="#f5f2ec" opacity={0.08} />
+        <TatauField className="absolute inset-0 text-bone" opacity={0.08} />
         <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
           <div className="flex items-center gap-4">
             <span className="h-[2px] w-10 bg-red" />
             <span className="display text-xs tracking-[0.3em] text-red">Official apparel</span>
           </div>
+          {/*
+            Not "wear the tatau". A tatau is earned through tā tatau and carries
+            the wearer's rank and lineage — it is not something bought. Using it
+            as an apparel slogan, over motifs that are an approximation of it,
+            was the most appropriative thing on this site. The jersey's own words
+            say the intended thing without the claim.
+          */}
           <h1 className="display mt-5 max-w-3xl text-6xl sm:text-8xl">
-            Wear the
-            <span className="block text-red">tatau</span>
+            Represent
+            <span className="block text-red">with pride</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-bone/70">
             The same navy, white and red the squad wears in Düsseldorf. Every
@@ -40,7 +47,7 @@ export default function ShopPage() {
             getting the next group of players off the island and onto the field.
           </p>
         </div>
-        <SpearRow className="absolute bottom-0 left-0 h-3 w-full text-red" color="currentColor" />
+        <SpearRow className="absolute bottom-0 left-0 h-3 w-full text-red" />
       </section>
 
       <section className="bg-bone py-20">
@@ -58,18 +65,18 @@ export default function ShopPage() {
             </div>
           ) : (
             <div className="border border-dashed border-navy/25 bg-white/60 p-12 text-center">
-              <p className="display text-3xl text-navy-deep">Store opening soon</p>
+              <h2 className="display text-3xl text-navy-deep">Store opening soon</h2>
               <p className="mx-auto mt-4 max-w-lg leading-relaxed text-navy/60">
                 Jerseys, training tees and sideline wear are on the way. Put your
                 email in on the home page and we will tell you the day it opens.
               </p>
               <a
                 href="/#follow"
-                className="display mt-8 inline-flex h-13 items-center bg-red px-8 py-4 text-lg tracking-[0.1em] text-bone transition-transform duration-200 hover:-translate-y-0.5"
+                className="display mt-8 inline-flex h-14 items-center bg-red px-8 text-lg tracking-[0.1em] text-bone transition-transform duration-200 hover:-translate-y-0.5"
               >
                 Tell me when it opens
               </a>
-              <p className="mt-10 text-xs text-navy/40">
+              <p className="mt-10 text-xs text-navy/65">
                 Following the team in the meantime:{" "}
                 <a
                   href={TEAM.instagram}

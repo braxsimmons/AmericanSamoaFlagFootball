@@ -16,6 +16,14 @@ type State = "idle" | "sending" | "done" | "error";
  *
  * One field. Name is optional and secondary; every extra required field costs
  * conversions, and a national team's supporter list does not need a job title.
+ *
+ * The form carries a real `action` and `method`. That is the point, not
+ * decoration: without them a browser with JavaScript disabled falls back to a
+ * GET against the current URL, which puts the subscriber's email address into
+ * the address bar, their history, and the referrer header of every subsequent
+ * request — while never actually subscribing them. A privacy leak wearing a
+ * broken form's clothes. `onSubmit` intercepts when JS is available; the
+ * endpoint answers both shapes.
  */
 export function FollowSection() {
   const [state, setState] = useState<State>("idle");
@@ -57,7 +65,7 @@ export function FollowSection() {
 
   return (
     <section id="follow" className="relative overflow-hidden bg-navy py-24 text-bone sm:py-32">
-      <TatauField className="absolute inset-0" color="#f5f2ec" opacity={0.08} />
+      <TatauField className="absolute inset-0 text-bone" opacity={0.08} />
 
       <div className="relative mx-auto max-w-3xl px-5 text-center sm:px-8">
         <Reveal>
@@ -85,7 +93,12 @@ export function FollowSection() {
             </p>
           </div>
         ) : (
-          <form onSubmit={onSubmit} className="mx-auto mt-12 max-w-md text-left">
+          <form
+            action="/api/subscribe"
+            method="post"
+            onSubmit={onSubmit}
+            className="mx-auto mt-12 max-w-md text-left"
+          >
             {/* Bots fill this. It is off-screen rather than display:none, which
                 some crawlers skip. */}
             <label className="sr-only" htmlFor="company">
@@ -109,7 +122,7 @@ export function FollowSection() {
               name="name"
               type="text"
               autoComplete="name"
-              className="mt-2 h-14 w-full border border-bone/25 bg-navy-deep/50 px-4 text-bone outline-none transition-colors placeholder:text-bone/30 focus:border-red-bright"
+              className="mt-2 h-14 w-full border border-bone/25 bg-navy-deep/50 px-4 text-bone transition-colors placeholder:text-bone/50 focus-visible:border-red-bright focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-bright"
               placeholder="Your name"
             />
 
@@ -122,7 +135,7 @@ export function FollowSection() {
               type="email"
               required
               autoComplete="email"
-              className="mt-2 h-14 w-full border border-bone/25 bg-navy-deep/50 px-4 text-bone outline-none transition-colors placeholder:text-bone/30 focus:border-red-bright"
+              className="mt-2 h-14 w-full border border-bone/25 bg-navy-deep/50 px-4 text-bone transition-colors placeholder:text-bone/50 focus-visible:border-red-bright focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-bright"
               placeholder="you@example.com"
             />
 
@@ -140,7 +153,7 @@ export function FollowSection() {
               {state === "sending" ? "Sending…" : "Keep me posted"}
             </button>
 
-            <p className="mt-4 text-center text-xs text-bone/40">
+            <p className="mt-4 text-center text-xs text-bone/65">
               We will not share your address. Unsubscribe any time.
             </p>
           </form>

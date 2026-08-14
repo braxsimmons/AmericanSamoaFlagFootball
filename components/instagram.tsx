@@ -1,5 +1,5 @@
 import { TEAM } from "@/lib/content";
-import { BandStack, TatauArc } from "./tatau";
+import { BandStack } from "./tatau";
 import { InstagramIcon, SocialButtons, YouTubeIcon } from "./social";
 
 /*
@@ -11,7 +11,7 @@ import { InstagramIcon, SocialButtons, YouTubeIcon } from "./social";
   for individual posts without a token, but there is no supported way to render
   "the latest N posts from @amsnff_" without either the Graph API (which needs a
   Business/Creator account, a Facebook Page, an app and a long-lived token) or a
-  third-party widget (SnapWidget, LightWidget, Elfsight — all have free tiers).
+  third-party widget (SnapWidget, LightWidget, Elfsight, all have free tiers).
 
   So this renders a real widget when one is configured and an honest, designed
   link-out when one is not. Deliberately not a "coming soon" box: the account is
@@ -24,12 +24,6 @@ export function InstagramSection() {
 
   return (
     <section id="follow-social" className="relative overflow-hidden bg-bone py-24 sm:py-32">
-      {/* The client's own arc artwork, bled off the corner. */}
-      <TatauArc
-        className="pointer-events-none absolute -right-24 -top-24 hidden size-[560px] text-navy lg:block"
-        opacity={0.07}
-        position="center"
-      />
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <div className="flex flex-wrap items-end justify-between gap-6">
@@ -38,7 +32,7 @@ export function InstagramSection() {
               <span className="h-[2px] w-10 bg-red" />
               <span className="display text-xs tracking-[0.3em] text-red">From the team</span>
             </div>
-            <h2 className="display mt-5 max-w-2xl text-5xl text-navy-deep sm:text-6xl">
+            <h2 className="display display-balanced mt-5 max-w-2xl text-5xl text-navy-deep sm:text-6xl">
               Training, travel,
               <span className="block text-red">and the games themselves</span>
             </h2>
@@ -64,10 +58,7 @@ export function InstagramSection() {
         </div>
       </div>
 
-      <BandStack
-        className="mt-20 w-full text-navy/25"
-        motifs={["comb", "spear", "bird"]}
-      />
+      <BandStack className="mt-20 w-full text-navy/20" motifs={["spear", "comb"]} />
     </section>
   );
 }
@@ -77,7 +68,7 @@ export function InstagramSection() {
  *
  * Two large cards rather than a grid of grey rectangles pretending to be posts.
  * Fake post placeholders are the single most obvious "unfinished site" signal,
- * and they promise content that is not there — whereas the accounts genuinely
+ * and they promise content that is not there, whereas the accounts genuinely
  * are there and worth going to.
  */
 function FeedFallback() {
@@ -94,7 +85,7 @@ function FeedFallback() {
           <span className="display text-2xl">{TEAM.instagramHandle}</span>
         </div>
         <p className="mt-6 max-w-sm leading-relaxed text-navy/70">
-          Day-to-day from the squad — sessions, the flight out, and the games as
+          Day to day from the squad: sessions, the flight out, and the games as
           they happen. The account posts before anything reaches this page.
         </p>
         <span className="display mt-8 inline-flex items-center gap-2 text-sm tracking-[0.14em] text-red">
@@ -123,7 +114,7 @@ function FeedFallback() {
           <span className="display text-2xl">{TEAM.youtubeHandle}</span>
         </div>
         <p className="mt-6 max-w-sm leading-relaxed text-navy/70">
-          Full match footage and longer pieces on the programme — where the games
+          Full match footage and longer pieces on the programme. Where the games
           live once they are done.
         </p>
         <span className="display mt-8 inline-flex items-center gap-2 text-sm tracking-[0.14em] text-red">

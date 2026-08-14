@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { GROUP_A, ROAD, ROSTER, TEAM, VALUES, WORLDS } from "@/lib/content";
-import { BandStack, TatauArc, TatauField, TatauRing } from "./tatau";
+import { BandStack, TatauField, TatauRing } from "./tatau";
 import { Reveal } from "./reveal";
 
 function SectionLabel({ children }: { children: ReactNode }) {
@@ -21,14 +21,14 @@ export function WorldsSection() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal>
           <SectionLabel>13–16 August 2026</SectionLabel>
-          <h2 className="display mt-5 max-w-3xl text-5xl text-navy-deep sm:text-7xl">
-            First world championship,
-            <span className="text-red"> and the bracket knows it</span>
+          <h2 className="display display-balanced mt-5 max-w-3xl text-5xl text-navy-deep sm:text-6xl">
+            First world championship,{" "}
+            <span className="text-red">and the bracket knows it</span>
           </h2>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-navy/70">
-            The {WORLDS.event} runs in {WORLDS.city} from 13 to 16 August. American
-            Samoa is in Group {WORLDS.group} — drawn against the top-ranked
-            United States, Australia and Israel. {WORLDS.stakes}
+            The {WORLDS.event} runs in {WORLDS.city} from 13 to 16 August.
+            American Samoa is in Group {WORLDS.group}, drawn against the
+            top-ranked United States, Australia and Israel. {WORLDS.stakes}
           </p>
         </Reveal>
 
@@ -98,19 +98,14 @@ export function WorldsSection() {
 export function RoadSection() {
   return (
     <section id="road" className="relative overflow-hidden bg-navy-deep py-24 text-bone sm:py-32">
-      <TatauField className="absolute inset-0 text-bone" opacity={0.07} />
-      <TatauArc
-        className="pointer-events-none absolute -right-20 top-0 hidden size-[620px] text-bone lg:block"
-        opacity={0.08}
-        position="center"
-      />
+      <TatauField className="absolute inset-0 text-bone" opacity={0.05} size={520} />
       {/* The one motif here with real movement in it. Large, low contrast, and
           bleeding off the corner so it reads as artwork rather than as an icon. */}
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal>
           <SectionLabel>The road here</SectionLabel>
-          <h2 className="display mt-5 max-w-3xl text-5xl sm:text-7xl">
+          <h2 className="display display-balanced mt-5 max-w-2xl text-5xl sm:text-6xl">
             Nobody gave us
             <span className="block text-red">this place</span>
           </h2>
@@ -150,8 +145,8 @@ export function RoadSection() {
 export function ValuesSection() {
   return (
     <section className="relative overflow-hidden bg-red py-24 text-bone sm:py-28">
-      <TatauField className="absolute inset-0 text-white" opacity={0.12} />
-      <BandStack className="absolute inset-x-0 top-0 w-full text-bone/35" motifs={["comb", "spear"]} />
+      <TatauField className="absolute inset-0 text-white" opacity={0.07} size={520} />
+      <BandStack className="absolute inset-x-0 top-0 w-full text-bone/30" motifs={["spear"]} />
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal>
@@ -187,15 +182,15 @@ export function TeamSection() {
         <div className="grid gap-14 lg:grid-cols-[1.1fr_1fr] lg:items-center">
           <Reveal>
             <SectionLabel>The team</SectionLabel>
-            <h2 className="display mt-5 text-5xl text-navy-deep sm:text-6xl">
+            <h2 className="display display-balanced mt-5 max-w-xl text-5xl text-navy-deep sm:text-6xl">
               Fifty-five square miles,
               <span className="block text-red">one national team</span>
             </h2>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-navy/70">
-              American Samoa sends more players per capita into American football
-              than anywhere else on earth. Flag is where the next generation
-              starts — and where the territory now has a national side ranked
-              among the world&apos;s best.
+              American Samoa sends more players per capita into American
+              football than anywhere else on earth. Flag is where the next
+              generation starts, and where the territory now has a national
+              side ranked among the world&apos;s best.
             </p>
             <p className="mt-4 max-w-xl leading-relaxed text-navy/60">
               The programme is run by the {TEAM.federation}.
@@ -248,10 +243,10 @@ export function TeamSection() {
         </Reveal>
       </div>
 
-      {/* Three different motifs at three different weights — the way the
+      {/* Three different motifs at three different weights, the way the
           reference artwork builds an edge. One repeated row reads as a border;
           this reads as tatau. */}
-      <BandStack className="mt-20 w-full text-navy/25" motifs={["spear", "comb", "bird"]} />
+      <BandStack className="mt-20 w-full text-navy/20" motifs={["spear", "comb"]} />
     </section>
   );
 }

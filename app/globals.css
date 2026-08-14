@@ -6,7 +6,7 @@
   triangle border; the gold is the fue and uatogi the eagle carries.
 
   Deliberately only these. A site that reaches for a second accent hue starts
-  looking like a template — the jerseys get all of their energy from navy,
+  looking like a template, the jerseys get all of their energy from navy,
   white and one red, and so does this.
 */
 @theme {
@@ -52,6 +52,28 @@ body {
 }
 
 /*
+  Evens a headline across its lines instead of leaving one orphan word on a row
+  of its own. "First world championship, and the bracket knows / it" was
+  breaking that way at most widths.
+
+  Section headings only. The hero sets its lines explicitly and is left alone.
+*/
+.display-balanced {
+  text-wrap: balance;
+}
+
+/*
+  Tightens tracking as size increases. Condensed 800 at display sizes needs to
+  be locked up the way the jersey wordmark is; the same value at 2rem would be
+  cramped.
+*/
+@media (min-width: 640px) {
+  .display-balanced {
+    letter-spacing: -0.02em;
+  }
+}
+
+/*
   The jersey's lettering has a red keyline under a white face on navy. This is
   that, as type: a hard offset rather than a blur, so it reads as printed
   rather than as a CSS shadow.
@@ -89,14 +111,14 @@ body {
 /*
   Reveal-on-scroll, done so the site still works without JavaScript.
 
-  The obvious implementation — a motion library with `initial={{opacity: 0}}` —
+  The obvious implementation, a motion library with `initial={{opacity: 0}}` , 
   renders `opacity: 0` into the server HTML and only recovers on hydration. Turn
   JavaScript off, or let one script fail, and the page is blank. That was true
   of this page: the hero headline itself did not render.
 
   So the hidden state is scoped behind `.js`, a class an inline script in the
   document head adds before first paint. No JavaScript, no `.js`, and every
-  element is simply visible — which is also what a crawler and a screen reader
+  element is simply visible, which is also what a crawler and a screen reader
   get. With JavaScript, the script runs before paint, so there is no flash of
   visible content collapsing into a hidden one.
 */

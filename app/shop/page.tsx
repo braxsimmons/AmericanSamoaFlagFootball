@@ -33,18 +33,18 @@ export default function ShopPage() {
           </div>
           {/*
             Not "wear the tatau". A tatau is earned through tā tatau and carries
-            the wearer's rank and lineage — it is not something bought. Using it
+            the wearer's rank and lineage, it is not something bought. Using it
             as an apparel slogan, over motifs that are an approximation of it,
             was the most appropriative thing on this site. The jersey's own words
             say the intended thing without the claim.
           */}
-          <h1 className="display mt-5 max-w-3xl text-6xl sm:text-8xl">
+          <h1 className="display display-balanced mt-5 max-w-3xl text-6xl sm:text-7xl">
             Represent
             <span className="block text-red">with pride</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-bone/70">
             The same navy, white and red the squad wears in Düsseldorf. Every
-            purchase goes back into the national programme — travel, kit, and
+            purchase goes back into the national programme, travel, kit, and
             getting the next group of players off the island and onto the field.
           </p>
         </div>

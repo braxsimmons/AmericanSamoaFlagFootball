@@ -28,7 +28,7 @@ export function YouTubeIcon({ className = "size-5" }: { className?: string }) {
  * The social buttons.
  *
  * Labelled, not icon-only. An unlabelled glyph is a guess for anyone using a
- * screen reader and a small target for everyone else — and these are the only
+ * screen reader and a small target for everyone else, and these are the only
  * places the team currently publishes anything, so they are primary navigation
  * rather than footer decoration.
  */
@@ -58,7 +58,7 @@ export function SocialButtons({
       >
         <InstagramIcon className="size-5 transition-transform duration-200 group-hover:scale-110" />
         Instagram
-        <span className="sr-only"> — opens in a new tab</span>
+        <span className="sr-only"> (opens in a new tab)</span>
       </a>
 
       <a
@@ -69,7 +69,7 @@ export function SocialButtons({
       >
         <YouTubeIcon className="size-5 transition-transform duration-200 group-hover:scale-110" />
         YouTube
-        <span className="sr-only"> — opens in a new tab</span>
+        <span className="sr-only"> (opens in a new tab)</span>
       </a>
     </div>
   );

@@ -2,8 +2,8 @@
   Tatau-inspired geometry.
 
   Redrawn against reference artwork the client supplied: dense curved bands, each
-  band carrying a *different* motif — bird-track rows, comb ticks, solid triangle
-  rows, diamond chains — separated by heavy solid rules, all following an arc.
+  band carrying a *different* motif, bird-track rows, comb ticks, solid triangle
+  rows, diamond chains, separated by heavy solid rules, all following an arc.
   The earlier version scattered motifs on an orthogonal grid at uniform weight,
   which is the signature of generic "tribal" decoration rather than tatau.
 
@@ -13,18 +13,18 @@
 
   1. `<pattern id="spear">` is *document*-scoped. Four bands on one page emitted
      four identical ids, every `url(#spear)` resolved to the first, and the
-     `color` prop silently did nothing on the rest — a band authored navy
+     `color` prop silently did nothing on the rest, a band authored navy
      rendered red.
 
   2. A `viewBox="0 0 120 12"` with `preserveAspectRatio="none"` stretched to a
      1440px viewport made each triangle 120px wide and 12px tall. On the jersey
-     the same band is dense — forty-odd spearheads across, not six.
+     the same band is dense, forty-odd spearheads across, not six.
 
   Masks fix both: no ids to collide, `mask-size` in pixels holds the tile's true
   proportion at any width, colour follows `text-*` like any other element.
 
   ---------------------------------------------------------------------------
-  CULTURAL NOTE — please do not delete this.
+  CULTURAL NOTE, please do not delete this.
 
   These are respectful geometric motifs in the spirit of the artwork the team
   already wears. They are not reproductions of any specific pe'a or malu. Samoan
@@ -35,10 +35,10 @@
   thin divider bands are still drawn here, because a 360px raster cropped to a
   12px strip cannot stay crisp.
 
-  LICENSING — unresolved, and worth settling before launch. The supplied pattern
+  LICENSING, unresolved, and worth settling before launch. The supplied pattern
   images look like stock illustrations. If they were licensed, confirm the
   licence covers commercial web use. If not, the federation's kit supplier
-  already owns finished artwork for these jerseys — that is the better source —
+  already owns finished artwork for these jerseys, that is the better source , 
   or commission a Samoan designer and credit them by name in the footer.
   ---------------------------------------------------------------------------
 */
@@ -52,21 +52,21 @@ const mask = (svg: string) =>
   black opaque and white transparent, so `currentColor` shows through.
 */
 
-/** `atualoa` — the centipede. A row of solid triangles under a rule. */
+/** `atualoa`, the centipede. A row of solid triangles under a rule. */
 const BAND_SPEAR = `
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 18">
     <rect width="24" height="2.2" fill="#000"/>
     <path d="M0 18 L6 5 L12 18 Z M12 18 L18 5 L24 18 Z" fill="#000"/>
   </svg>`;
 
-/** Bird-track row — the small chevron pairs that fill the finer bands. */
+/** Bird-track row, the small chevron pairs that fill the finer bands. */
 const BAND_BIRD = `
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 14">
     <path d="M2 11 L5 4 L8 11" fill="none" stroke="#000" stroke-width="1.6"/>
     <path d="M9 11 L12 4 L15 11" fill="none" stroke="#000" stroke-width="1.6"/>
   </svg>`;
 
-/** Comb row — fine parallel ticks between two rules. */
+/** Comb row, fine parallel ticks between two rules. */
 const BAND_COMB = `
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 20">
     <rect width="8" height="1.4" fill="#000"/>
@@ -94,7 +94,7 @@ const BANDS: Record<BandMotif, { svg: string; tile: string }> = {
  * A single horizontal band.
  *
  * Colour comes from `currentColor`, so `text-red` / `text-navy` work normally.
- * The tile is fixed and repeated — never stretched.
+ * The tile is fixed and repeated, never stretched.
  */
 export function SpearRow({
   className = "",
@@ -125,7 +125,7 @@ export function SpearRow({
 }
 
 /**
- * A stack of different bands — the way the reference artwork builds an edge.
+ * A stack of different bands, the way the reference artwork builds an edge.
  *
  * Unequal weights next to each other is the whole point: a heavy triangle row
  * above fine comb ticks above a diamond chain reads as tatau; three rows of the
@@ -157,7 +157,7 @@ export function BandStack({
 }
 
 /**
- * The large field pattern — the client's own artwork.
+ * The large field pattern, the client's own artwork.
  *
  * Backed by `public/patterns/field-symmetry.png`: the supplied reference with
  * its white paper knocked out to transparency (see `scripts/knockout.mjs`).
@@ -165,7 +165,7 @@ export function BandStack({
  * `currentColor` and one file serves navy, red and bone without three copies.
  *
  * This replaces a hand-drawn approximation. Real artwork carries irregularities
- * — a hand's line weight, motifs that do not tile perfectly — that a generated
+ *, a hand's line weight, motifs that do not tile perfectly, that a generated
  * pattern does not, and those irregularities are most of why it reads as
  * authentic rather than as decoration.
  */
@@ -236,8 +236,8 @@ export function TatauArc({
 /**
  * The circular motif from the back of the jersey.
  *
- * Three concentric bands rather than one ring of identical spikes — a heavy
- * spearhead ring, fine rules, then a dense inner row — broken top and bottom by
+ * Three concentric bands rather than one ring of identical spikes, a heavy
+ * spearhead ring, fine rules, then a dense inner row, broken top and bottom by
  * a vertical spear, as the jersey breaks it. A single even spike ring reads as
  * a sunburst icon; the banding is what makes it read as tatau.
  */

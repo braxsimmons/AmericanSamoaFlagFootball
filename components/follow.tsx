@@ -10,8 +10,8 @@ type State = "idle" | "sending" | "done" | "error";
 /**
  * Email capture.
  *
- * The reason to give an address is stated plainly — fixtures, results, and
- * when the squad is announced — because "subscribe to our newsletter" asks
+ * The reason to give an address is stated plainly, fixtures, results, and
+ * when the squad is announced, because "subscribe to our newsletter" asks
  * for something and offers nothing in return, and people have learned that.
  *
  * One field. Name is optional and secondary; every extra required field costs
@@ -21,7 +21,7 @@ type State = "idle" | "sending" | "done" | "error";
  * decoration: without them a browser with JavaScript disabled falls back to a
  * GET against the current URL, which puts the subscriber's email address into
  * the address bar, their history, and the referrer header of every subsequent
- * request — while never actually subscribing them. A privacy leak wearing a
+ * request, while never actually subscribing them. A privacy leak wearing a
  * broken form's clothes. `onSubmit` intercepts when JS is available; the
  * endpoint answers both shapes.
  */
@@ -65,20 +65,20 @@ export function FollowSection() {
 
   return (
     <section id="follow" className="relative overflow-hidden bg-navy py-24 text-bone sm:py-32">
-      <TatauField className="absolute inset-0 text-bone" opacity={0.08} />
+      <TatauField className="absolute inset-0 text-bone" opacity={0.05} size={520} />
 
       <div className="relative mx-auto max-w-3xl px-5 text-center sm:px-8">
         <Reveal>
           <span className="display text-xs tracking-[0.3em] text-red-bright">
             Stay with the team
           </span>
-          <h2 className="display mt-5 text-5xl sm:text-6xl">
+          <h2 className="display display-balanced mx-auto mt-5 max-w-xl text-5xl sm:text-6xl">
             Know before
             <span className="block text-red-bright">everyone else</span>
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-bone/70">
-            Fixtures, results from Düsseldorf, and the squad announcement — sent
-            when there is something worth sending. No more than that.
+            Fixtures, results from Düsseldorf, and the squad announcement.
+            Sent when there is something worth sending, and no more than that.
           </p>
         </Reveal>
 

@@ -4,7 +4,7 @@ import { createHash } from "node:crypto";
 /*
   Email capture.
 
-  Provider-agnostic: the destination is one env var holding a webhook URL — a
+  Provider-agnostic: the destination is one env var holding a webhook URL, a
   GoHighLevel inbound webhook, a Google Apps Script bound to a Sheet, whatever
   the federation ends up using. Swapping providers is an env change, because the
   thing most likely to change about this form in the next year is where it
@@ -32,7 +32,7 @@ function looksLikeEmail(value: string): boolean {
  * Addresses are never written to logs in full.
  *
  * A subscriber list is personal data, and Vercel's logs are retained, searchable
- * and visible to anyone with project access — a wider audience than the CRM the
+ * and visible to anyone with project access, a wider audience than the CRM the
  * address was given to. The hash is enough to correlate a support report with a
  * log line without the log itself being a copy of the mailing list.
  */
@@ -43,7 +43,7 @@ function pseudonym(email: string): string {
 /*
   Crude per-IP rate limiting.
 
-  In-memory, so it resets on cold start and is per-instance — it will not stop a
+  In-memory, so it resets on cold start and is per-instance, it will not stop a
   determined distributed flood. It stops the realistic case: one script hammering
   the endpoint and running up the CRM's bill. Anything stronger needs a shared
   store (Upstash, Vercel KV); noted rather than pretended.
@@ -119,7 +119,7 @@ export async function POST(request: Request) {
   }
 
   // Bots fill every field they find. A human never sees this one. Answered as
-  // though it worked — telling a bot it was caught only teaches it.
+  // though it worked, telling a bot it was caught only teaches it.
   if (honeypot.length > 0) return reply(200, { ok: true });
 
   email = email.trim().toLowerCase().slice(0, MAX_EMAIL);

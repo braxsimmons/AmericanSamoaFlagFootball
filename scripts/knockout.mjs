@@ -8,7 +8,7 @@
 
   White-on-transparent is deliberate. Used as a CSS `mask-image` the colour comes
   from whatever is underneath, so the same file works in navy, in red and in
-  bone without three copies — and it stays consistent with the palette rather
+  bone without three copies, and it stays consistent with the palette rather
   than baking one colour into the asset.
 
   Run: node scripts/knockout.mjs

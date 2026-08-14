@@ -1,6 +1,6 @@
 # American Samoa National Flag Football
 
-The web presence for the American Samoa national flag football team — the
+The web presence for the American Samoa national flag football team, the
 territory's first-ever IFAF World Championship side.
 
 Instagram: [@amsnff_](https://www.instagram.com/amsnff_/)
@@ -23,8 +23,8 @@ nothing. "Empowering athletes to reach their potential" is what a template says.
 | Group A: USA, Australia, Israel, American Samoa | IFAF |
 | LA28 Olympic quota places on the line | Olympics.com |
 
-The four values — **Fa'asāmoa**, **Laumei le Atua**, **One team / One island**,
-**Play with heart** — are printed on the team's own jersey. They were not
+The four values, **Fa'asāmoa**, **Laumei le Atua**, **One team / One island**,
+**Play with heart**, are printed on the team's own jersey. They were not
 written for a website.
 
 All of it lives in [`lib/content.ts`](lib/content.ts) so the federation can
@@ -51,14 +51,14 @@ Set one environment variable:
 SUBSCRIBE_WEBHOOK_URL=...
 ```
 
-**GoHighLevel** — create an Inbound Webhook trigger in a workflow and paste its
+**GoHighLevel**, create an Inbound Webhook trigger in a workflow and paste its
 URL. The payload is:
 
 ```json
 { "email": "...", "name": "...", "source": "...", "submittedAt": "ISO-8601" }
 ```
 
-**Google Sheet (fastest option, no CRM needed)** — in the Sheet choose
+**Google Sheet (fastest option, no CRM needed)**, in the Sheet choose
 *Extensions → Apps Script*, paste this, then *Deploy → New deployment → Web app*,
 execute as yourself, access "Anyone". Paste the resulting `/exec` URL:
 
@@ -74,7 +74,7 @@ function doPost(e) {
 ```
 
 With no variable set the endpoint accepts submissions, logs them, and returns
-`stored: false` — so the form is testable before a provider is chosen, and
+`stored: false`, so the form is testable before a provider is chosen, and
 nothing can quietly believe an address was captured when it was not.
 
 ## Instagram feed
@@ -82,9 +82,9 @@ nothing can quietly believe an address was captured when it was not.
 Instagram removed free *profile* feed embeds. There is no supported way to
 render "the latest N posts from @amsnff_" without one of:
 
-- **A third-party widget** — SnapWidget, LightWidget or Elfsight all have free
+- **A third-party widget**, SnapWidget, LightWidget or Elfsight all have free
   tiers. Create one, copy its iframe `src`, and set it. This is the fastest path.
-- **The Instagram Graph API** — needs a Business/Creator account, a linked
+- **The Instagram Graph API**, needs a Business/Creator account, a linked
   Facebook Page, an app, and a long-lived token. More work, no third party.
 
 ```
@@ -104,7 +104,7 @@ both accounts are live and worth sending people to.
 NEXT_PUBLIC_STORE_EMBED_URL=...
 ```
 
-Works with any embeddable storefront — Shopify buy-button page, Fourthwall,
+Works with any embeddable storefront, Shopify buy-button page, Fourthwall,
 Printful, Big Cartel. Without it the page shows an honest "opening soon" state
 that routes people to the email form instead of a dead end.
 
@@ -114,7 +114,7 @@ that routes people to the email form instead of a dead end.
 
 **Palette** is sampled from the team's jersey artwork, not invented: the navy and
 red of the American Samoa flag, plus the gold of the fue and uatogi the eagle
-carries. Deliberately no second accent — the jerseys get all their energy from
+carries. Deliberately no second accent, the jerseys get all their energy from
 navy, white and one red.
 
 **Type** is Barlow Condensed for anything set large and Barlow for anything read.
@@ -123,13 +123,13 @@ that artwork without looking like a different project.
 
 **The patterns** are the client's own supplied artwork. `scripts/knockout.mjs`
 turns each black-on-white reference into a transparent PNG by using inverted
-luminance as the alpha channel — ink becomes opaque, paper becomes transparent,
+luminance as the alpha channel, ink becomes opaque, paper becomes transparent,
 and the anti-aliased greys survive as partial alpha so edges stay smooth. They
 are then used as CSS `mask-image` over `currentColor`, so one file serves navy,
 red and bone without three copies.
 
-Real artwork carries irregularities — a hand's line weight, motifs that do not
-tile perfectly — that a generated pattern does not, and those irregularities are
+Real artwork carries irregularities, a hand's line weight, motifs that do not
+tile perfectly, that a generated pattern does not, and those irregularities are
 most of why it reads as authentic rather than as decoration.
 
 Only the thin divider bands in [`components/tatau.tsx`](components/tatau.tsx)
@@ -142,11 +142,11 @@ Re-run after replacing a source image:
 node scripts/knockout.mjs
 ```
 
-> **Before launch — two things.**
+> **Before launch, two things.**
 >
 > **Licensing.** The supplied pattern images look like stock illustrations. If
 > they were licensed, confirm the licence covers commercial web use. If not, the
-> federation's kit supplier already owns finished artwork for these jerseys —
+> federation's kit supplier already owns finished artwork for these jerseys , 
 > that is the better source.
 >
 > **Attribution.** Samoan tatau is earned through tā tatau and carries the
@@ -156,7 +156,7 @@ node scripts/knockout.mjs
 **Motion** is CSS behind a `.js` class added by an inline script before first
 paint. Turn JavaScript off and every section is simply visible. The first build
 of this site used a motion library whose `initial` state renders as inline
-`opacity: 0` in the server HTML — with JS disabled the page was blank, including
+`opacity: 0` in the server HTML, with JS disabled the page was blank, including
 the hero headline. Do not reintroduce that pattern.
 
 `prefers-reduced-motion` removes every animation and transition.
@@ -166,7 +166,7 @@ the hero headline. Do not reintroduce that pattern.
 ## Assets still needed
 
 - [ ] Team photography and match footage (hero currently runs on pattern alone)
-- [ ] The squad — `ROSTER` in `lib/content.ts` renders an honest empty state
+- [ ] The squad, `ROSTER` in `lib/content.ts` renders an honest empty state
       rather than invented names, which is the worst thing a team site can carry
 - [ ] A proper crest/logo file (the header crest is a placeholder redraw)
 - [ ] Results from Düsseldorf as they land

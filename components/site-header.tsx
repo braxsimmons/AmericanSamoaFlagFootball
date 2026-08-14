@@ -11,7 +11,7 @@ import { InstagramIcon, YouTubeIcon } from "./social";
  *
  * Transparent over the hero so the photography runs to the top of the window,
  * then it takes on the navy once you have scrolled past it. The threshold is
- * deliberately short — a header that only solidifies halfway down the page
+ * deliberately short, a header that only solidifies halfway down the page
  * spends most of a scroll unreadable against whatever is behind it.
  */
 export function SiteHeader() {
@@ -52,13 +52,13 @@ export function SiteHeader() {
               {item.label}
               {/* The red keyline from the jersey sleeve, drawn on hover. */}
               {/* `group` lives on this link now. It was on the logo, so this
-                  underline — the header's only hover affordance — never fired. */}
+                  underline, the header's only hover affordance, never fired. */}
               <span className="absolute -bottom-1.5 left-0 h-[2px] w-0 bg-red transition-[width] duration-300 ease-[var(--ease-out-quint)] group-hover:w-full" />
             </Link>
           ))}
 
           {/* The two places the team actually publishes. Icon-only is fine
-              here — the labelled buttons live in the section and the footer —
+              here, the labelled buttons live in the section and the footer , 
               but each still carries an accessible name. */}
           <span className="h-5 w-px bg-bone/25" />
           <a
@@ -85,7 +85,7 @@ export function SiteHeader() {
       {/*
         `<details>` rather than React state: the previous version rendered the
         mobile links only when a `useState` flag was true, so a phone with
-        JavaScript disabled had no navigation at all — and the desktop nav is
+        JavaScript disabled had no navigation at all, and the desktop nav is
         hidden below `md`. A disclosure element needs no script to open.
       */}
       <details

@@ -54,7 +54,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {/*
           Runs before first paint, so the reveal styles apply without a flash of
           fully-visible content collapsing. Without JavaScript this class is
-          never added and every section renders plainly visible — which is the
+          never added and every section renders plainly visible, which is the
           point: the page must not depend on a script to have content.
         */}
         <script

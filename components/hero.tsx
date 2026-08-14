@@ -9,7 +9,7 @@ import { BandStack, TatauArc, TatauField } from "./tatau";
  * game" answers nothing and is what every template says.
  *
  * The wordmark animates in by line, staggered, with the red keyline drawing
- * underneath — the same gesture as the jersey's lettering. All of it is
+ * underneath, the same gesture as the jersey's lettering. All of it is
  * suppressed under `prefers-reduced-motion`.
  */
 export function Hero() {
@@ -22,7 +22,7 @@ export function Hero() {
 
 
       {/* The client's own arc artwork, large and bled off the right edge. When
-          the federation's photography arrives this is the element it replaces —
+          the federation's photography arrives this is the element it replaces , 
           same cell, same bleed, so the type scale will not need redoing. */}
       <TatauArc
         className="pointer-events-none absolute -right-32 top-1/2 hidden h-[130%] w-[62%] -translate-y-1/2 text-bone lg:block"
@@ -65,7 +65,7 @@ export function Hero() {
           style={{ "--delay": "600ms" } as React.CSSProperties}
         >
           Fifty-five square miles. One national team. A first world championship,
-          won on the field against China — and a bracket in Düsseldorf that nobody
+          won on the field against China, and a bracket in Düsseldorf that nobody
           drew us into.
         </p>
 
@@ -100,7 +100,7 @@ export function Hero() {
  * Where the team is, right now.
  *
  * Computed from the fixture dates rather than hardcoded, so it stops saying
- * "live" the moment the tournament ends instead of quietly lying for a year —
+ * "live" the moment the tournament ends instead of quietly lying for a year , 
  * which is the most common way a team site goes stale.
  */
 function LiveBadge() {

@@ -1,18 +1,22 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { CONSENT_CHOSEN } from "./consent";
 
 /*
   The signup popup.
 
-  Timing, and why it is not literally on load:
+  Fires on load. It previously waited six seconds and queued behind the cookie
+  banner, which meant anyone who ignored the cookie bar never saw it at all.
+  That was the "super delayed" part, not the timer.
 
-  Google treats an interstitial that covers the content on arrival from search
-  as a ranking problem on mobile. We have just spent real effort on the site's
-  search position, so this waits until the page has been seen. It also waits for
-  the cookie banner to be answered, because two overlays at once is not a choice
-  anybody makes well.
+  The 400ms that remains is not a delay in any perceptible sense: it is one
+  paint, so the page is behind the modal rather than the modal arriving over a
+  blank screen. Set it to 0 and the dialog can render before the hero does.
+
+  The known cost, decided rather than overlooked: Google treats an interstitial
+  covering content on arrival from search as a mobile ranking factor. If search
+  traffic ever looks soft on mobile, this is the first thing to try moving to a
+  scroll or exit trigger.
 
   Shown once. A visitor who closes it or signs up never sees it again, stored in
   localStorage rather than a cookie so it survives the cookie banner being
@@ -24,7 +28,7 @@ import { CONSENT_CHOSEN } from "./consent";
 */
 
 const KEY = "asff-signup";
-const DELAY_MS = 6000;
+const DELAY_MS = 400;
 
 export function EmailPopup() {
   const [open, setOpen] = useState(false);
@@ -44,26 +48,8 @@ export function EmailPopup() {
     }
     if (seen) return;
 
-    let timer = 0;
-    const arm = () => {
-      window.clearTimeout(timer);
-      timer = window.setTimeout(() => setOpen(true), DELAY_MS);
-    };
-
-    let consented = false;
-    try {
-      consented = Boolean(window.localStorage.getItem("asff-consent"));
-    } catch {
-      consented = true;
-    }
-
-    if (consented) arm();
-    else window.addEventListener(CONSENT_CHOSEN, arm);
-
-    return () => {
-      window.clearTimeout(timer);
-      window.removeEventListener(CONSENT_CHOSEN, arm);
-    };
+    const timer = window.setTimeout(() => setOpen(true), DELAY_MS);
+    return () => window.clearTimeout(timer);
   }, []);
 
   const dismiss = useCallback(() => {
@@ -154,7 +140,7 @@ export function EmailPopup() {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-end justify-center p-4 sm:items-center">
+    <div className="fixed inset-0 z-[60] flex items-center justify-center overflow-y-auto p-4">
       {/* Clicking away closes it. A modal you can only leave by finding the X is
           a dark pattern, and this is asking for a favour, not granting one. */}
       <button
@@ -177,7 +163,7 @@ export function EmailPopup() {
           type="button"
           onClick={dismiss}
           aria-label="Close"
-          className="absolute right-3 top-3 flex size-9 items-center justify-center text-bone/50 transition-colors hover:text-bone"
+          className="absolute right-3 top-3 flex size-9 items-center justify-center text-bone/50 outline-none transition-colors hover:text-bone focus-visible:ring-2 focus-visible:ring-red"
         >
           <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
             <path d="M6 6l12 12M18 6L6 18" />

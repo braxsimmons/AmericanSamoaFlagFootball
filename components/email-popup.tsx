@@ -32,6 +32,23 @@ import { useCallback, useEffect, useRef, useState } from "react";
   argument for giving one.
 */
 
+/*
+  What signing up gets you.
+
+  The 15% discount is commented out rather than deleted: the code does not exist
+  yet, because there was nothing to issue it from until the store went live.
+  Promising a discount that no email can deliver is the one failure a signup
+  form cannot recover from, since the person only finds out after they have
+  handed over their address.
+
+  Uncomment it the moment the code exists in Ecwid, and put the fine print in
+  `FINE_PRINT` back with it.
+*/
+const BENEFITS = [
+  "Team news, results and squad updates in the newsletter",
+  // "15% off your first merch order",
+] as const;
+
 const KEY = "asff-signup";
 const DELAY_MS = 400;
 
@@ -183,8 +200,8 @@ export function EmailPopup() {
                 <span className="block text-red">Fa&apos;afetai.</span>
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-bone/70">
-                Watch your inbox. Your discount code arrives with the first
-                newsletter, once the store opens.
+                We will keep you updated on the team and where to see them
+                play next.
               </p>
               <button
                 type="button"
@@ -201,25 +218,27 @@ export function EmailPopup() {
                 <span className="block text-red">the squad</span>
               </h2>
 
-              <ul className="mt-5 space-y-2.5">
-                {/*
-                  Two, not three. The third was a draw for LA28 tickets, pulled
-                  before launch: there are no tickets to give, the squad has not
-                  qualified, a prize draw needs published rules, and Olympic
-                  marks are protected in the US under the Ted Stevens Act. A
-                  fourth benefit invented to round the list out would be the
-                  same mistake in a smaller size, so the list is short and true.
-                */}
-                {[
-                  "Team news, results and squad updates in the newsletter",
-                  "15% off your first merch order",
-                ].map((benefit) => (
-                  <li key={benefit} className="flex gap-2.5 text-[0.8125rem] leading-relaxed text-bone/85">
-                    <span aria-hidden className="mt-[0.4rem] size-1.5 shrink-0 rotate-45 bg-red" />
-                    {benefit}
-                  </li>
-                ))}
-              </ul>
+              {/*
+                A single benefit reads as a sentence, not as a bulleted list of
+                one, which looks like a list that lost its other items. Restore
+                the discount to BENEFITS and this becomes a list again on its
+                own.
+              */}
+              {BENEFITS.length === 1 ? (
+                <p className="mt-4 text-sm leading-relaxed text-bone/75">{BENEFITS[0]}</p>
+              ) : (
+                <ul className="mt-5 space-y-2.5">
+                  {BENEFITS.map((benefit) => (
+                    <li
+                      key={benefit}
+                      className="flex gap-2.5 text-[0.8125rem] leading-relaxed text-bone/85"
+                    >
+                      <span aria-hidden className="mt-[0.4rem] size-1.5 shrink-0 rotate-45 bg-red" />
+                      {benefit}
+                    </li>
+                  ))}
+                </ul>
+              )}
 
               {/*
                 `action` and `method` are set, not decorative. Without them a
@@ -268,14 +287,13 @@ export function EmailPopup() {
 
                 {/*
                   What they are agreeing to, said before they agree rather than
-                  buried in a footer. The discount is conditional on a store
-                  that is not open yet, and saying so is the difference between
-                  an offer and a promise.
+                  buried in a footer. Nothing here is conditional on something
+                  that has not happened, which is why there is nothing left to
+                  qualify.
                 */}
                 <p className="mt-3.5 text-[0.6875rem] leading-relaxed text-bone/45">
-                  We email about the team and the store, and you can
-                  unsubscribe from either at any time. The discount code arrives
-                  once the store opens.
+                  We email about the team and its upcoming events, and you can
+                  unsubscribe at any time.
                 </p>
               </form>
 

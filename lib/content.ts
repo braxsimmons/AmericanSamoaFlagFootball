@@ -258,6 +258,37 @@ export const HERO_PHOTOS = [
   },
 ] as const;
 
+/*
+  The Ecwid store.
+
+  The store id is public: it is in the script URL on every page that shows a
+  product, so an env var would hide it from the next developer and from nobody
+  else.
+
+  `price` is the value Ecwid stamped into the microdata when these snippets were
+  generated. The widget itself always renders the live price from the store, so
+  a price change in Ecwid shows correctly on the page, but this attribute keeps
+  the old number. It is only read by crawlers, and a rich result quoting a price
+  the checkout disagrees with is worth avoiding, so update it here whenever the
+  store price changes.
+
+  The signature flag football jersey is deliberately absent. It is not for sale.
+*/
+export const ECWID_STORE_ID = "140913833";
+
+export interface EcwidProduct {
+  id: string;
+  name: string;
+  price: string;
+}
+
+export const ECWID_PRODUCTS: readonly EcwidProduct[] = [
+  { id: "856409459", name: "Navy Jersey Shirt", price: "39.99" },
+  { id: "856425429", name: "White Jersey Shirt", price: "39.99" },
+  { id: "856409463", name: "Navy Training Tank", price: "39.99" },
+  { id: "856421368", name: "White Training Tank", price: "39.99" },
+];
+
 export const GA_MEASUREMENT_ID = "G-VGG3Q8M8GY";
 
 /**

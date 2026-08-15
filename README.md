@@ -170,3 +170,55 @@ the hero headline. Do not reintroduce that pattern.
       rather than invented names, which is the worst thing a team site can carry
 - [ ] A proper crest/logo file (the header crest is a placeholder redraw)
 - [ ] Results from Düsseldorf as they land
+
+## Email capture
+
+Signups from the popup go to one webhook URL. The intended destination is a
+Google Sheet, which needs no CRM, no service account and no dependency.
+
+### Google Sheet setup
+
+1. Make a Sheet. Anything; the script writes its own header row.
+2. **Extensions → Apps Script**. Delete the placeholder and paste
+   [`scripts/google-sheet-webhook.gs`](scripts/google-sheet-webhook.gs).
+3. Change `TOKEN` at the top to a long random string. Keep it.
+4. **Deploy → New deployment → Web app**, with:
+   - *Execute as*: **Me**
+   - *Who has access*: **Anyone**
+
+   "Anyone" is required, because a server with no Google session has to POST to
+   it. That is why the token exists: the deployment URL ends up in env vars and
+   logs, so it is not a credential.
+5. Copy the deployment URL.
+6. In Vercel → Settings → Environment Variables, set both:
+
+   ```
+   SUBSCRIBE_WEBHOOK_URL=<the deployment URL>
+   SUBSCRIBE_WEBHOOK_TOKEN=<the same string as TOKEN>
+   ```
+
+7. Redeploy. Env vars are read at runtime but a redeploy is the reliable way to
+   pick them up.
+
+Re-deploying the Apps Script after any edit issues a **new URL** unless you use
+*Manage deployments → edit → new version*. Editing an existing deployment keeps
+the URL; creating a new one silently leaves the site posting at the old script.
+
+### What it does and does not do
+
+The script de-duplicates on email, locks before appending so two simultaneous
+signups cannot overwrite each other, and rejects anything without the token.
+
+With no `SUBSCRIBE_WEBHOOK_URL` set the form still works and returns
+`stored: false`, so nothing quietly believes an address was captured when it was
+not.
+
+Apps Script cannot return a status code: a rejected token and a successful
+append both come back as HTTP 200 with the outcome in the body. The API route
+reads `ok` out of the body for exactly this reason. Without that, a wrong token
+would drop every address while the form said thank you.
+
+### Switching to a CRM later
+
+Point `SUBSCRIBE_WEBHOOK_URL` at the new inbound webhook. Nothing else changes;
+the route was written provider-agnostic on purpose.

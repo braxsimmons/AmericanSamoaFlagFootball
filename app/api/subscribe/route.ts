@@ -19,6 +19,17 @@ import { createHash } from "node:crypto";
 
 const WEBHOOK = process.env.SUBSCRIBE_WEBHOOK_URL;
 
+/*
+  Shared secret for the webhook.
+
+  A Google Apps Script deployed as a web app has to be readable by "anyone" for
+  this server to POST to it, which means the URL is the only thing standing
+  between the sheet and whoever finds it. The URL is unguessable but it is not a
+  credential: it ends up in env vars, logs and screenshots. This token is checked
+  by the script itself, so a leaked URL alone cannot fill the sheet with junk.
+*/
+const WEBHOOK_TOKEN = process.env.SUBSCRIBE_WEBHOOK_TOKEN;
+
 const MAX_EMAIL = 254; // RFC 5321
 const MAX_NAME = 120;
 const MAX_BODY = 4_000;
@@ -92,6 +103,7 @@ export async function POST(request: Request) {
   let email = "";
   let name = "";
   let honeypot = "";
+  let source = "site";
 
   try {
     if (isFormPost) {
@@ -99,6 +111,7 @@ export async function POST(request: Request) {
       email = String(form.get("email") ?? "");
       name = String(form.get("name") ?? "");
       honeypot = String(form.get("company") ?? "");
+      source = String(form.get("source") ?? "site");
     } else {
       const raw = await request.text();
       if (raw.length > MAX_BODY) {
@@ -113,6 +126,7 @@ export async function POST(request: Request) {
       email = typeof body.email === "string" ? body.email : "";
       name = typeof body.name === "string" ? body.name : "";
       honeypot = typeof body.honeypot === "string" ? body.honeypot : "";
+      source = typeof body.source === "string" ? body.source.slice(0, 40) : "site";
     }
   } catch {
     return reply(400, { error: "We could not read that." });
@@ -142,9 +156,13 @@ export async function POST(request: Request) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        token: WEBHOOK_TOKEN ?? "",
         email,
         name,
-        source: "americansamoaflagfootball.com",
+        // Which surface it came from, so a popup signup can be told apart from
+        // a footer one when deciding whether the popup is worth keeping.
+        source,
+        site: "americansamoaflagfootball.com",
         submittedAt: new Date().toISOString(),
       }),
       // A slow CRM must not hold a supporter's browser open.
@@ -153,6 +171,37 @@ export async function POST(request: Request) {
 
     if (!response.ok) {
       console.error(`[subscribe] Webhook ${response.status} for ${pseudonym(email)}`);
+      return reply(502, { error: "We could not save that just now. Try again in a moment." });
+    }
+
+    /*
+      An HTTP 200 is not proof it was stored.
+
+      Google Apps Script cannot set a status code: a rejected token, a bad
+      payload and a successful append all come back as 200, with the real
+      outcome in the body. Trusting `response.ok` alone would mean a wrong token
+      silently dropping every address while the form said thank you, which is
+      the worst possible failure for a signup list because nobody notices for
+      weeks.
+
+      Any other provider that returns a non-JSON body or no `ok` field is
+      treated as success, since for them the status code already meant something.
+    */
+    const text = await response.text();
+    let stored = true;
+    try {
+      const result: unknown = JSON.parse(text);
+      if (typeof result === "object" && result !== null && "ok" in result) {
+        stored = (result as { ok?: unknown }).ok !== false;
+      }
+    } catch {
+      // Not JSON. The status code was the answer.
+    }
+
+    if (!stored) {
+      console.error(
+        `[subscribe] Webhook accepted but rejected ${pseudonym(email)}: ${text.slice(0, 200)}`,
+      );
       return reply(502, { error: "We could not save that just now. Try again in a moment." });
     }
 

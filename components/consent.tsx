@@ -38,6 +38,15 @@ type Choice = "granted" | "denied";
 /** Fired by the footer link to reopen the banner after a choice was made. */
 export const CONSENT_EVENT = "asff:open-consent";
 
+/**
+ * Fired once a visitor accepts or declines.
+ *
+ * The signup popup waits for this. Two overlays at once is not a choice anybody
+ * makes well, and the cookie bar has to be answered first because it is the one
+ * that governs whether we may store anything at all.
+ */
+export const CONSENT_CHOSEN = "asff:consent-chosen";
+
 export function ConsentBanner() {
   const [open, setOpen] = useState(false);
   const [managing, setManaging] = useState(false);
@@ -98,6 +107,7 @@ export function ConsentBanner() {
 
     setOpen(false);
     setManaging(false);
+    window.dispatchEvent(new Event(CONSENT_CHOSEN));
   }, []);
 
   if (!open) return null;

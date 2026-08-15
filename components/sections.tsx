@@ -1,9 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { COACHES, GROUP_A, KIT, KIT_H, KIT_W, ROAD, ROSTER, TEAM, VALUES, WORLDS } from "@/lib/content";
+import { COACHES, GROUP_A, KIT_H, KIT_W, LANDING_KIT, ROAD, ROSTER, TEAM, VALUES, WORLDS } from "@/lib/content";
 import { BandStack, TatauField, TatauRing } from "./tatau";
 import { Reveal } from "./reveal";
-import { SignatureBadge } from "./kit-badge";
 
 /* ------------------------------------------------------------- Düsseldorf -- */
 
@@ -95,14 +94,15 @@ export function WorldsSection() {
           </div>
 
           <Reveal delay={120}>
-            {/* The shirt they are wearing in that bracket, linked to the shop.
-                Somebody who can see the kit is the person who buys it, and the
-                shop was previously a page nobody had a reason to open. */}
+            {/* Deliberately a shirt the shop sells, not the match jersey. This
+                card carries a "Shop" link, and the match jersey is not one of
+                the four products, so pointing here at it sent people to a store
+                that did not stock the thing they had just been shown. */}
             <Link href="/shop" className="group block">
               <div className="overflow-hidden border border-navy/15 bg-white">
                 <Image
-                  src={KIT[0].src}
-                  alt={KIT[0].alt}
+                  src={LANDING_KIT.src}
+                  alt={LANDING_KIT.alt}
                   width={KIT_W}
                   height={KIT_H}
                   sizes="(min-width: 1024px) 34rem, 90vw"
@@ -111,11 +111,10 @@ export function WorldsSection() {
               </div>
               <div className="mt-4 flex items-baseline justify-between gap-4">
                 <div>
-                  <SignatureBadge />
-                  <p className="display mt-2.5 text-2xl text-navy-deep transition-colors group-hover:text-red">
-                    {KIT[0].name}
+                  <p className="display text-2xl text-navy-deep transition-colors group-hover:text-red">
+                    {LANDING_KIT.name}
                   </p>
-                  <p className="mt-1 text-sm text-navy/70">{KIT[0].detail}</p>
+                  <p className="mt-1 text-sm text-navy/70">{LANDING_KIT.detail}</p>
                 </div>
                 <span className="display shrink-0 text-sm tracking-[0.14em] text-red">
                   Shop

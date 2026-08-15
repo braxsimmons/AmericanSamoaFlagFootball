@@ -303,9 +303,10 @@ export const KIT_H = 920;
 /*
   The kit.
 
-  Order matters: the signature match jersey is first, because it is the one the
-  squad actually wore in Düsseldorf and the only one with a claim attached to
-  it. Everything else is training and supporter wear.
+  The signature match jersey is still first and is still not for sale. It is
+  kept because it is the garment the squad actually wore in Düsseldorf and the
+  archive is worth having, but nothing renders it: the landing page now shows a
+  shirt somebody can buy.
 
   `detail` describes what is on the garment, not how it makes you feel. The
   photographs show front and back together, so the back copy is worth naming:
@@ -317,8 +318,6 @@ export const KIT = [
     src: "/kit/jersey-signature.webp",
     name: "Match jersey",
     detail: "The Signature fit. Worn at the 2026 IFAF World Championships.",
-    /** The one garment with a real claim behind it. Do not put this on the others. */
-    signature: true,
     alt: "The signature Team American Samoa flag football match jersey, front and back. Navy with white tatau panels, the American Samoa flag on the chest and both sleeves, and Amerika Samoa above Unity, Culture, Family across the back.",
   },
   {
@@ -326,7 +325,6 @@ export const KIT = [
     src: "/kit/jersey-navy.webp",
     name: "Navy jersey",
     detail: "Navy, white tatau flanks, flag on the chest and both sleeves",
-    signature: false,
     alt: "Team American Samoa navy jersey, front and back, with white tatau panels and the American Samoa flag roundel across the back.",
   },
   {
@@ -334,7 +332,6 @@ export const KIT = [
     src: "/kit/jersey-white.webp",
     name: "White jersey",
     detail: "White, navy tatau, red piping through the flanks",
-    signature: false,
     alt: "Team American Samoa white jersey, front and back, with navy tatau panels, red piping and the American Samoa flag roundel across the back.",
   },
   {
@@ -342,7 +339,6 @@ export const KIT = [
     src: "/kit/tank-navy.webp",
     name: "Training tank",
     detail: "Navy. Unity, culture, family across the back",
-    signature: false,
     alt: "Team American Samoa navy training tank, front and back, with white tatau panels and the flag roundel on the reverse.",
   },
   {
@@ -350,10 +346,27 @@ export const KIT = [
     src: "/kit/tank-white.webp",
     name: "Training tank",
     detail: "White. Unity, culture, family across the back",
-    signature: false,
     alt: "Team American Samoa white training tank, front and back, with navy tatau panels and the flag roundel on the reverse.",
   },
 ] as const;
+
+/*
+  The kit shown beside the Group A table on the landing page.
+
+  It has to be something the shop actually sells. It used to be the signature
+  flag football jersey, which was right while the shop was a lookbook and wrong
+  the moment the shop became a store: that card carries a "Shop" link, and the
+  match jersey is not one of the four products.
+
+  Looked up by id rather than by index, so reordering KIT cannot silently point
+  this at a different shirt, and it fails the build rather than rendering a
+  broken image if the id ever stops existing.
+*/
+const landingKit = KIT.find((item) => item.id === "jersey-navy");
+if (!landingKit) {
+  throw new Error("LANDING_KIT: no kit item with id 'jersey-navy'");
+}
+export const LANDING_KIT = landingKit;
 
 /**
  * Two pages, two links.

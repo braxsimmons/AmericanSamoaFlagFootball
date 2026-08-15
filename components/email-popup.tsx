@@ -25,6 +25,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
   This is a real dialog, unlike the cookie bar: it takes focus, traps it, closes
   on Escape, and the page behind it genuinely is inert. So `role="dialog"` and
   `aria-modal` are correct here where they would have been a lie there.
+
+  The backdrop is a light tint with no blur. Its job is to say which layer is
+  interactive, not to hide the page: a blurred-out site behind a signup form
+  reads as being held hostage for an email address, and the hero is the best
+  argument for giving one.
 */
 
 const KEY = "asff-signup";
@@ -148,7 +153,7 @@ export function EmailPopup() {
         aria-label="Close"
         tabIndex={-1}
         onClick={dismiss}
-        className="absolute inset-0 cursor-default bg-navy-deep/70 backdrop-blur-sm"
+        className="absolute inset-0 cursor-default bg-navy-deep/35"
       />
 
       <div
@@ -156,7 +161,7 @@ export function EmailPopup() {
         role="dialog"
         aria-modal="true"
         aria-labelledby="signup-title"
-        className="relative w-full max-w-lg border-t-2 border-red bg-navy-deep text-bone shadow-2xl"
+        className="relative w-full max-w-sm border-t-2 border-red bg-navy-deep text-bone shadow-2xl"
       >
         <button
           ref={closeButton}
@@ -170,33 +175,33 @@ export function EmailPopup() {
           </svg>
         </button>
 
-        <div className="p-7 sm:p-9">
+        <div className="p-6 sm:p-7">
           {status === "done" ? (
             <div>
-              <h2 id="signup-title" className="display text-4xl leading-none">
+              <h2 id="signup-title" className="display text-3xl leading-none">
                 You are in.
                 <span className="block text-red">Fa&apos;afetai.</span>
               </h2>
-              <p className="mt-5 leading-relaxed text-bone/70">
+              <p className="mt-4 text-sm leading-relaxed text-bone/70">
                 Watch your inbox. Your discount code arrives with the first
                 newsletter, once the store opens.
               </p>
               <button
                 type="button"
                 onClick={dismiss}
-                className="display mt-7 h-12 w-full bg-red text-sm tracking-[0.14em] text-bone transition-colors hover:bg-red-bright"
+                className="display mt-6 h-11 w-full bg-red text-sm tracking-[0.14em] text-bone transition-colors hover:bg-red-bright"
               >
                 Back to the site
               </button>
             </div>
           ) : (
             <>
-              <h2 id="signup-title" className="display text-4xl leading-[0.95]">
+              <h2 id="signup-title" className="display text-3xl leading-[0.95]">
                 Ride with
                 <span className="block text-red">the squad</span>
               </h2>
 
-              <ul className="mt-6 space-y-3">
+              <ul className="mt-5 space-y-2.5">
                 {/*
                   Two, not three. The third was a draw for LA28 tickets, pulled
                   before launch: there are no tickets to give, the squad has not
@@ -209,8 +214,8 @@ export function EmailPopup() {
                   "Team news, results and squad updates in the newsletter",
                   "15% off your first merch order",
                 ].map((benefit) => (
-                  <li key={benefit} className="flex gap-3 text-sm leading-relaxed text-bone/85">
-                    <span aria-hidden className="mt-1.5 size-2 shrink-0 rotate-45 bg-red" />
+                  <li key={benefit} className="flex gap-2.5 text-[0.8125rem] leading-relaxed text-bone/85">
+                    <span aria-hidden className="mt-[0.4rem] size-1.5 shrink-0 rotate-45 bg-red" />
                     {benefit}
                   </li>
                 ))}
@@ -226,7 +231,7 @@ export function EmailPopup() {
                 onSubmit={onSubmit}
                 action="/api/subscribe"
                 method="post"
-                className="mt-7"
+                className="mt-6"
               >
                 <label htmlFor="signup-email" className="sr-only">
                   Email address
@@ -238,7 +243,7 @@ export function EmailPopup() {
                   required
                   autoComplete="email"
                   placeholder="you@email.com"
-                  className="h-12 w-full border border-bone/25 bg-bone/5 px-4 text-bone placeholder:text-bone/40 focus:border-bone focus:outline-none"
+                  className="h-11 w-full border border-bone/25 bg-bone/5 px-3.5 text-sm text-bone placeholder:text-bone/40 focus:border-bone focus:outline-none"
                 />
 
                 {/* Bots fill every field they find. Nobody else ever sees this. */}
@@ -250,7 +255,7 @@ export function EmailPopup() {
                 <button
                   type="submit"
                   disabled={status === "sending"}
-                  className="display mt-3 h-12 w-full bg-red text-sm tracking-[0.14em] text-bone transition-colors hover:bg-red-bright disabled:opacity-60"
+                  className="display mt-2.5 h-11 w-full bg-red text-sm tracking-[0.14em] text-bone transition-colors hover:bg-red-bright disabled:opacity-60"
                 >
                   {status === "sending" ? "Sending" : "Sign me up"}
                 </button>
@@ -267,7 +272,7 @@ export function EmailPopup() {
                   that is not open yet, and saying so is the difference between
                   an offer and a promise.
                 */}
-                <p className="mt-4 text-xs leading-relaxed text-bone/45">
+                <p className="mt-3.5 text-[0.6875rem] leading-relaxed text-bone/45">
                   We email about the team and the store, and you can
                   unsubscribe from either at any time. The discount code arrives
                   once the store opens.
@@ -277,7 +282,7 @@ export function EmailPopup() {
               <button
                 type="button"
                 onClick={dismiss}
-                className="mt-4 w-full text-xs text-bone/40 underline underline-offset-4 transition-colors hover:text-bone/70"
+                className="mt-3 w-full text-[0.6875rem] text-bone/40 underline underline-offset-4 transition-colors hover:text-bone/70"
               >
                 No thanks
               </button>

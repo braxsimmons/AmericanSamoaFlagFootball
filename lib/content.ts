@@ -93,6 +93,8 @@ export interface Result {
   us: number;
   them: number;
   date?: string;
+  /** ISO form of `date`, for <time dateTime>. */
+  iso?: string;
   /** The one that made the news. */
   headline?: boolean;
   note?: string;
@@ -106,6 +108,7 @@ export const RESULTS: readonly Result[] = [
     us: 38,
     them: 32,
     date: "14 August 2026",
+    iso: "2026-08-14",
     headline: true,
     note: "The first defeat for the United States in more than 50 competitive games, and their first since 2012. They went on to win the tournament.",
   },
@@ -122,6 +125,7 @@ export const RESULTS: readonly Result[] = [
     us: 14,
     them: 24,
     date: "15 August 2026",
+    iso: "2026-08-15",
     note: "Canada finished third.",
   },
   { stage: "Fifth to eighth", opponent: "Germany", us: 34, them: 31 },
@@ -131,6 +135,7 @@ export const RESULTS: readonly Result[] = [
     us: 48,
     them: 38,
     date: "16 August 2026",
+    iso: "2026-08-16",
     note: "Japan had taken the United States to the final minutes of their quarter-final.",
   },
 ];
@@ -164,6 +169,8 @@ export interface PressItem {
   outlet: string;
   title: string;
   date: string;
+  /** ISO form of `date`, for <time dateTime>. */
+  iso: string;
   url: string;
   summary: string;
 }
@@ -174,6 +181,7 @@ export const PRESS: readonly PressItem[] = [
     title:
       "American Samoa's flag football team bows heads in underdog triumph over USA on world debut",
     date: "14 August 2026",
+    iso: "2026-08-14",
     url: "https://www.olympics.com/en/news/american-samoa-flag-football-underdog-triumph-usa-world-debut-family-of-brothers-interview",
     summary:
       "Interviews with the squad after the win over the United States, including the line the team gave the tournament: we are a family of brothers.",
@@ -182,6 +190,7 @@ export const PRESS: readonly PressItem[] = [
     outlet: "NBC Sports",
     title: "Team USA's 14-year unbeaten streak in flag football ends, thanks to American Samoa",
     date: "14 August 2026",
+    iso: "2026-08-14",
     url: "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/team-usas-14-year-unbeaten-streak-in-flag-football-ends-thanks-to-american-samoa",
     summary:
       "Pro Football Talk on the end of a run that had lasted more than 50 games and stretched back to 2012.",
@@ -190,6 +199,7 @@ export const PRESS: readonly PressItem[] = [
     outlet: "UPI",
     title: "Taulia Tagovailoa-led American Samoa stuns USA at flag football championships",
     date: "14 August 2026",
+    iso: "2026-08-14",
     url: "https://www.upi.com/Sports_News/2026/08/14/germany-Tagovailoa-American-Samoa-beat-USA-flag-football/4291786721053/",
     summary: "Wire coverage of the result, carried on across the United States.",
   },
@@ -197,6 +207,7 @@ export const PRESS: readonly PressItem[] = [
     outlet: "American Football International",
     title: "Quarterfinals set for IFAF World Flag 2026 on Saturday",
     date: "15 August 2026",
+    iso: "2026-08-15",
     url: "https://www.americanfootballinternational.com/quarterfinals-set-for-ifaf-world-flag-2026-on-saturday/",
     summary:
       "The bracket after the group stage, with head coach Sterling Carvalho on how the squad approached the United States.",
@@ -205,6 +216,7 @@ export const PRESS: readonly PressItem[] = [
     outlet: "CBC",
     title: "Düsseldorf 2026 quarter-finals: Canada vs. American Samoa",
     date: "15 August 2026",
+    iso: "2026-08-15",
     url: "https://www.cbc.ca/player/play/video/9.7308601",
     summary: "Full broadcast of the quarter-final against Canada, who went on to take bronze.",
   },
@@ -529,5 +541,6 @@ export const LANDING_KIT = landingKit;
  */
 export const NAV = [
   { href: "/", label: "Home" },
+  { href: "/press", label: "Results" },
   { href: "/shop", label: "Shop" },
 ] as const;

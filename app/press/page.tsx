@@ -1,12 +1,19 @@
 import type { Metadata } from "next";
-import { PRESS, RESULTS, TEAM, WORLDS } from "@/lib/content";
+import { PRESS, RESULTS, SITE_URL, TEAM, WORLDS } from "@/lib/content";
 import { BandStack, SpearRow, TatauField } from "@/components/tatau";
 import { Reveal } from "@/components/reveal";
 
 export const metadata: Metadata = {
-  title: "Press",
+  /*
+    Absolute, so it does not become "Press · American Samoa Flag Football".
+    Nobody searches "press". They search the team, the result and the
+    tournament, and a title tag is the single strongest on-page signal there is.
+  */
+  title: {
+    absolute: "American Samoa Flag Football: Düsseldorf 2026 Results and Press",
+  },
   description:
-    "Media coverage of the American Samoa national flag football team at the 2026 IFAF World Championship, plus verified results and media contact.",
+    "Every American Samoa result from the 2026 IFAF Flag Football World Championship in Düsseldorf, including the 38–32 win over the United States, plus media coverage and contact for the federation.",
   alternates: { canonical: "/press" },
 };
 
@@ -29,14 +36,80 @@ export const metadata: Metadata = {
   the same wire story, which is what this list becomes if nobody is disciplined.
 */
 export default function PressPage() {
+  /*
+    Structured data for the tournament and every game in it.
+
+    A scoreline in a paragraph is text a crawler has to interpret. As `subEvent`
+    on a `SportsEvent`, with both sides named as `SportsTeam`, it is a fact
+    about who played whom, and it ties this page to the tournament entity and
+    to the team entity declared site-wide in the root layout.
+
+    Being straight about the limit: schema.org has no score property that Google
+    turns into a rich result, so this will not put "38-32" in the search listing.
+    What it does is make the relationships legible, which is what entity ranking
+    for a name like this actually runs on.
+
+    BreadcrumbList is the one here with a visible payoff: it replaces the raw
+    URL under the result with a Home > Press trail.
+  */
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+          { "@type": "ListItem", position: 2, name: "Results and press", item: `${SITE_URL}/press` },
+        ],
+      },
+      {
+        "@type": "SportsEvent",
+        name: `${WORLDS.year} ${WORLDS.event}`,
+        sport: "Flag football",
+        startDate: WORLDS.startDate,
+        endDate: WORLDS.endDate,
+        location: {
+          "@type": "Place",
+          name: `${WORLDS.city}, ${WORLDS.country}`,
+          address: { "@type": "PostalAddress", addressLocality: WORLDS.city, addressCountry: "DE" },
+        },
+        organizer: {
+          "@type": "SportsOrganization",
+          name: "International Federation of American Football",
+          alternateName: "IFAF",
+        },
+        subEvent: RESULTS.map((game) => ({
+          "@type": "SportsEvent",
+          name: `American Samoa ${game.us}, ${game.opponent} ${game.them}`,
+          sport: "Flag football",
+          ...(game.iso ? { startDate: game.iso } : {}),
+          location: { "@type": "Place", name: `${WORLDS.city}, ${WORLDS.country}` },
+          competitor: [
+            { "@type": "SportsTeam", name: "American Samoa", url: SITE_URL },
+            { "@type": "SportsTeam", name: game.opponent },
+          ],
+        })),
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <section className="relative overflow-hidden bg-navy-deep pb-16 pt-36 text-bone sm:pt-44">
         <TatauField className="absolute inset-0 text-bone" opacity={0.08} />
         <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
+          {/*
+            "In the news" looked better and told a search engine nothing. The
+            headline now carries the tournament and the word somebody actually
+            types, and the sentence under it carries the team name.
+          */}
           <h1 className="display display-balanced mt-5 max-w-3xl text-6xl sm:text-7xl">
-            In the
-            <span className="block text-red">news</span>
+            Düsseldorf 2026
+            <span className="block text-red">results and press</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-bone/70">
             Fifth in the world on debut. Coverage of American Samoa at the{" "}
@@ -70,7 +143,12 @@ export default function PressPage() {
                 </span>
                 <span className="text-sm text-navy/55">
                   {game.stage}
-                  {game.date ? ` · ${game.date}` : ""}
+                  {game.date ? (
+                    <>
+                      {" · "}
+                      <time dateTime={game.iso}>{game.date}</time>
+                    </>
+                  ) : null}
                 </span>
               </li>
             ))}
@@ -99,7 +177,7 @@ export default function PressPage() {
                 >
                   <div className="display flex flex-wrap items-baseline gap-x-4 text-xs tracking-[0.18em] text-navy/50">
                     <span className="text-red">{item.outlet}</span>
-                    <span>{item.date}</span>
+                    <time dateTime={item.iso}>{item.date}</time>
                   </div>
                   <p className="display mt-2 max-w-3xl text-2xl leading-tight text-navy-deep transition-colors group-hover:text-red sm:text-3xl">
                     {item.title}

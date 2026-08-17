@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { COACHES, GROUP_A, KIT_H, KIT_W, LANDING_KIT, RESULTS, ROAD, ROSTER, TEAM, VALUES, WORLDS } from "@/lib/content";
+import { COACHES, FIELD_SIZE, FINAL_PLACING, GROUP_A, GROUP_RESULT, KIT_H, KIT_W, LANDING_KIT, RESULTS, ROAD, ROSTER, TEAM, VALUES, WORLDS } from "@/lib/content";
 import { BandStack, TatauField, TatauRing } from "./tatau";
 import { Reveal } from "./reveal";
 
@@ -18,96 +18,91 @@ export function WorldsSection() {
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-navy/70">
             Team American Samoa arrived in {WORLDS.city} as the lowest ranked
             side in the field, 33rd in the world, playing its first World
-            Championship. It left having beaten the United States and won Group
-            A.
+            Championship. It beat the United States, won Group A and finished
+            fifth.
           </p>
         </Reveal>
 
         {/*
-          The scorelines, above the table, because the result is the news and
-          the seedings are only the context that makes it one.
+          The finish first, then every game.
 
-          Two games, not the full run. Every score here is confirmed by at least
-          two independent published sources; the rest of the tournament is
-          missing rather than guessed. See RESULTS in lib/content.ts.
+          Fifth of twelve is the number that carries, and it only means anything
+          next to where they started, so the ranking sits with it rather than in
+          a caption somewhere else.
+
+          Six games listed, not a highlight reel. A team that beat the United
+          States and lost to Israel in the same group is a more interesting team
+          than one that only ever wins, and hiding the losses would be the first
+          thing a journalist noticed.
         */}
-        <div className="mt-14 flex flex-wrap items-baseline justify-between gap-4">
-          <h3 className="display text-sm tracking-[0.24em] text-navy/55">Düsseldorf</h3>
-          <Link href="/press" className="display group text-sm tracking-[0.14em] text-red">
-            Results and press coverage
-            <span
-              aria-hidden
-              className="ml-2 inline-block transition-transform duration-300 group-hover:translate-x-1"
-            >
-              &rarr;
-            </span>
-          </Link>
-        </div>
+        <div className="mt-14 grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-start">
+          <Reveal>
+            <div className="border-t-2 border-red bg-navy-deep p-8 text-bone sm:p-10">
+              <p className="display text-[5.5rem] leading-[0.8] text-red sm:text-[7rem]">
+                {FINAL_PLACING}
+                <span className="align-super text-2xl sm:text-3xl">th</span>
+              </p>
+              <p className="display mt-4 text-2xl leading-tight sm:text-3xl">
+                in the world,
+                <span className="block">on debut</span>
+              </p>
+              <p className="mt-5 text-sm leading-relaxed text-bone/65">
+                Of {FIELD_SIZE} nations in Düsseldorf, from the lowest ranking in
+                the field. {GROUP_RESULT} ahead of the eventual champions.
+              </p>
+            </div>
+          </Reveal>
 
-        <ul className="mt-6 grid gap-5 sm:grid-cols-2">
-          {RESULTS.map((game, i) => {
-            const won = game.us > game.them;
-            return (
-              <Reveal as="li" key={game.opponent} delay={i * 90} className="block">
-                <div
-                  className={`h-full border p-6 sm:p-7 ${
-                    game.headline ? "border-red bg-navy-deep text-bone" : "border-navy/15 bg-white"
-                  }`}
-                >
-                  <div
-                    className={`display flex items-baseline gap-3 text-xs tracking-[0.18em] ${
-                      game.headline ? "text-bone/55" : "text-navy/50"
+          <Reveal delay={90}>
+            <ul className="border-t border-navy/15">
+              {RESULTS.map((game) => {
+                const won = game.us > game.them;
+                return (
+                  <li
+                    key={`${game.stage}-${game.opponent}`}
+                    className={`border-b border-navy/12 px-1 py-4 ${
+                      game.headline ? "bg-navy/[0.04]" : ""
                     }`}
                   >
-                    <span>{game.stage}</span>
-                    <span>{game.date}</span>
-                  </div>
+                    <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+                      <div className="flex min-w-0 items-baseline gap-3">
+                        <span
+                          className={`display shrink-0 text-xs tracking-[0.14em] ${
+                            won ? "text-red" : "text-navy/40"
+                          }`}
+                        >
+                          {won ? "W" : "L"}
+                        </span>
+                        <span className="display truncate text-xl text-navy-deep sm:text-2xl">
+                          {game.opponent}
+                        </span>
+                      </div>
 
-                  <div className="mt-4 flex items-end justify-between gap-6">
-                    <div>
-                      <p className={`display text-2xl ${game.headline ? "" : "text-navy-deep"}`}>
-                        American Samoa
-                      </p>
-                      <p
-                        className={`display text-2xl ${
-                          game.headline ? "text-bone/60" : "text-navy/55"
-                        }`}
-                      >
-                        {game.opponent}
-                      </p>
+                      <div className="flex shrink-0 items-baseline gap-4">
+                        <span className="display text-xs tracking-[0.14em] text-navy/45">
+                          {game.stage}
+                        </span>
+                        <span
+                          className={`display w-[5.75rem] whitespace-nowrap text-right text-xl tabular-nums sm:text-2xl ${
+                            won ? "text-red" : "text-navy/55"
+                          }`}
+                        >
+                          {game.us}&ndash;{game.them}
+                        </span>
+                      </div>
                     </div>
-                    <div className="shrink-0 text-right">
-                      <p
-                        className={`display text-4xl tabular-nums sm:text-5xl ${
-                          won ? "text-red" : game.headline ? "" : "text-navy-deep"
-                        }`}
-                      >
-                        {game.us}
-                      </p>
-                      <p
-                        className={`display text-4xl tabular-nums sm:text-5xl ${
-                          game.headline ? "text-bone/60" : "text-navy/55"
-                        }`}
-                      >
-                        {game.them}
-                      </p>
-                    </div>
-                  </div>
 
-                  {game.note ? (
-                    <p
-                      className={`mt-5 text-sm leading-relaxed ${
-                        game.headline ? "text-bone/70" : "text-navy/60"
-                      }`}
-                    >
-                      {game.note}
-                    </p>
-                  ) : null}
-                </div>
-              </Reveal>
-            );
-          })}
-        </ul>
+                    {game.note ? (
+                      <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-navy/60">
+                        {game.note}
+                      </p>
+                    ) : null}
+                  </li>
+                );
+              })}
+            </ul>
+          </Reveal>
+        </div>
 
         <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-start">
           <div>

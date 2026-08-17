@@ -71,11 +71,11 @@ export const metadata: Metadata = {
     template: "%s · American Samoa Flag Football",
   },
   description:
-    "The American Samoa national flag football team. Beat the United States 38–32 at the 2026 IFAF World Championship in Düsseldorf, ending a 14-year unbeaten run, and won Group A on debut.",
+    "The American Samoa national flag football team. Finished 5th in the world on debut at the 2026 IFAF World Championship in Düsseldorf, beating the United States 38–32 and ending a 14-year unbeaten run.",
   openGraph: {
     title: "American Samoa National Flag Football",
     description:
-      "Beat the United States 38–32 on World Championship debut and won Group A. Düsseldorf, August 2026.",
+      "Fifth in the world on debut. Beat the United States 38–32 in Düsseldorf, August 2026.",
     type: "website",
     locale: "en_AS",
     url: SITE_URL,
@@ -141,7 +141,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                 `${SITE_URL}/photos/squad-1x1.jpg`,
               ],
               description:
-                "The national flag football team of American Samoa. On its World Championship debut in Düsseldorf in August 2026 it beat the United States 38 to 32, ending a 14 year unbeaten run, and won Group A.",
+                "The national flag football team of American Samoa. On its World Championship debut in Düsseldorf in August 2026 it beat the United States 38 to 32, ending a 14 year unbeaten run, won Group A and finished fifth in the world.",
               /*
                 `athlete` and `coach` are the properties schema.org gives
                 SportsTeam for exactly this. Names in prose are text a crawler

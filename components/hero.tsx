@@ -76,9 +76,9 @@ export function Hero() {
             className="hero-fade mt-6 max-w-xl text-lg leading-relaxed text-bone/75 sm:text-xl"
             style={{ "--delay": "600ms" } as React.CSSProperties}
           >
-            Fifty-five square miles. One national team. On our World
-            Championship debut we beat the United States and won the group.
-            Unity. Culture. Family.
+            Fifty-five square miles. One national team. Fifth in the world on
+            our World Championship debut, having beaten the United States along
+            the way. Unity. Culture. Family.
           </p>
 
           <div

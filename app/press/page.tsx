@@ -39,8 +39,9 @@ export default function PressPage() {
             <span className="block text-red">news</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-bone/70">
-            Coverage of American Samoa at the {WORLDS.year} {WORLDS.event} in{" "}
-            {WORLDS.city}, and the facts behind it.
+            Fifth in the world on debut. Coverage of American Samoa at the{" "}
+            {WORLDS.year} {WORLDS.event} in {WORLDS.city}, and the full record
+            behind it.
           </p>
         </div>
         <SpearRow className="absolute bottom-0 left-0 h-3 w-full text-red" />
@@ -68,17 +69,17 @@ export default function PressPage() {
                   American Samoa {game.us}, {game.opponent} {game.them}
                 </span>
                 <span className="text-sm text-navy/55">
-                  {game.stage} · {game.date}
+                  {game.stage}
+                  {game.date ? ` · ${game.date}` : ""}
                 </span>
               </li>
             ))}
           </ul>
 
           <p className="mt-5 max-w-2xl text-sm leading-relaxed text-navy/60">
-            American Samoa won Group A. Only scores confirmed by two or more
-            independent published sources are listed here. The remaining
-            classification games are not listed rather than being estimated;
-            they will be added from the federation&apos;s own record.
+            American Samoa won Group A and finished fifth of twelve nations, on
+            debut, from the lowest ranking in the field. Scores as recorded by
+            the American Samoa National Football Federation.
           </p>
         </div>
       </section>

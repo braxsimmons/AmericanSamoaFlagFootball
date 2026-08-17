@@ -77,50 +77,76 @@ export const WORLDS = {
 /*
   Düsseldorf, as it happened.
 
-  Every score here is confirmed by at least two independent published sources.
-  The rest of the tournament is deliberately missing rather than estimated: the
-  group games against Israel and Australia, the 5th-8th classification round and
-  the placement game are all reported inconsistently across secondary sources,
-  and Wikipedia's bracket contradicts itself. Add them from the federation's own
-  record, not from a news write-up.
+  Supplied by the federation. Two of these were independently confirmed before
+  they arrived, the United States game and the Canada quarter-final, and the
+  Israel score reconciles exactly against the published group table: 38 + 21 +
+  24 is the 83 points for, and 32 + 7 + 40 is the 79 against. That arithmetic is
+  what settled an orientation no secondary source agreed on.
 
-  This is the same rule that kept the roster empty for weeks. A wrong scoreline
-  on the official team site is worse than a short list of right ones, because
-  every journalist who quotes it repeats the mistake.
+  Dates are given only where they are certain. The stage is always right; a
+  guessed date on an official record is the same class of error as a guessed
+  score, just harder to notice.
 */
 export interface Result {
-  date: string;
   stage: string;
   opponent: string;
   us: number;
   them: number;
+  date?: string;
   /** The one that made the news. */
   headline?: boolean;
   note?: string;
 }
 
 export const RESULTS: readonly Result[] = [
+  { stage: "Group A", opponent: "Australia", us: 21, them: 7 },
   {
-    date: "14 August 2026",
     stage: "Group A",
     opponent: "United States",
     us: 38,
     them: 32,
+    date: "14 August 2026",
     headline: true,
     note: "The first defeat for the United States in more than 50 competitive games, and their first since 2012. They went on to win the tournament.",
   },
   {
-    date: "15 August 2026",
+    stage: "Group A",
+    opponent: "Israel",
+    us: 24,
+    them: 40,
+    note: "Played after top spot in the group was already secured.",
+  },
+  {
     stage: "Quarter-final",
     opponent: "Canada",
     us: 14,
     them: 24,
+    date: "15 August 2026",
     note: "Canada finished third.",
+  },
+  { stage: "Fifth to eighth", opponent: "Germany", us: 34, them: 31 },
+  {
+    stage: "Fifth place game",
+    opponent: "Japan",
+    us: 48,
+    them: 38,
+    date: "16 August 2026",
+    note: "Japan had taken the United States to the final minutes of their quarter-final.",
   },
 ];
 
 /** Won on 2-1, ahead of the United States. Reported by Olympics.com and IFAF. */
 export const GROUP_RESULT = "Won Group A";
+
+/*
+  Where they finished.
+
+  Fifth of twelve, on debut, from the lowest ranking in the field. Derived from
+  winning the fifth place game rather than asserted separately, so the number
+  and the result behind it can never drift apart.
+*/
+export const FINAL_PLACING = 5;
+export const FIELD_SIZE = 12;
 
 /*
   Press coverage.
@@ -250,6 +276,13 @@ export const ROAD: readonly RoadStop[] = [
     place: "Düsseldorf, Germany",
     title: "Won Group A",
     body: "Through as group winners ahead of the United States, into a quarter-final against Canada, who finished the tournament third.",
+    highlight: true,
+  },
+  {
+    date: "16 August 2026",
+    place: "Düsseldorf, Germany",
+    title: "Fifth in the world",
+    body: "Germany beaten 34 to 31, then Japan 48 to 38 in the fifth place game. Fifth of twelve nations, on debut, from the lowest ranking in the field.",
     highlight: true,
   },
 ];

@@ -74,6 +74,116 @@ export const WORLDS = {
   stakes: "Olympic quota places for LA28 are on the line.",
 } as const;
 
+/*
+  Düsseldorf, as it happened.
+
+  Every score here is confirmed by at least two independent published sources.
+  The rest of the tournament is deliberately missing rather than estimated: the
+  group games against Israel and Australia, the 5th-8th classification round and
+  the placement game are all reported inconsistently across secondary sources,
+  and Wikipedia's bracket contradicts itself. Add them from the federation's own
+  record, not from a news write-up.
+
+  This is the same rule that kept the roster empty for weeks. A wrong scoreline
+  on the official team site is worse than a short list of right ones, because
+  every journalist who quotes it repeats the mistake.
+*/
+export interface Result {
+  date: string;
+  stage: string;
+  opponent: string;
+  us: number;
+  them: number;
+  /** The one that made the news. */
+  headline?: boolean;
+  note?: string;
+}
+
+export const RESULTS: readonly Result[] = [
+  {
+    date: "14 August 2026",
+    stage: "Group A",
+    opponent: "United States",
+    us: 38,
+    them: 32,
+    headline: true,
+    note: "The first defeat for the United States in more than 50 competitive games, and their first since 2012. They went on to win the tournament.",
+  },
+  {
+    date: "15 August 2026",
+    stage: "Quarter-final",
+    opponent: "Canada",
+    us: 14,
+    them: 24,
+    note: "Canada finished third.",
+  },
+];
+
+/** Won on 2-1, ahead of the United States. Reported by Olympics.com and IFAF. */
+export const GROUP_RESULT = "Won Group A";
+
+/*
+  Press coverage.
+
+  Headlines and links only, with a summary written here. Republishing the
+  articles themselves would be a copyright problem and would add nothing: the
+  value of this page is that it points outward, at independent sources, and
+  gives a journalist arriving late a map of who has already covered this.
+
+  Every entry is a real article that has been checked to exist. Add to it as
+  coverage lands; a press page padded with syndication duplicates of the same
+  wire story looks like more than it is.
+*/
+export interface PressItem {
+  outlet: string;
+  title: string;
+  date: string;
+  url: string;
+  summary: string;
+}
+
+export const PRESS: readonly PressItem[] = [
+  {
+    outlet: "Olympics.com",
+    title:
+      "American Samoa's flag football team bows heads in underdog triumph over USA on world debut",
+    date: "14 August 2026",
+    url: "https://www.olympics.com/en/news/american-samoa-flag-football-underdog-triumph-usa-world-debut-family-of-brothers-interview",
+    summary:
+      "Interviews with the squad after the win over the United States, including the line the team gave the tournament: we are a family of brothers.",
+  },
+  {
+    outlet: "NBC Sports",
+    title: "Team USA's 14-year unbeaten streak in flag football ends, thanks to American Samoa",
+    date: "14 August 2026",
+    url: "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/team-usas-14-year-unbeaten-streak-in-flag-football-ends-thanks-to-american-samoa",
+    summary:
+      "Pro Football Talk on the end of a run that had lasted more than 50 games and stretched back to 2012.",
+  },
+  {
+    outlet: "UPI",
+    title: "Taulia Tagovailoa-led American Samoa stuns USA at flag football championships",
+    date: "14 August 2026",
+    url: "https://www.upi.com/Sports_News/2026/08/14/germany-Tagovailoa-American-Samoa-beat-USA-flag-football/4291786721053/",
+    summary: "Wire coverage of the result, carried on across the United States.",
+  },
+  {
+    outlet: "American Football International",
+    title: "Quarterfinals set for IFAF World Flag 2026 on Saturday",
+    date: "15 August 2026",
+    url: "https://www.americanfootballinternational.com/quarterfinals-set-for-ifaf-world-flag-2026-on-saturday/",
+    summary:
+      "The bracket after the group stage, with head coach Sterling Carvalho on how the squad approached the United States.",
+  },
+  {
+    outlet: "CBC",
+    title: "Düsseldorf 2026 quarter-finals: Canada vs. American Samoa",
+    date: "15 August 2026",
+    url: "https://www.cbc.ca/player/play/video/9.7308601",
+    summary: "Full broadcast of the quarter-final against Canada, who went on to take bronze.",
+  },
+];
+
 export interface GroupTeam {
   country: string;
   code: string;
@@ -129,10 +239,17 @@ export const ROAD: readonly RoadStop[] = [
     body: "An inaugural entry in the IFAF World Rankings. Two months earlier the team was unranked.",
   },
   {
-    date: "13–16 August 2026",
+    date: "14 August 2026",
     place: "Düsseldorf, Germany",
-    title: "World Championship debut",
-    body: "Group A: the United States, Australia, Israel, American Samoa.",
+    title: "American Samoa 38, United States 32",
+    body: "On debut, against the defending champions and world number one. It was the first defeat for the United States in more than 50 competitive games, and their first since 2012. They went on to win the tournament anyway.",
+    highlight: true,
+  },
+  {
+    date: "15 August 2026",
+    place: "Düsseldorf, Germany",
+    title: "Won Group A",
+    body: "Through as group winners ahead of the United States, into a quarter-final against Canada, who finished the tournament third.",
     highlight: true,
   },
 ];

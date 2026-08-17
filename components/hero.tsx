@@ -76,9 +76,9 @@ export function Hero() {
             className="hero-fade mt-6 max-w-xl text-lg leading-relaxed text-bone/75 sm:text-xl"
             style={{ "--delay": "600ms" } as React.CSSProperties}
           >
-            Fifty-five square miles. One national team. Current Asia-Oceania
-            bronze medalists, and headed to the World Championships. Unity.
-            Culture. Family.
+            Fifty-five square miles. One national team. On our World
+            Championship debut we beat the United States and won the group.
+            Unity. Culture. Family.
           </p>
 
           <div

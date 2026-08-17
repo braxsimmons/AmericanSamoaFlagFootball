@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { COACHES, GROUP_A, KIT_H, KIT_W, LANDING_KIT, ROAD, ROSTER, TEAM, VALUES, WORLDS } from "@/lib/content";
+import { COACHES, GROUP_A, KIT_H, KIT_W, LANDING_KIT, RESULTS, ROAD, ROSTER, TEAM, VALUES, WORLDS } from "@/lib/content";
 import { BandStack, TatauField, TatauRing } from "./tatau";
 import { Reveal } from "./reveal";
 
@@ -16,13 +16,100 @@ export function WorldsSection() {
             <span className="text-red">Against all odds.</span>
           </h2>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-navy/70">
-            The {WORLDS.event} runs in {WORLDS.city}, Germany from 13 to 16
-            August. Team American Samoa lands on the world stage as one of 16
-            teams fighting for a berth at the LA28 Olympics.
+            Team American Samoa arrived in {WORLDS.city} as the lowest ranked
+            side in the field, 33rd in the world, playing its first World
+            Championship. It left having beaten the United States and won Group
+            A.
           </p>
         </Reveal>
 
-        <div className="mt-14 grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-start">
+        {/*
+          The scorelines, above the table, because the result is the news and
+          the seedings are only the context that makes it one.
+
+          Two games, not the full run. Every score here is confirmed by at least
+          two independent published sources; the rest of the tournament is
+          missing rather than guessed. See RESULTS in lib/content.ts.
+        */}
+        <div className="mt-14 flex flex-wrap items-baseline justify-between gap-4">
+          <h3 className="display text-sm tracking-[0.24em] text-navy/55">Düsseldorf</h3>
+          <Link href="/press" className="display group text-sm tracking-[0.14em] text-red">
+            Results and press coverage
+            <span
+              aria-hidden
+              className="ml-2 inline-block transition-transform duration-300 group-hover:translate-x-1"
+            >
+              &rarr;
+            </span>
+          </Link>
+        </div>
+
+        <ul className="mt-6 grid gap-5 sm:grid-cols-2">
+          {RESULTS.map((game, i) => {
+            const won = game.us > game.them;
+            return (
+              <Reveal as="li" key={game.opponent} delay={i * 90} className="block">
+                <div
+                  className={`h-full border p-6 sm:p-7 ${
+                    game.headline ? "border-red bg-navy-deep text-bone" : "border-navy/15 bg-white"
+                  }`}
+                >
+                  <div
+                    className={`display flex items-baseline gap-3 text-xs tracking-[0.18em] ${
+                      game.headline ? "text-bone/55" : "text-navy/50"
+                    }`}
+                  >
+                    <span>{game.stage}</span>
+                    <span>{game.date}</span>
+                  </div>
+
+                  <div className="mt-4 flex items-end justify-between gap-6">
+                    <div>
+                      <p className={`display text-2xl ${game.headline ? "" : "text-navy-deep"}`}>
+                        American Samoa
+                      </p>
+                      <p
+                        className={`display text-2xl ${
+                          game.headline ? "text-bone/60" : "text-navy/55"
+                        }`}
+                      >
+                        {game.opponent}
+                      </p>
+                    </div>
+                    <div className="shrink-0 text-right">
+                      <p
+                        className={`display text-4xl tabular-nums sm:text-5xl ${
+                          won ? "text-red" : game.headline ? "" : "text-navy-deep"
+                        }`}
+                      >
+                        {game.us}
+                      </p>
+                      <p
+                        className={`display text-4xl tabular-nums sm:text-5xl ${
+                          game.headline ? "text-bone/60" : "text-navy/55"
+                        }`}
+                      >
+                        {game.them}
+                      </p>
+                    </div>
+                  </div>
+
+                  {game.note ? (
+                    <p
+                      className={`mt-5 text-sm leading-relaxed ${
+                        game.headline ? "text-bone/70" : "text-navy/60"
+                      }`}
+                    >
+                      {game.note}
+                    </p>
+                  ) : null}
+                </div>
+              </Reveal>
+            );
+          })}
+        </ul>
+
+        <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-start">
           <div>
         <div className="overflow-hidden border border-navy/10 bg-white">
           <div className="flex items-center justify-between border-b border-navy/10 bg-navy px-6 py-4">
@@ -30,7 +117,7 @@ export function WorldsSection() {
               Group {WORLDS.group}
             </span>
             <span className="display text-xs tracking-[0.2em] text-bone/60">
-              IFAF world ranking
+              World ranking going in
             </span>
           </div>
 
@@ -86,9 +173,10 @@ export function WorldsSection() {
 
             <Reveal delay={100}>
               <p className="mt-5 text-sm text-navy/65">
-                Rankings as published by the International Federation of American
-                Football. American Samoa entered the rankings for the first time
-                in November 2025.
+                Rankings as they stood before the tournament, as published by the
+                International Federation of American Football. American Samoa
+                entered the rankings for the first time in November 2025 and won
+                the group.
               </p>
             </Reveal>
           </div>

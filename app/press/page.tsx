@@ -37,20 +37,30 @@ export const metadata: Metadata = {
 */
 export default function PressPage() {
   /*
-    Structured data for the tournament and every game in it.
+    Structured data for the page.
 
-    A scoreline in a paragraph is text a crawler has to interpret. As `subEvent`
-    on a `SportsEvent`, with both sides named as `SportsTeam`, it is a fact
-    about who played whom, and it ties this page to the tournament entity and
-    to the team entity declared site-wide in the root layout.
+    The per-game `subEvent` list that used to be here is gone, and it is worth
+    recording why rather than quietly deleting it.
 
-    Being straight about the limit: schema.org has no score property that Google
-    turns into a rich result, so this will not put "38-32" in the search listing.
-    What it does is make the relationships legible, which is what entity ranking
-    for a name like this actually runs on.
+    Google validates SportsEvent against its Event rich-result rules, which are
+    written for events you can attend and buy a ticket to. That is why Search
+    Console asked for `offers` and `performer`. A tournament that has already
+    finished is not eligible for an event rich result at all, so six subEvents
+    were generating ten Search Console errors in exchange for a result that
+    could never appear. Three of them were also missing `startDate`, a critical
+    error, precisely because those were the games whose dates were not certain
+    enough to publish.
 
-    BreadcrumbList is the one here with a visible payoff: it replaces the raw
-    URL under the result with a Home > Press trail.
+    So one event, fully specified, describing the tournament the team competed
+    in. That keeps the entity link, team to competition, which is the part with
+    real value, and drops the part that only produced warnings.
+
+    `offers` is still absent and that is deliberate: there are no tickets to
+    sell for a tournament that ended. It is a non-critical warning and inventing
+    an offer to silence it would be worse than the warning.
+
+    The six scorelines remain on the page as visible text, which is what a
+    search for "American Samoa vs USA score" actually matches on.
   */
   const structuredData = {
     "@context": "https://schema.org",
@@ -65,30 +75,33 @@ export default function PressPage() {
       {
         "@type": "SportsEvent",
         name: `${WORLDS.year} ${WORLDS.event}`,
+        description: `American Samoa finished fifth of twelve nations on its World Championship debut in ${WORLDS.city}, beating the United States 38 to 32 and winning Group A.`,
         sport: "Flag football",
         startDate: WORLDS.startDate,
         endDate: WORLDS.endDate,
+        eventStatus: "https://schema.org/EventScheduled",
+        eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+        image: `${SITE_URL}/photos/squad-16x9.jpg`,
+        url: `${SITE_URL}/press`,
         location: {
           "@type": "Place",
           name: `${WORLDS.city}, ${WORLDS.country}`,
-          address: { "@type": "PostalAddress", addressLocality: WORLDS.city, addressCountry: "DE" },
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: WORLDS.city,
+            addressCountry: "DE",
+          },
         },
         organizer: {
           "@type": "SportsOrganization",
           name: "International Federation of American Football",
           alternateName: "IFAF",
+          url: "https://www.americanfootball.sport",
         },
-        subEvent: RESULTS.map((game) => ({
-          "@type": "SportsEvent",
-          name: `American Samoa ${game.us}, ${game.opponent} ${game.them}`,
-          sport: "Flag football",
-          ...(game.iso ? { startDate: game.iso } : {}),
-          location: { "@type": "Place", name: `${WORLDS.city}, ${WORLDS.country}` },
-          competitor: [
-            { "@type": "SportsTeam", name: "American Samoa", url: SITE_URL },
-            { "@type": "SportsTeam", name: game.opponent },
-          ],
-        })),
+        performer: [
+          { "@type": "SportsTeam", name: "American Samoa", url: SITE_URL },
+          ...RESULTS.map((game) => ({ "@type": "SportsTeam", name: game.opponent })),
+        ],
       },
     ],
   };
